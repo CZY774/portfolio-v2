@@ -23,7 +23,7 @@
 		'devicon-typescript-plain',
 		'devicon-react-original',
 		'devicon-svelte-plain',
-		'devicon-nextjs-original',
+		'devicon-nextjs-plain',
 		'devicon-nodejs-plain',
 		'devicon-python-plain',
 		'devicon-docker-plain',
