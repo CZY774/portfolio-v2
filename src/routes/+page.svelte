@@ -685,6 +685,7 @@
 								<a
 									href={work.link}
 									target="_blank"
+                                    rel="noopener noreferrer"
 									class="custom-button group inline-flex items-center space-x-2 text-[#0736fe] hover:underline"
 								>
 									<span class="text-lg">view project</span>
