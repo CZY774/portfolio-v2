@@ -543,7 +543,7 @@
 				<div class="flex justify-end">
 					<button
 						onclick={() => scrollToSection('work')}
-						class="custom-button border border-current px-8 py-3 transition-all hover:border-[#0736fe] hover:bg-[#0736fe] hover:text-[white]"
+						class="custom-button border border-current px-8 py-3 transition-all hover:border-[#0736fe] hover:bg-[#0736fe] hover:text-[#0736fe]"
 					>
 						view work
 					</button>
