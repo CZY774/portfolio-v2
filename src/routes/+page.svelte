@@ -23,20 +23,67 @@
 	let THREE: any;
 
 	const techStack = [
-		'devicon-javascript-plain',
-		'devicon-typescript-plain',
-		'devicon-react-original',
-		'devicon-svelte-plain',
-		'devicon-nextjs-plain',
-		'devicon-nodejs-plain',
-		'devicon-python-plain',
+		// 'devicon-c-original',
+		// 'devicon-cplusplus-plain',
+		// 'devicon-html5-plain',
+		// 'devicon-css3-plain',
+		// 'devicon-css3-plain',
+		// 'devicon-javascript-plain',
+		// 'devicon-python-plain',
+		// 'devicon-r-plain',
+		// 'devicon-php-plain',
+		// 'devicon-java-plain',
+		// 'devicon-kotlin-plain',
+		// 'devicon-typescript-plain',
+		// 'devicon-csharp-plain',
+		// 'devicon-bootstrap-plain',
+		// 'devicon-laravel-plain',
+		// 'devicon-flask-plain',
+		// 'devicon-tailwindcss-plain',
+		// 'devicon-feathersjs-original',
+		// 'devicon-jetpackcompose-plain',
+		// 'devicon-spring-plain',
+		// 'devicon-opengl-plain',
+		// 'devicon-dotnetcore-plain',
+		// 'devicon-react-plain',
+		// 'devicon-axios-plain',
+		// 'devicon-alpinejs-plain',
+		// 'devicon-vuejs-plain',
+		// 'devicon-ktor-plain',
+		// 'devicon-svelte-plain',
+		// 'devicon-chartjs-plain',
+		// 'devicon-expo-plain',
+		// 'devicon-nextjs-plain',
+		// 'devicon-prisma-plain',
+		// 'devicon-express-original',
+		// 'devicon-flutter-plain',
+		// 'devicon-threejs-original',
+		// 'devicon-nodejs-plain',
+		// 'devicon-socketio-original',
+		// 'devicon-fastapi-plain',
+		// 'devicon-django-plain',
+		// 'devicon-djangorest-plain',
+		// 'devicon-materialui-plain',
+		// 'devicon-dart-plain',
+		// 'devicon-rust-plain',
+		// 'devicon-go-plain',
+		// 'devicon-zig-plain',
+		// 'devicon-sqlite-plain',
+		// 'devicon-mysql-plain',
+		// 'devicon-oracle-plain',
+		// 'devicon-mongodb-plain',
+		// 'devicon-redis-plain',
+		// 'devicon-postgresql-plain',
+		// 'devicon-firebase-plain',
+		// 'devicon-cassandra-plain',
+		'devicon-googlecloud-plain',
 		'devicon-docker-plain',
-		'devicon-postgresql-plain',
-		'devicon-mongodb-plain',
-		'devicon-figma-plain',
-		'devicon-photoshop-plain',
-		'devicon-git-plain',
-		'devicon-github-original'
+		'devicon-gradle-plain',
+		'devicon-vitejs-plain',
+		'devicon-graphql-plain',
+		'devicon-grafana-plain',
+		'devicon-grpc-plain',
+		
 	];
 
 	// Define proper types for works
@@ -636,7 +683,7 @@
 	<div class="container mx-auto max-w-7xl">
 		<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 			<div>
-				<p class="text-lg font-light text-gray-500 tracking-wider uppercase mb-8">created by</p>
+				<p class="text-lg font-light text-gray-500 tracking-wider mb-8">created by</p>
 				<h2 class="text-7xl leading-none font-light md:text-8xl lg:text-9xl">
 					<span class="block text-white/90">cornelius</span>
 					<span class="block text-white/90">ardhani</span> 
@@ -652,7 +699,7 @@
 						<span class="text-[#0736fe]">good design needs time</span>
 					</p>
 					<div class="text-sm text-gray-600 font-light">
-						kudus, indonesia — 2024
+						kudus, indonesia — 2025
 					</div>
 				</div>
 			</div>
