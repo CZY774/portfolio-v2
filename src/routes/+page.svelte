@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	
+
 	let canvas: HTMLCanvasElement;
 	let scene: any, camera: any, renderer: any, particles: any;
 	let currentFilter = $state('all');
@@ -8,16 +8,16 @@
 	let isModalOpen = $state(false);
 	let modalContent = $state<any>(null);
 	let modalType = $state<'image' | 'video' | null>(null);
-	
+
 	// Declare THREE as global
 	declare global {
 		interface Window {
 			THREE: any;
 		}
 	}
-	
+
 	let THREE: any;
-	
+
 	const techStack = [
 		'devicon-javascript-plain',
 		'devicon-typescript-plain',
@@ -132,15 +132,15 @@
 	onMount(() => {
 		// Get THREE from global scope
 		THREE = window.THREE;
-		
+
 		// Initialize Three.js scene after THREE is available
 		if (THREE) {
 			initThreeJS();
 		}
-		
+
 		// Initialize GSAP animations
 		initGSAP();
-		
+
 		// Simulate loading
 		setTimeout(() => {
 			isLoading = false;
@@ -149,7 +149,7 @@
 
 	function initThreeJS() {
 		if (!THREE || !canvas) return;
-		
+
 		scene = new THREE.Scene();
 		camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 		renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
@@ -200,11 +200,11 @@
 	function initGSAP() {
 		// @ts-ignore
 		gsap.registerPlugin(ScrollTrigger);
-		
+
 		// Smooth scroll
 		// @ts-ignore
-		gsap.to(window, {duration: 2, scrollTo: 0});
-		
+		gsap.to(window, { duration: 2, scrollTo: 0 });
+
 		// Landing animations
 		// @ts-ignore
 		gsap.from('.hero-title', {
@@ -280,14 +280,16 @@
 </script>
 
 <svelte:head>
-  <title>cornelius yoga - creative developer & designer</title>
+	<title>cornelius yoga - creative developer & designer</title>
 </svelte:head>
 
 <!-- Loader -->
 {#if isLoading}
-	<div class="fixed inset-0 bg-white dark:bg-gray-950 z-50 flex items-center justify-center">
+	<div class="fixed inset-0 z-50 flex items-center justify-center bg-white dark:bg-gray-950">
 		<div class="text-center">
-			<div class="w-16 h-16 border-4 border-[#0736fe] border-t-transparent rounded-full animate-spin mb-8"></div>
+			<div
+				class="mb-8 h-16 w-16 animate-spin rounded-full border-4 border-[#0736fe] border-t-transparent"
+			></div>
 			<h2 class="text-2xl font-light tracking-wide">loading portfolio</h2>
 		</div>
 	</div>
@@ -295,21 +297,28 @@
 
 <!-- Modal -->
 {#if isModalOpen}
-	<div class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-8" on:click={closeModal}>
-		<div class="relative max-w-4xl w-full max-h-full" on:click|stopPropagation>
-			<button class="absolute -top-12 right-0 text-white text-2xl" on:click={closeModal}>×</button>
+	<div
+		class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-8"
+		onclick={closeModal}
+	>
+		<div class="relative max-h-full w-full max-w-4xl" onclick={(e) => e.stopPropagation()}>
+			<button class="absolute -top-12 right-0 text-2xl text-white" onclick={closeModal}>×</button>
 			{#if modalType === 'image'}
-				<img src={modalContent.image} alt={modalContent.title} class="w-full h-auto object-contain max-h-[80vh]" />
+				<img
+					src={modalContent.image}
+					alt={modalContent.title}
+					class="h-auto max-h-[80vh] w-full object-contain"
+				/>
 			{:else if modalType === 'video'}
-				<iframe 
-					src={modalContent.url} 
-					class="w-full aspect-video" 
+				<iframe
+					src={modalContent.url}
+					class="aspect-video w-full"
 					title={modalContent.title}
-					frameborder="0" 
+					frameborder="0"
 					allowfullscreen
 				></iframe>
 			{/if}
-			<div class="mt-4 text-white text-center">
+			<div class="mt-4 text-center text-white">
 				<h3 class="text-xl font-medium">{modalContent.title}</h3>
 				<p class="text-gray-300">{modalContent.desc}</p>
 			</div>
@@ -321,55 +330,82 @@
 <canvas bind:this={canvas} class="fixed inset-0 z-0 opacity-30"></canvas>
 
 <!-- Navigation -->
-<nav class="fixed top-0 left-0 right-0 z-40 bg-white/80 dark:bg-gray-950/80 backdrop-blur-sm">
+<nav class="fixed top-0 right-0 left-0 z-40 bg-white/80 backdrop-blur-sm dark:bg-gray-950/80">
 	<div class="container mx-auto px-8 py-6">
-		<div class="flex justify-between items-center">
+		<div class="flex items-center justify-between">
 			<button onclick={() => scrollToSection('landing')} class="text-lg font-medium">cy</button>
 			<div class="flex space-x-8">
-				<button onclick={() => scrollToSection('about')} class="hover:text-[#0736fe] transition-colors">about</button>
-				<button onclick={() => scrollToSection('work')} class="hover:text-[#0736fe] transition-colors">work</button>
-				<button onclick={() => scrollToSection('footer')} class="hover:text-[#0736fe] transition-colors">contact</button>
+				<button
+					onclick={() => scrollToSection('about')}
+					class="transition-colors hover:text-[#0736fe]">about</button
+				>
+				<button
+					onclick={() => scrollToSection('work')}
+					class="transition-colors hover:text-[#0736fe]">work</button
+				>
+				<button
+					onclick={() => scrollToSection('footer')}
+					class="transition-colors hover:text-[#0736fe]">contact</button
+				>
 			</div>
 		</div>
 	</div>
 </nav>
 
 <!-- Landing Section - Updated to match reference image -->
-<section id="landing" class="section min-h-screen flex items-center justify-center relative z-10 px-8">
-	<div class="text-center max-w-6xl mx-auto">
+<section
+	id="landing"
+	class="section relative z-10 flex min-h-screen items-center justify-center px-8"
+>
+	<div class="mx-auto max-w-6xl text-center">
 		<div class="mb-16">
-			<h1 class="hero-title text-6xl md:text-8xl lg:text-[10rem] font-light leading-none">
+			<h1 class="hero-title text-6xl leading-none font-light md:text-8xl lg:text-[10rem]">
 				CORNELIUS <span class="text-[#0736fe]">YOGA</span>
 			</h1>
 		</div>
-		
-		<div class="hero-desc mb-16 max-w-3xl mx-auto">
-			<h2 class="text-2xl md:text-3xl font-light mb-6">CONTACT</h2>
-			<p class="text-xl md:text-2xl font-light italic mb-8">
-				unlock<br>
+
+		<div class="hero-desc mx-auto mb-16 max-w-3xl">
+			<h2 class="mb-6 text-2xl font-light md:text-3xl">CONTACT</h2>
+			<p class="mb-8 text-xl font-light italic md:text-2xl">
+				unlock<br />
 				the another angle.
 			</p>
-			<p class="text-lg md:text-xl text-gray-600 dark:text-gray-400">
-				tacto is a design firm that creates experiences with stories.<br>
+			<p class="text-lg text-gray-600 md:text-xl dark:text-gray-400">
+				tacto is a design firm that creates experiences with stories.<br />
 				tactoはストーリーのある体験をつくるエクスペリエンスデザインファームです。
 			</p>
 		</div>
-		
-		<div class="hero-desc flex flex-wrap justify-center items-center gap-8 mb-16 text-lg">
+
+		<div class="hero-desc mb-16 flex flex-wrap items-center justify-center gap-8 text-lg">
 			<span>kudus, indonesia</span>
 			<div class="flex space-x-6">
-				<a href="https://instagram.com/corneliusyoga" class="hover:text-[#0736fe] transition-colors">ig</a>
-				<a href="https://github.com/corneliusyoga" class="hover:text-[#0736fe] transition-colors">github</a>
-				<a href="https://linkedin.com/in/corneliusyoga" class="hover:text-[#0736fe] transition-colors">linkedin</a>
-				<a href="https://youtube.com/@corneliusyoga" class="hover:text-[#0736fe] transition-colors">youtube</a>
+				<a href="https://instagram.com/corneliusyoga" class="transition-colors hover:text-[#0736fe]"
+					>ig</a
+				>
+				<a href="https://github.com/corneliusyoga" class="transition-colors hover:text-[#0736fe]"
+					>github</a
+				>
+				<a
+					href="https://linkedin.com/in/corneliusyoga"
+					class="transition-colors hover:text-[#0736fe]">linkedin</a
+				>
+				<a href="https://youtube.com/@corneliusyoga" class="transition-colors hover:text-[#0736fe]"
+					>youtube</a
+				>
 			</div>
 		</div>
-		
+
 		<div class="hero-desc flex justify-center space-x-8">
-			<button onclick={() => scrollToSection('work')} class="border border-current px-8 py-3 hover:bg-[#0736fe] hover:border-[#0736fe] hover:text-white transition-all">
+			<button
+				onclick={() => scrollToSection('work')}
+				class="border border-current px-8 py-3 transition-all hover:border-[#0736fe] hover:bg-[#0736fe] hover:text-white"
+			>
 				view work
 			</button>
-			<button onclick={() => scrollToSection('footer')} class="bg-[#0736fe] text-white px-8 py-3 hover:bg-[#0736fe]/90 transition-colors">
+			<button
+				onclick={() => scrollToSection('footer')}
+				class="bg-[#0736fe] px-8 py-3 text-white transition-colors hover:bg-[#0736fe]/90"
+			>
 				get in touch
 			</button>
 		</div>
@@ -377,13 +413,13 @@
 </section>
 
 <!-- About Section -->
-<section id="about" class="section py-32 relative z-10 px-8">
+<section id="about" class="section relative z-10 px-8 py-32">
 	<div class="container mx-auto max-w-7xl">
-		<h2 class="animate-in text-6xl md:text-8xl font-light mb-24">about me</h2>
-		
+		<h2 class="animate-in mb-24 text-6xl font-light md:text-8xl">about me</h2>
+
 		<!-- Tech Stack Marquee -->
-		<div class="animate-in overflow-hidden mb-32">
-			<div class="flex space-x-16 animate-marquee">
+		<div class="animate-in mb-32 overflow-hidden">
+			<div class="animate-marquee flex space-x-16">
 				{#each [...techStack, ...techStack] as tech}
 					<i class="{tech} text-6xl opacity-60"></i>
 				{/each}
@@ -392,15 +428,15 @@
 
 		<!-- Career Summary -->
 		<div class="animate-in">
-			<h3 class="text-4xl font-light mb-16">career journey</h3>
+			<h3 class="mb-16 text-4xl font-light">career journey</h3>
 			<div class="space-y-12">
 				{#each career as item}
-					<div class="border-b border-gray-200 dark:border-gray-800 pb-12">
-						<div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+					<div class="border-b border-gray-200 pb-12 dark:border-gray-800">
+						<div class="mb-4 flex flex-col justify-between md:flex-row md:items-center">
 							<h4 class="text-2xl font-medium">{item.institution}</h4>
 							<span class="text-gray-600 dark:text-gray-400">{item.date}</span>
 						</div>
-						<p class="text-xl text-[#0736fe] mb-4">{item.role}</p>
+						<p class="mb-4 text-xl text-[#0736fe]">{item.role}</p>
 						<p class="text-lg text-gray-600 dark:text-gray-400">{item.achievement}</p>
 					</div>
 				{/each}
@@ -410,16 +446,18 @@
 </section>
 
 <!-- Work Section -->
-<section id="work" class="section py-32 relative z-10 px-8">
+<section id="work" class="section relative z-10 px-8 py-32">
 	<div class="container mx-auto max-w-7xl">
-		<h2 class="animate-in text-6xl md:text-8xl font-light mb-24">selected work</h2>
-		
+		<h2 class="animate-in mb-24 text-6xl font-light md:text-8xl">selected work</h2>
+
 		<!-- Filter Buttons -->
-		<div class="animate-in flex flex-wrap gap-4 mb-16">
+		<div class="animate-in mb-16 flex flex-wrap gap-4">
 			{#each ['all', 'apps', 'photo', 'videos'] as filter}
-				<button 
-					onclick={() => currentFilter = filter}
-					class="px-6 py-2 border border-current transition-all {currentFilter === filter ? 'bg-[#0736fe] text-white border-[#0736fe]' : 'hover:text-[#0736fe]'}"
+				<button
+					onclick={() => (currentFilter = filter)}
+					class="border border-current px-6 py-2 transition-all {currentFilter === filter
+						? 'border-[#0736fe] bg-[#0736fe] text-white'
+						: 'hover:text-[#0736fe]'}"
 				>
 					{filter}
 				</button>
@@ -427,36 +465,48 @@
 		</div>
 
 		<!-- Work Grid -->
-		<div class="animate-in grid grid-cols-1 md:grid-cols-2 gap-16">
+		<div class="animate-in grid grid-cols-1 gap-16 md:grid-cols-2">
 			{#each filteredWorks as work}
 				<div class="work-item group">
 					{#if work.image}
-						<div class="relative mb-8 overflow-hidden bg-gray-100 dark:bg-gray-900 aspect-[4/3]">
-							<img 
-								src={work.image} 
+						<div class="relative mb-8 aspect-[4/3] overflow-hidden bg-gray-100 dark:bg-gray-900">
+							<img
+								src={work.image}
 								alt={work.title}
-								class="w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+								class="h-full w-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
 								loading="lazy"
 							/>
-							<div class="absolute inset-0 flex items-center justify-center group-hover:opacity-0 transition-opacity duration-500">
+							<div
+								class="absolute inset-0 flex items-center justify-center transition-opacity duration-500 group-hover:opacity-0"
+							>
 								<span class="text-2xl font-light">{work.title.toLowerCase()}</span>
 							</div>
 						</div>
 					{/if}
-					
-					<h3 class="text-3xl font-light mb-4">{work.title}</h3>
-					<p class="text-lg text-gray-600 dark:text-gray-400 mb-6">{work.desc}</p>
-					
+
+					<h3 class="mb-4 text-3xl font-light">{work.title}</h3>
+					<p class="mb-6 text-lg text-gray-600 dark:text-gray-400">{work.desc}</p>
+
 					{#if work.type === 'app' && work.link}
-						<a href={work.link} target="_blank" class="inline-block border border-current px-6 py-2 hover:bg-[#0736fe] hover:border-[#0736fe] hover:text-white transition-all">
+						<a
+							href={work.link}
+							target="_blank"
+							class="inline-block border border-current px-6 py-2 transition-all hover:border-[#0736fe] hover:bg-[#0736fe] hover:text-white"
+						>
 							view project
 						</a>
 					{:else if work.type === 'photo'}
-						<button onclick={() => openModal(work, 'image')} class="inline-block border border-current px-6 py-2 hover:bg-[#0736fe] hover:border-[#0736fe] hover:text-white transition-all">
+						<button
+							onclick={() => openModal(work, 'image')}
+							class="inline-block border border-current px-6 py-2 transition-all hover:border-[#0736fe] hover:bg-[#0736fe] hover:text-white"
+						>
 							look closer
 						</button>
 					{:else if work.type === 'video' && work.url}
-						<button onclick={() => openModal(work, 'video')} class="inline-block border border-current px-6 py-2 hover:bg-[#0736fe] hover:border-[#0736fe] hover:text-white transition-all">
+						<button
+							onclick={() => openModal(work, 'video')}
+							class="inline-block border border-current px-6 py-2 transition-all hover:border-[#0736fe] hover:bg-[#0736fe] hover:text-white"
+						>
 							play video
 						</button>
 					{/if}
@@ -467,7 +517,7 @@
 </section>
 
 <!-- Footer -->
-<footer id="footer" class="section py-24 relative z-10 px-8">
+<footer id="footer" class="section relative z-10 px-8 py-24">
 	<div class="container mx-auto max-w-7xl text-center">
 		<p class="animate-in text-lg text-gray-600 dark:text-gray-400">
 			created by Cornelius Ardhani Yoga Pratama
@@ -477,10 +527,14 @@
 
 <style>
 	@keyframes marquee {
-		0% { transform: translateX(0%); }
-		100% { transform: translateX(-50%); }
+		0% {
+			transform: translateX(0%);
+		}
+		100% {
+			transform: translateX(-50%);
+		}
 	}
-	
+
 	.animate-marquee {
 		animation: marquee 30s linear infinite;
 	}
