@@ -335,6 +335,7 @@
 				<div class="text-6xl font-light mb-4">
 					<span class="inline-block animate-fade-in-up" style="animation-delay: 0.2s;">c</span>
 					<span class="inline-block animate-fade-in-up" style="animation-delay: 0.4s;">y</span>
+					<span class="inline-block animate-fade-in-up" style="animation-delay: 0.4s;">y</span>
 				</div>
 				<!-- Progress Bar -->
 				<div class="w-32 h-0.5 bg-gray-200 dark:bg-gray-800 mx-auto overflow-hidden">
@@ -398,7 +399,7 @@
 				onclick={() => scrollToSection('landing')} 
 				class="text-lg font-medium hover:text-[#0736fe] transition-colors"
 			>
-				cy
+				czy
 			</button>
 			
 			<!-- Desktop Navigation -->
