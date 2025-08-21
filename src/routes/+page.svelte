@@ -103,49 +103,195 @@
 
 	const works: Works = {
 		apps: [
-			{
-				type: 'app',
-				title: 'Muncul River Tubing',
-				desc: 'Business website built with Laravel & Bootstrap',
-				link: 'https://www.munculrivertubing.com',
-				image: '/images/website-1.png'
+            {
+                type: 'app',
+				title: 'CornelVHub',
+				desc: 'VMS platform built with Flask, MongoDB, Redis, & deployed on GCP',
+				link: 'https://yoga-672022204-service-975615093796.asia-southeast2.run.app/',
+				image: '/images/website-2.png'
 			},
 			{
 				type: 'app',
-				title: 'Task Management App',
-				desc: 'Productivity tool built with React & TypeScript',
-				link: 'https://github.com/username/project2',
-				image: '/images/project2.jpg'
+				title: 'EduVerse by Belum Ada Ide',
+				desc: 'UI/UX winner for a desktop based educational platform for junior high school students',
+				link: 'https://www.figma.com/proto/iADoy42ojxwFJrOPRwKbAi/EduVerse-by-Belum-Ada-Ide?page-id=0%3A1&node-id=15-404&p=f&viewport=22%2C1366%2C0.04&t=pA0UioQrdVVisDYT-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=26%3A472',
+				image: '/images/website-7.png'
+			},
+			{
+				type: 'app',
+				title: 'Maison Étoile by K-Mentality',
+				desc: '8-hour livecode winner: Laravel-based e-restaurant with ordering, menu management, and RBAC for 3 roles',
+				link: 'https://github.com/RafflesSupit/Next-Gen-K-MENTALITY/',
+				image: '/images/website-9.png'
+			},
+			{
+				type: 'app',
+				title: 'Personal Portfolio Prototype',
+				desc: 'A prototype design for a personal portfolio website, showcasing skills and projects',
+				link: 'https://www.figma.com/proto/sfsRHIHF9RIqKK28RfIbLB/Prototype-Portfolio?page-id=58%3A110&node-id=58-260&p=f&viewport=714%2C-1868%2C0.65&t=T1XFOcaTmdvAG88S-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=58%3A260',
+				image: '/images/website-8.png'
+			},
+            {
+                type: 'app',
+                title: 'Supermarket & Warehouse Management System',
+                desc: 'A system built in Java using NetBeans IDE and MySQL, featuring OOP principles and real-time time tracking.',
+                link: 'https://github.com/CZY774/gudang-supermarket-java-netbeans',
+                image: '/images/website-6.png'
+            },
+            {
+                type: 'app',
+                title: 'Wordle',
+                desc: 'A modern, accessible, and beautiful Wordle clone built with Vue 3, Vite, TypeScript, and Tailwind CSS.',
+                link: 'https://github.com/CZY774/wordle-vue',
+                image: '/images/website-10.png'
+            },
+            {
+                type: 'app',
+                title: 'Habit Tracker',
+                desc: 'Track, visualize, and improve your daily habits with a sleek, accessible, and responsive web app built using SvelteKit, TypeScript, and Tailwind CSS.',
+                link: 'https://github.com/CZY774/habit-tracker-sveltekit',
+                image: '/images/website-11.png'
+            },
+            {
+                type: 'app',
+                title: 'Mood Tracker App',
+                desc: 'A cross-platform mobile application for tracking moods and viewing statistics. Built with React-Native, Expo, and SQLite.',
+                link: 'https://github.com/CZY774/mood-dairy-app-expocli',
+                image: '/images/website-14.png'
+            },
+            {
+                type: 'app',
+                title: 'Personal Portfolio Website 1st gen',
+                desc: 'A personal portfolio website showcasing skills, projects, and experiences. Built with TypeScript and Tailwind CSS.',
+                link: 'https://github.com/CZY774/Portfolio',
+                image: '/images/website-13.png'
+            },
+			{
+				type: 'app',
+				title: 'Bubble Laundry',
+				desc: 'Self-service laundry website built with Bootstrap',
+				link: 'https://czy774.github.io/bubble_laundry/',
+				image: '/images/website-3.png'
+			},
+            {
+                type: 'app',
+                title: 'Muncul River Tubing',
+                desc: 'Business website built with Laravel & Bootstrap',
+                link: 'https://munculrivertubing.com',
+                image: '/images/website-1.png'
+            },
+			{
+				type: 'app',
+				title: 'Point of Sale',
+				desc: 'Implementing struct and file handling with C++',
+				link: 'https://github.com/CZY774/learn-cpp/blob/a678cc23e28c124a1a726b96893a884758426f00/tts.cpp',
+				image: '/images/website-4.png'
+			},
+			{
+				type: 'app',
+				title: 'Clothes Shopping App',
+				desc: 'Clothes shopping app built with C that implements struct, file handling, sorting, and searching algorithms.',
+				link: 'https://github.com/CZY774/C-program/blob/main/tugas-rancang.c',
+				image: '/images/website-5.png'
 			}
 		],
 		photo: [
 			{
 				type: 'photo',
-				title: 'Urban Architecture',
-				desc: 'Street photography series from Jakarta',
-				image: '/images/photo1.jpg'
+				title: 'Shutter Bliss',
+				desc: 'Photography series exploring campus life at dusk',
+				image: '/images/photo-1.jpg'
 			},
 			{
 				type: 'photo',
-				title: 'Digital Portraits',
-				desc: 'Contemporary portrait photography',
-				image: '/images/photo2.jpg'
+				title: 'Street Snapshot',
+				desc: 'Candid moments captured in urban settings',
+				image: '/images/photo-2.jpg'
+			},
+			{
+				type: 'photo',
+				title: 'Blue Sky, Blue Sea',
+				desc: 'A serene landscape capturing the essence of beach',
+				image: '/images/photo-5.jpg'
 			}
 		],
 		videos: [
 			{
 				type: 'video',
-				title: 'Motion Graphics Reel',
-				desc: 'Creative animations and transitions',
+				title: 'SMASA MMXXII Last Ceremony',
+				desc: 'Senior High School 1 Kudus Batch 2022 Last Ceremony',
 				url: 'https://www.youtube.com/embed/TXQzKo2j-ok',
-				image: '/images/video1.jpg'
+				image: '/images/video-1.jpg'
 			},
 			{
 				type: 'video',
-				title: 'Brand Identity Video',
-				desc: 'Logo animation and brand presentation',
-				url: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-				image: '/images/video2.jpg'
+				title: 'Kita Satu Rumah',
+				desc: 'Youth Leadership Camp 2022 Shortmovie',
+				url: 'https://www.youtube.com/embed/qjXdFmMGn84',
+				image: '/images/video-2.jpg'
+			},
+			{
+				type: 'video',
+				title: 'Company Visit 2024 Aftermovie',
+				desc: 'Informatics Engineering goes to Jakarta',
+				url: 'https://www.youtube.com/embed/BAlP_WjAJGc',
+				image: '/images/video-4.jpg'
+			},
+			{
+				type: 'video',
+				title: 'FIT Competition 2023 Aftermovie',
+				desc: '12 hours live coding competition recap',
+				url: 'https://www.youtube.com/embed/28RYBWVHs1I',
+				image: '/images/video-6.png'
+			},
+			{
+				type: 'video',
+				title: 'Youthful Enthusiasm in Pandemic',
+				desc: 'Smasa Euforia 2021 Aftermovie',
+				url: 'https://www.youtube.com/embed/Iqdgfxyt6Nw',
+				image: '/images/video-5.jpg'
+			},
+			{
+				type: 'video',
+				title: 'Berbalik',
+				desc: 'Metanoia Youth 43rd Anniversary 2020 Shortmovie',
+				url: 'https://www.youtube.com/embed/PKvTvR8fGYA',
+				image: '/images/video-3.jpg'
+			},
+			{
+				type: 'video',
+				title: 'Please Him',
+				desc: 'Metanoia Youth 42nd Anniversary 2019 Shortmovie',
+				url: 'https://www.youtube.com/embed/PcezxGYzLS8',
+				image: '/images/video-7.jpg'
+			},
+			{
+				type: 'video',
+				title: 'Step Up',
+				desc: 'Metanoia Youth 45th Anniversary 2022 Shortmovie',
+				url: 'https://www.youtube.com/embed/8gnwVo94eoo',
+				image: '/images/video-8.jpg'
+			},
+			{
+				type: 'video',
+				title: 'Step Up Aftermovie',
+				desc: 'Metanoia Youth 45th Anniversary 2022 Aftermovie',
+				url: 'https://www.youtube.com/embed/sADc8-UGbxo',
+				image: '/images/video-11.jpg'
+			},
+			{
+				type: 'video',
+				title: 'Recall',
+				desc: 'Youth Leadership Camp 2019 Shortmovie',
+				url: 'https://www.youtube.com/embed/LmP06VfOcHo',
+				image: '/images/video-9.jpg'
+			},
+			{
+				type: 'video',
+				title: 'School From Home',
+				desc: 'Won the 2nd Place in High School shortmovie competition',
+				url: 'https://www.youtube.com/embed/67zLTv-aCM8',
+				image: '/images/video-10.png'
 			}
 		]
 	};
@@ -668,7 +814,7 @@
 					<!-- Content -->
 					<div class="w-full space-y-6 md:w-1/2 {index % 2 === 0 ? 'md:pl-8' : 'md:pr-8'}">
 						<div class="space-y-2">
-							<span class="text-sm font-medium tracking-wider text-[#0736fe] uppercase"
+							<span class="text-sm font-medium tracking-wider text-[#0736fe]"
 								>{work.type}</span
 							>
 							<h3
