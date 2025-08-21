@@ -273,13 +273,13 @@ body:hover {
 	background: 
 		radial-gradient(
 			circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
-			rgba(7, 54, 254, 0.03) 0%, 
-			rgba(7, 54, 254, 0.01) 30%,
+			rgba(7, 54, 254, 0.30) 0%, 
+			rgba(7, 54, 254, 0.10) 30%,
 			transparent 60%
 		),
 		radial-gradient(
 			ellipse 800px 400px at var(--mouse-x, 50%) var(--mouse-y, 50%), 
-			rgba(7, 54, 254, 0.02) 0%, 
+			rgba(7, 54, 254, 0.20) 0%, 
 			transparent 40%
 		);
 }
@@ -289,13 +289,13 @@ body:hover {
 	background: 
 		radial-gradient(
 			circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
-			rgba(7, 54, 254, 0.08) 0%, 
-			rgba(7, 54, 254, 0.04) 30%,
+			rgba(7, 54, 254, 0.30) 0%, 
+			rgba(7, 54, 254, 0.18) 30%,
 			transparent 60%
 		),
 		radial-gradient(
 			ellipse 600px 300px at var(--mouse-x, 50%) var(--mouse-y, 50%), 
-			rgba(7, 54, 254, 0.06) 0%, 
+			rgba(7, 54, 254, 0.24) 0%, 
 			transparent 50%
 		);
 }
