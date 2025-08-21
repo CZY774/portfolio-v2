@@ -385,13 +385,13 @@
 		</div>
 		<div class="hero-desc flex justify-center space-x-8">
 			<button
-				on:click={() => scrollToSection('work')}
+				onclick={() => scrollToSection('work')}
 				class="border border-current px-8 py-3 transition-all hover:border-[#0736fe] hover:bg-[#0736fe] hover:text-white"
 			>
 				view work
 			</button>
 			<button
-				on:click={() => scrollToSection('footer')}
+				onclick={() => scrollToSection('footer')}
 				class="bg-[#0736fe] px-8 py-3 text-white transition-colors hover:bg-[#0736fe]/90"
 			>
 				get in touch
