@@ -5,6 +5,9 @@
 	let scene: any, camera: any, renderer: any, particles: any;
 	let currentFilter = $state('all');
 	let isLoading = $state(true);
+	let isModalOpen = $state(false);
+	let modalContent = $state<any>(null);
+	let modalType = $state<'image' | 'video' | null>(null);
 	
 	// Declare THREE as global
 	declare global {
@@ -32,7 +35,23 @@
 		'devicon-github-original'
 	];
 
-	const works = {
+	// Define proper types for works
+	type WorkItem = {
+		type: string;
+		title: string;
+		desc: string;
+		image?: string;
+		link?: string;
+		url?: string;
+	};
+
+	type Works = {
+		apps: WorkItem[];
+		photo: WorkItem[];
+		videos: WorkItem[];
+	};
+
+	const works: Works = {
 		apps: [
 			{
 				type: 'app',
@@ -102,11 +121,12 @@
 		}
 	];
 
-	let filteredWorks = $derived(() => {
+	// Fix the type issue with filteredWorks
+	let filteredWorks = $derived.by(() => {
 		if (currentFilter === 'all') {
 			return [...works.apps, ...works.photo, ...works.videos];
 		}
-		return works[currentFilter as 'apps' | 'photo' | 'videos'] || [];
+		return works[currentFilter as keyof Works] || [];
 	});
 
 	onMount(() => {
@@ -247,8 +267,15 @@
 	}
 
 	function openModal(content: any, type: 'image' | 'video') {
-		// Modal implementation would go here
-		console.log('Opening modal:', content, type);
+		modalContent = content;
+		modalType = type;
+		isModalOpen = true;
+	}
+
+	function closeModal() {
+		isModalOpen = false;
+		modalContent = null;
+		modalType = null;
 	}
 </script>
 
@@ -262,6 +289,30 @@
 		<div class="text-center">
 			<div class="w-16 h-16 border-4 border-[#0736fe] border-t-transparent rounded-full animate-spin mb-8"></div>
 			<h2 class="text-2xl font-light tracking-wide">loading portfolio</h2>
+		</div>
+	</div>
+{/if}
+
+<!-- Modal -->
+{#if isModalOpen}
+	<div class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-8" on:click={closeModal}>
+		<div class="relative max-w-4xl w-full max-h-full" on:click|stopPropagation>
+			<button class="absolute -top-12 right-0 text-white text-2xl" on:click={closeModal}>×</button>
+			{#if modalType === 'image'}
+				<img src={modalContent.image} alt={modalContent.title} class="w-full h-auto object-contain max-h-[80vh]" />
+			{:else if modalType === 'video'}
+				<iframe 
+					src={modalContent.url} 
+					class="w-full aspect-video" 
+					title={modalContent.title}
+					frameborder="0" 
+					allowfullscreen
+				></iframe>
+			{/if}
+			<div class="mt-4 text-white text-center">
+				<h3 class="text-xl font-medium">{modalContent.title}</h3>
+				<p class="text-gray-300">{modalContent.desc}</p>
+			</div>
 		</div>
 	</div>
 {/if}
@@ -283,15 +334,27 @@
 	</div>
 </nav>
 
-<!-- Landing Section -->
+<!-- Landing Section - Updated to match reference image -->
 <section id="landing" class="section min-h-screen flex items-center justify-center relative z-10 px-8">
 	<div class="text-center max-w-6xl mx-auto">
-		<h1 class="hero-title text-8xl md:text-9xl lg:text-[12rem] font-light leading-none mb-12">
-			cornelius <span class="text-[#0736fe]">yoga</span>
-		</h1>
-		<p class="hero-desc text-xl md:text-2xl font-light mb-12 max-w-3xl mx-auto">
-			digital designer & developer crafting meaningful experiences through clean code and thoughtful design
-		</p>
+		<div class="mb-16">
+			<h1 class="hero-title text-6xl md:text-8xl lg:text-[10rem] font-light leading-none">
+				CORNELIUS <span class="text-[#0736fe]">YOGA</span>
+			</h1>
+		</div>
+		
+		<div class="hero-desc mb-16 max-w-3xl mx-auto">
+			<h2 class="text-2xl md:text-3xl font-light mb-6">CONTACT</h2>
+			<p class="text-xl md:text-2xl font-light italic mb-8">
+				unlock<br>
+				the another angle.
+			</p>
+			<p class="text-lg md:text-xl text-gray-600 dark:text-gray-400">
+				tacto is a design firm that creates experiences with stories.<br>
+				tactoはストーリーのある体験をつくるエクスペリエンスデザインファームです。
+			</p>
+		</div>
+		
 		<div class="hero-desc flex flex-wrap justify-center items-center gap-8 mb-16 text-lg">
 			<span>kudus, indonesia</span>
 			<div class="flex space-x-6">
@@ -301,6 +364,7 @@
 				<a href="https://youtube.com/@corneliusyoga" class="hover:text-[#0736fe] transition-colors">youtube</a>
 			</div>
 		</div>
+		
 		<div class="hero-desc flex justify-center space-x-8">
 			<button onclick={() => scrollToSection('work')} class="border border-current px-8 py-3 hover:bg-[#0736fe] hover:border-[#0736fe] hover:text-white transition-all">
 				view work
@@ -364,7 +428,7 @@
 
 		<!-- Work Grid -->
 		<div class="animate-in grid grid-cols-1 md:grid-cols-2 gap-16">
-			{#each filteredWorks as work, i}
+			{#each filteredWorks as work}
 				<div class="work-item group">
 					{#if work.image}
 						<div class="relative mb-8 overflow-hidden bg-gray-100 dark:bg-gray-900 aspect-[4/3]">
