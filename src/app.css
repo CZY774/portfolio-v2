@@ -50,34 +50,70 @@ h1, h2, h3, h4, h5, h6 {
 	letter-spacing: -0.02em;
 }
 
-/* Infinite marquee solution */
-.marquee {
+/* Fixed marquee implementation */
+.marquee-container {
 	position: relative;
 	width: 100%;
-	max-width: 100%;
-	height: auto;
-	overflow-x: hidden;
-}
-
-.track {
-	position: relative;
+	overflow: hidden;
 	white-space: nowrap;
+}
+
+.marquee-track {
+	display: inline-flex;
+	align-items: center;
+	animation: marquee-scroll 60s linear infinite;
 	will-change: transform;
-	animation: marquee 5s linear infinite;
 }
 
-.track .content {
-	display: inline-block;
+.tech-icon {
+	font-size: 3.5rem;
+	margin-right: 4rem;
+	opacity: 0.6;
+	transition: all 0.3s ease;
+	flex-shrink: 0;
 }
 
-@keyframes marquee {
-	from { transform: translateX(0); }
-	to { transform: translateX(-50%); }
+.tech-icon:hover {
+	opacity: 1;
+	color: #0736fe;
+	transform: scale(1.1);
 }
 
-/* Pause animation on hover */
-.marquee:hover .track {
+@keyframes marquee-scroll {
+	from {
+		transform: translateX(0);
+	}
+	to {
+		transform: translateX(-50%);
+	}
+}
+
+/* Pause animation on container hover */
+.marquee-container:hover .marquee-track {
 	animation-play-state: paused;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+	.tech-icon {
+		font-size: 2.5rem;
+		margin-right: 3rem;
+	}
+	
+	.marquee-track {
+		animation-duration: 80s;
+	}
+}
+
+@media (max-width: 480px) {
+	.tech-icon {
+		font-size: 2rem;
+		margin-right: 2rem;
+	}
+	
+	.marquee-track {
+		animation-duration: 100s;
+	}
 }
 
 /* Smooth scrolling with GSAP will override this */
