@@ -425,7 +425,6 @@
 				<button onclick={() => scrollToSection('landing')} class="block text-4xl font-light hover:text-[#0736fe] transition-colors transform hover:scale-105">home</button>
 				<button onclick={() => scrollToSection('about')} class="block text-4xl font-light hover:text-[#0736fe] transition-colors transform hover:scale-105">about</button>
 				<button onclick={() => scrollToSection('work')} class="block text-4xl font-light hover:text-[#0736fe] transition-colors transform hover:scale-105">work</button>
-				<button onclick={() => scrollToSection('footer')} class="block text-4xl font-light hover:text-[#0736fe] transition-colors transform hover:scale-105">contact</button>
 			</div>
 		</div>
 	{/if}
