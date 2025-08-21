@@ -35,7 +35,9 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-	
+	<title>cornelius yoga - creative developer & designer</title>
+  <meta name="description" content="creative developer & designer crafting digital experiences that blend aesthetic beauty with functional innovation. based in jakarta, indonesia." />
+  <meta name="keywords" content="cornelius yoga, web developer, ui/ux designer, frontend developer, fullstack developer, jakarta, indonesia" />
 </svelte:head>
 
 <div class="min-h-screen bg-white dark:bg-gray-950 text-black dark:text-white transition-colors duration-300">
