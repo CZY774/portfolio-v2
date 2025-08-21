@@ -23,67 +23,66 @@
 	let THREE: any;
 
 	const techStack = [
-		// 'devicon-c-original',
-		// 'devicon-cplusplus-plain',
-		// 'devicon-html5-plain',
-		// 'devicon-css3-plain',
-		// 'devicon-css3-plain',
-		// 'devicon-javascript-plain',
-		// 'devicon-python-plain',
-		// 'devicon-r-plain',
-		// 'devicon-php-plain',
-		// 'devicon-java-plain',
-		// 'devicon-kotlin-plain',
-		// 'devicon-typescript-plain',
-		// 'devicon-csharp-plain',
-		// 'devicon-bootstrap-plain',
-		// 'devicon-laravel-plain',
-		// 'devicon-flask-plain',
-		// 'devicon-tailwindcss-plain',
-		// 'devicon-feathersjs-original',
-		// 'devicon-jetpackcompose-plain',
-		// 'devicon-spring-plain',
-		// 'devicon-opengl-plain',
-		// 'devicon-dotnetcore-plain',
-		// 'devicon-react-plain',
-		// 'devicon-axios-plain',
-		// 'devicon-alpinejs-plain',
-		// 'devicon-vuejs-plain',
-		// 'devicon-ktor-plain',
-		// 'devicon-svelte-plain',
-		// 'devicon-chartjs-plain',
-		// 'devicon-expo-plain',
-		// 'devicon-nextjs-plain',
-		// 'devicon-prisma-plain',
-		// 'devicon-express-original',
-		// 'devicon-flutter-plain',
-		// 'devicon-threejs-original',
-		// 'devicon-nodejs-plain',
-		// 'devicon-socketio-original',
-		// 'devicon-fastapi-plain',
-		// 'devicon-django-plain',
-		// 'devicon-djangorest-plain',
-		// 'devicon-materialui-plain',
-		// 'devicon-dart-plain',
-		// 'devicon-rust-plain',
-		// 'devicon-go-plain',
-		// 'devicon-zig-plain',
-		// 'devicon-sqlite-plain',
-		// 'devicon-mysql-plain',
-		// 'devicon-oracle-plain',
-		// 'devicon-mongodb-plain',
-		// 'devicon-redis-plain',
-		// 'devicon-postgresql-plain',
-		// 'devicon-firebase-plain',
-		// 'devicon-cassandra-plain',
+		'devicon-c-original',
+		'devicon-cplusplus-plain',
+		'devicon-html5-plain',
+		'devicon-css3-plain',
+		'devicon-css3-plain',
+		'devicon-javascript-plain',
+		'devicon-python-plain',
+		'devicon-r-plain',
+		'devicon-php-plain',
+		'devicon-java-plain',
+		'devicon-kotlin-plain',
+		'devicon-typescript-plain',
+		'devicon-csharp-plain',
+		'devicon-bootstrap-plain',
+		'devicon-laravel-plain',
+		'devicon-flask-plain',
+		'devicon-tailwindcss-plain',
+		'devicon-feathersjs-original',
+		'devicon-jetpackcompose-plain',
+		'devicon-spring-plain',
+		'devicon-opengl-plain',
+		'devicon-dotnetcore-plain',
+		'devicon-react-plain',
+		'devicon-axios-plain',
+		'devicon-alpinejs-plain',
+		'devicon-vuejs-plain',
+		'devicon-ktor-plain',
+		'devicon-svelte-plain',
+		'devicon-chartjs-plain',
+		'devicon-expo-plain',
+		'devicon-nextjs-plain',
+		'devicon-prisma-plain',
+		'devicon-express-original',
+		'devicon-flutter-plain',
+		'devicon-threejs-original',
+		'devicon-nodejs-plain',
+		'devicon-socketio-original',
+		'devicon-fastapi-plain',
+		'devicon-django-plain',
+		'devicon-djangorest-plain',
+		'devicon-materialui-plain',
+		'devicon-dart-plain',
+		'devicon-rust-plain',
+		'devicon-go-plain',
+		'devicon-zig-plain',
+		'devicon-sqlite-plain',
+		'devicon-mysql-plain',
+		'devicon-oracle-plain',
+		'devicon-mongodb-plain',
+		'devicon-redis-plain',
+		'devicon-postgresql-plain',
+		'devicon-firebase-plain',
+		'devicon-cassandra-plain',
 		'devicon-googlecloud-plain',
 		'devicon-docker-plain',
 		'devicon-gradle-plain',
 		'devicon-vitejs-plain',
 		'devicon-graphql-plain',
 		'devicon-grafana-plain',
-		'devicon-grpc-plain',
-		
+		'devicon-grpc-plain'
 	];
 
 	// Define proper types for works
@@ -199,7 +198,7 @@
 		document.addEventListener('mousemove', (e) => {
 			mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
 			mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
-			
+
 			// Update CSS custom properties for background interaction
 			const mouseX = (e.clientX / window.innerWidth) * 100;
 			const mouseY = (e.clientY / window.innerHeight) * 100;
@@ -235,7 +234,7 @@
 
 	function initSmoothScrolling() {
 		// Enhanced smooth scrolling implementation
-		document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+		document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
 			anchor.addEventListener('click', function (e) {
 				e.preventDefault();
 				const targetId = this.getAttribute('href')?.substring(1);
@@ -273,7 +272,7 @@
 
 			// Subtle colors that work in both modes
 			colors.push(0.4); // R - muted
-			colors.push(0.4); // G - muted  
+			colors.push(0.4); // G - muted
 			colors.push(0.7); // B - subtle blue tint
 		}
 
@@ -306,15 +305,15 @@
 	function animate() {
 		if (!particles || !renderer || !scene || !camera) return;
 		requestAnimationFrame(animate);
-		
+
 		// Enhanced interactive rotation with background distortion effect
-		particles.rotation.x += 0.0003 + (mouse.y * 0.0001);
-		particles.rotation.y += 0.0005 + (mouse.x * 0.0001);
-		
+		particles.rotation.x += 0.0003 + mouse.y * 0.0001;
+		particles.rotation.y += 0.0005 + mouse.x * 0.0001;
+
 		// Add subtle scaling based on mouse position for distortion effect
 		const scale = 1 + (mouse.x * 0.02 + mouse.y * 0.02) * 0.1;
 		particles.scale.set(scale, scale, scale);
-		
+
 		renderer.render(scene, camera);
 	}
 
@@ -379,17 +378,20 @@
 		<div class="text-center">
 			<!-- Animated Logo -->
 			<div class="mb-12">
-				<div class="text-6xl font-light mb-4">
-					<span class="inline-block animate-fade-in-up" style="animation-delay: 0.2s;">c</span>
-					<span class="inline-block animate-fade-in-up" style="animation-delay: 0.4s;">z</span>
-					<span class="inline-block animate-fade-in-up" style="animation-delay: 0.6s;">y</span>
+				<div class="mb-4 text-6xl font-light">
+					<span class="animate-fade-in-up inline-block" style="animation-delay: 0.2s;">c</span>
+					<span class="animate-fade-in-up inline-block" style="animation-delay: 0.4s;">z</span>
+					<span class="animate-fade-in-up inline-block" style="animation-delay: 0.6s;">y</span>
 				</div>
 				<!-- Progress Bar -->
-				<div class="w-32 h-0.5 bg-gray-200 dark:bg-gray-800 mx-auto overflow-hidden">
-					<div class="h-full bg-[#0736fe] animate-loading-bar"></div>
+				<div class="mx-auto h-0.5 w-32 overflow-hidden bg-gray-200 dark:bg-gray-800">
+					<div class="animate-loading-bar h-full bg-[#0736fe]"></div>
 				</div>
 			</div>
-			<p class="text-lg font-light tracking-wider opacity-0 animate-fade-in" style="animation-delay: 1s;">
+			<p
+				class="animate-fade-in text-lg font-light tracking-wider opacity-0"
+				style="animation-delay: 1s;"
+			>
 				loading portfolio...
 			</p>
 		</div>
@@ -409,7 +411,7 @@
 	>
 		<div class="relative max-h-full w-full max-w-4xl" onclick={(e) => e.stopPropagation()}>
 			<button
-				class="absolute -top-12 right-0 text-2xl text-white hover:text-[#0736fe] transition-colors"
+				class="absolute -top-12 right-0 text-2xl text-white transition-colors hover:text-[#0736fe]"
 				onclick={closeModal}>✕</button
 			>
 			{#if modalType === 'image'}
@@ -436,27 +438,33 @@
 {/if}
 
 <!-- WebGL Background -->
-<canvas bind:this={canvas} class="fixed inset-0 z-0 pointer-events-none"></canvas>
+<canvas bind:this={canvas} class="pointer-events-none fixed inset-0 z-0"></canvas>
 
 <!-- Navigation -->
 <nav class="fixed top-0 right-0 left-0 z-40 bg-white/90 backdrop-blur-sm dark:bg-gray-950/90">
 	<div class="container mx-auto px-8 py-6">
 		<div class="flex items-center justify-between">
-			<button 
-				onclick={() => scrollToSection('landing')} 
-				class="text-lg font-medium hover:text-[#0736fe] transition-colors"
+			<button
+				onclick={() => scrollToSection('landing')}
+				class="text-lg font-medium transition-colors hover:text-[#0736fe]"
 			>
 				czy
 			</button>
-			
+
 			<!-- Desktop Navigation -->
-			<div class="hidden md:flex space-x-8">
-				<button onclick={() => scrollToSection('about')} class="transition-colors hover:text-[#0736fe]">about</button>
-				<button onclick={() => scrollToSection('work')} class="transition-colors hover:text-[#0736fe]">work</button>
+			<div class="hidden space-x-8 md:flex">
+				<button
+					onclick={() => scrollToSection('about')}
+					class="transition-colors hover:text-[#0736fe]">about</button
+				>
+				<button
+					onclick={() => scrollToSection('work')}
+					class="transition-colors hover:text-[#0736fe]">work</button
+				>
 			</div>
 
 			<!-- Mobile Menu Button -->
-			<button onclick={toggleMobileMenu} class="md:hidden relative z-50 p-2">
+			<button onclick={toggleMobileMenu} class="relative z-50 p-2 md:hidden">
 				<div class="hamburger {mobileMenuOpen ? 'active' : ''}">
 					<span></span>
 					<span></span>
@@ -468,11 +476,25 @@
 
 	<!-- Enhanced Mobile Menu -->
 	{#if mobileMenuOpen}
-		<div class="mobile-menu fixed top-0 left-0 w-full h-screen bg-white/95 dark:bg-gray-950/95 backdrop-blur-md flex items-center justify-center">
-			<div class="text-center space-y-8">
-				<button onclick={() => scrollToSection('landing')} class="block text-4xl font-light hover:text-[#0736fe] transition-colors transform hover:scale-105">home</button>
-				<button onclick={() => scrollToSection('about')} class="block text-4xl font-light hover:text-[#0736fe] transition-colors transform hover:scale-105">about</button>
-				<button onclick={() => scrollToSection('work')} class="block text-4xl font-light hover:text-[#0736fe] transition-colors transform hover:scale-105">work</button>
+		<div
+			class="mobile-menu fixed top-0 left-0 flex h-screen w-full items-center justify-center bg-white/95 backdrop-blur-md dark:bg-gray-950/95"
+		>
+			<div class="space-y-8 text-center">
+				<button
+					onclick={() => scrollToSection('landing')}
+					class="block transform text-4xl font-light transition-colors hover:scale-105 hover:text-[#0736fe]"
+					>home</button
+				>
+				<button
+					onclick={() => scrollToSection('about')}
+					class="block transform text-4xl font-light transition-colors hover:scale-105 hover:text-[#0736fe]"
+					>about</button
+				>
+				<button
+					onclick={() => scrollToSection('work')}
+					class="block transform text-4xl font-light transition-colors hover:scale-105 hover:text-[#0736fe]"
+					>work</button
+				>
 			</div>
 		</div>
 	{/if}
@@ -484,14 +506,14 @@
 	class="section relative z-10 flex min-h-screen items-center justify-center px-8 py-24"
 >
 	<div class="mx-auto max-w-7xl">
-		<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+		<div class="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
 			<div>
 				<h1 class="hero-title mb-12 text-7xl leading-none font-light md:text-8xl lg:text-9xl">
-					<span class="word inline-block">cornelius</span> 
+					<span class="word inline-block">cornelius</span>
 					<span class="word inline-block text-[#0736fe]">yoga</span>
 				</h1>
 				<div class="hero-desc">
-					<p class="text-2xl font-light text-gray-600 dark:text-gray-400 leading-relaxed mb-12">
+					<p class="mb-12 text-2xl leading-relaxed font-light text-gray-600 dark:text-gray-400">
 						digital designer & developer<br />
 						based in kudus, indonesia
 					</p>
@@ -499,7 +521,7 @@
 			</div>
 			<div class="hero-desc text-right">
 				<div class="mb-12">
-					<div class="flex justify-end space-x-6 mb-8">
+					<div class="mb-8 flex justify-end space-x-6">
 						<a
 							href="https://instagram.com/corneliusyoga"
 							class="transition-colors hover:text-[#0736fe]">ig</a
@@ -537,13 +559,13 @@
 		<h2 class="animate-in mb-24 text-6xl font-light md:text-8xl">about me</h2>
 
 		<!-- Tech Stack Marquee -->
-		<div class="animate-in mb-32 overflow-hidden relative">
+		<div class="animate-in relative mb-32 overflow-hidden">
 			<div class="marquee">
 				<div class="track">
 					<div class="content">
 						{#each [...techStack, ...techStack] as tech}
 							<i
-								class="{tech} text-6xl opacity-60 hover:opacity-100 hover:text-[#0736fe] transition-all duration-300 mr-16"
+								class="{tech} mr-16 text-6xl opacity-60 transition-all duration-300 hover:text-[#0736fe] hover:opacity-100"
 							></i>
 						{/each}
 					</div>
@@ -557,10 +579,10 @@
 			<div class="space-y-12">
 				{#each career as item}
 					<div
-						class="border-b border-gray-200 pb-12 dark:border-gray-800 hover:border-[#0736fe] transition-colors duration-300"
+						class="border-b border-gray-200 pb-12 transition-colors duration-300 hover:border-[#0736fe] dark:border-gray-800"
 					>
 						<div class="mb-4 flex flex-col justify-between md:flex-row md:items-center">
-							<h4 class="text-2xl font-medium hover:text-[#0736fe] transition-colors duration-300">
+							<h4 class="text-2xl font-medium transition-colors duration-300 hover:text-[#0736fe]">
 								{item.institution}
 							</h4>
 							<span class="text-gray-600 dark:text-gray-400">{item.date}</span>
@@ -584,9 +606,10 @@
 			{#each ['all', 'apps', 'photo', 'videos'] as filter}
 				<button
 					onclick={() => (currentFilter = filter)}
-					class="custom-button border border-current px-6 py-2 transition-all {currentFilter === filter
+					class="custom-button border border-current px-6 py-2 transition-all {currentFilter ===
+					filter
 						? 'border-[#0736fe] bg-[#0736fe] text-white'
-						: 'hover:text-[#0736fe] hover:border-[#0736fe]'}"
+						: 'hover:border-[#0736fe] hover:text-[#0736fe]'}"
 				>
 					{filter}
 				</button>
@@ -596,25 +619,33 @@
 		<!-- Work Grid -->
 		<div class="animate-in space-y-24">
 			{#each filteredWorks as work, index}
-				<div class="work-item group {index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} flex flex-col md:flex gap-16 items-center">
+				<div
+					class="work-item group {index % 2 === 0
+						? 'md:flex-row'
+						: 'md:flex-row-reverse'} flex flex-col items-center gap-16 md:flex"
+				>
 					<!-- Image Container -->
 					<div class="w-full md:w-1/2">
 						<div
-							class="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-[#0736fe]/20 to-[#0736fe]/40 hover:from-[#0736fe]/10 hover:to-[#0736fe]/20 transition-all duration-700 group cursor-pointer"
+							class="group relative aspect-[4/3] cursor-pointer overflow-hidden bg-gradient-to-br from-[#0736fe]/20 to-[#0736fe]/40 transition-all duration-700 hover:from-[#0736fe]/10 hover:to-[#0736fe]/20"
 						>
 							<!-- Default overlay with number -->
-							<div class="absolute inset-0 flex items-center justify-center bg-[#0736fe]/60 group-hover:bg-[#0736fe]/20 transition-all duration-700">
-								<span class="text-8xl font-light text-white/40 group-hover:text-white/20 transition-all duration-700">
+							<div
+								class="absolute inset-0 flex items-center justify-center bg-[#0736fe]/60 transition-all duration-700 group-hover:bg-[#0736fe]/20"
+							>
+								<span
+									class="text-8xl font-light text-white/40 transition-all duration-700 group-hover:text-white/20"
+								>
 									{String(index + 1).padStart(2, '0')}
 								</span>
 							</div>
-							
+
 							<!-- Actual image that appears on hover -->
 							{#if work.image}
 								<img
 									src={work.image}
 									alt={work.title}
-									class="h-full w-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+									class="h-full w-full object-cover opacity-0 transition-opacity duration-700 group-hover:opacity-100"
 									loading="lazy"
 									onerror={(e) => {
 										const target = e.target as HTMLImageElement;
@@ -627,46 +658,80 @@
 					</div>
 
 					<!-- Content -->
-					<div class="w-full md:w-1/2 space-y-6 {index % 2 === 0 ? 'md:pl-8' : 'md:pr-8'}">
+					<div class="w-full space-y-6 md:w-1/2 {index % 2 === 0 ? 'md:pl-8' : 'md:pr-8'}">
 						<div class="space-y-2">
-							<span class="text-sm uppercase tracking-wider text-[#0736fe] font-medium">{work.type}</span>
-							<h3 class="text-4xl font-light leading-tight hover:text-[#0736fe] transition-colors duration-300">
+							<span class="text-sm font-medium tracking-wider text-[#0736fe] uppercase"
+								>{work.type}</span
+							>
+							<h3
+								class="text-4xl leading-tight font-light transition-colors duration-300 hover:text-[#0736fe]"
+							>
 								{work.title}
 							</h3>
 						</div>
-						
-						<p class="text-xl text-gray-600 dark:text-gray-400 leading-relaxed">{work.desc}</p>
+
+						<p class="text-xl leading-relaxed text-gray-600 dark:text-gray-400">{work.desc}</p>
 
 						<div class="pt-4">
 							{#if work.type === 'app' && work.link}
 								<a
 									href={work.link}
 									target="_blank"
-									class="custom-button inline-flex items-center space-x-2 text-[#0736fe] hover:underline group"
+									class="custom-button group inline-flex items-center space-x-2 text-[#0736fe] hover:underline"
 								>
 									<span class="text-lg">view project</span>
-									<svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+									<svg
+										class="h-5 w-5 transition-transform group-hover:translate-x-1"
+										fill="none"
+										stroke="currentColor"
+										viewBox="0 0 24 24"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											stroke-width="2"
+											d="M17 8l4 4m0 0l-4 4m4-4H3"
+										></path>
 									</svg>
 								</a>
 							{:else if work.type === 'photo'}
 								<button
 									onclick={() => openModal(work, 'image')}
-									class="custom-button inline-flex items-center space-x-2 text-[#0736fe] hover:underline group"
+									class="custom-button group inline-flex items-center space-x-2 text-[#0736fe] hover:underline"
 								>
 									<span class="text-lg">look closer</span>
-									<svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+									<svg
+										class="h-5 w-5 transition-transform group-hover:scale-110"
+										fill="none"
+										stroke="currentColor"
+										viewBox="0 0 24 24"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											stroke-width="2"
+											d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+										></path>
 									</svg>
 								</button>
 							{:else if work.type === 'video' && work.url}
 								<button
 									onclick={() => openModal(work, 'video')}
-									class="custom-button inline-flex items-center space-x-2 text-[#0736fe] hover:underline group"
+									class="custom-button group inline-flex items-center space-x-2 text-[#0736fe] hover:underline"
 								>
 									<span class="text-lg">play video</span>
-									<svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1.01M15 10h1.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+									<svg
+										class="h-5 w-5 transition-transform group-hover:scale-110"
+										fill="none"
+										stroke="currentColor"
+										viewBox="0 0 24 24"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											stroke-width="2"
+											d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1.01M15 10h1.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+										></path>
 									</svg>
 								</button>
 							{/if}
@@ -679,28 +744,26 @@
 </section>
 
 <!-- Footer - Layout inspired by landing section -->
-<footer id="footer" class="section relative z-10 px-8 py-32 bg-black text-white">
+<footer id="footer" class="section relative z-10 bg-black px-8 py-32 text-white">
 	<div class="container mx-auto max-w-7xl">
-		<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+		<div class="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
 			<div>
-				<p class="text-lg font-light text-gray-500 tracking-wider mb-8">created by</p>
+				<p class="mb-8 text-lg font-light tracking-wider text-gray-500">created by</p>
 				<h2 class="text-7xl leading-none font-light md:text-8xl lg:text-9xl">
 					<span class="block text-white/90">cornelius</span>
-					<span class="block text-white/90">ardhani</span> 
+					<span class="block text-white/90">ardhani</span>
 					<span class="block text-[#0736fe]">yoga</span>
 					<span class="block text-white/90">pratama</span>
 				</h2>
 			</div>
 			<div class="text-right">
 				<div class="space-y-8">
-					<p class="text-xl font-light text-gray-400 leading-relaxed">
+					<p class="text-xl leading-relaxed font-light text-gray-400">
 						idc how many americano<br />
 						i have been drinking,<br />
 						<span class="text-[#0736fe]">good design needs time</span>
 					</p>
-					<div class="text-sm text-gray-600 font-light">
-						kudus, indonesia — 2025
-					</div>
+					<div class="text-sm font-light text-gray-600">kudus, indonesia — 2025</div>
 				</div>
 			</div>
 		</div>
@@ -710,22 +773,34 @@
 <style>
 	/* Enhanced cursor styles with better visibility */
 	:global(*, *::before, *::after) {
-		cursor: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iNCIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjEiLz4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFjaXR5PSIwLjYiLz4KPC9zdmc+') 16 16, auto !important;
+		cursor:
+			url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iNCIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjEiLz4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFjaXR5PSIwLjYiLz4KPC9zdmc+')
+				16 16,
+			auto !important;
 	}
 
 	/* Dark mode cursor */
 	:global(.dark *, .dark *::before, .dark *::after) {
-		cursor: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iNCIgZmlsbD0iIzAwMDAwMCIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjEiLz4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFjaXR5PSIwLjYiLz4KPC9zdmc+') 16 16, auto !important;
+		cursor:
+			url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iNCIgZmlsbD0iIzAwMDAwMCIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjEiLz4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFjaXR5PSIwLjYiLz4KPC9zdmc+')
+				16 16,
+			auto !important;
 	}
 
 	/* Hover cursor for interactive elements */
-	:global(button, a, [role="button"], input, textarea, select) {
-		cursor: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iNiIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjMDczNmZlIiBzdHJva2Utd2lkdGg9IjIiLz4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzA3MzZmZSIgc3Ryb2tlLXdpZHRoPSIyIi8+Cjwvc3ZnPg==') 16 16, pointer !important;
+	:global(button, a, [role='button'], input, textarea, select) {
+		cursor:
+			url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iNiIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjMDczNmZlIiBzdHJva2Utd2lkdGg9IjIiLz4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzA3MzZmZSIgc3Ryb2tlLXdpZHRoPSIyIi8+Cjwvc3ZnPg==')
+				16 16,
+			pointer !important;
 	}
 
 	/* Dark mode hover cursor */
-	:global(.dark button, .dark a, .dark [role="button"], .dark input, .dark textarea, .dark select) {
-		cursor: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iNiIgZmlsbD0iIzAwMDAwMCIgc3Ryb2tlPSIjMDczNmZlIiBzdHJva2Utd2lkdGg9IjIiLz4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzA3MzZmZSIgc3Ryb2tlLXdpZHRoPSIyIi8+Cjwvc3ZnPg==') 16 16, pointer !important;
+	:global(.dark button, .dark a, .dark [role='button'], .dark input, .dark textarea, .dark select) {
+		cursor:
+			url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iNiIgZmlsbD0iIzAwMDAwMCIgc3Ryb2tlPSIjMDczNmZlIiBzdHJva2Utd2lkdGg9IjIiLz4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzA3MzZmZSIgc3Ryb2tlLXdpZHRoPSIyIi8+Cjwvc3ZnPg==')
+				16 16,
+			pointer !important;
 	}
 
 	/* Remove button pulse effects */
@@ -886,23 +961,25 @@
 
 	:global(body:hover) {
 		background: radial-gradient(
-			circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
-			rgba(7, 54, 254, 0.02) 0%, 
+			circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+			rgba(7, 54, 254, 0.02) 0%,
 			transparent 40%
 		);
 	}
 
 	:global(.dark body:hover) {
 		background: radial-gradient(
-			circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
-			rgba(7, 54, 254, 0.06) 0%, 
+			circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+			rgba(7, 54, 254, 0.06) 0%,
 			transparent 40%
 		);
 	}
 
 	/* Work item hover effects */
 	.work-item {
-		transition: transform 0.3s ease, filter 0.3s ease;
+		transition:
+			transform 0.3s ease,
+			filter 0.3s ease;
 	}
 
 	.work-item:hover {
@@ -916,23 +993,23 @@
 			width: 20px;
 			height: 16px;
 		}
-		
+
 		.hamburger span {
 			height: 2px;
 		}
-		
+
 		.hamburger span:nth-child(2) {
 			top: 7px;
 		}
-		
+
 		.hamburger span:nth-child(3) {
 			top: 14px;
 		}
-		
+
 		.hamburger.active span:nth-child(1) {
 			top: 7px;
 		}
-		
+
 		.hamburger.active span:nth-child(3) {
 			top: 7px;
 		}
@@ -967,7 +1044,8 @@
 			filter: none !important;
 		}
 
-		canvas, .mobile-menu {
+		canvas,
+		.mobile-menu {
 			display: none !important;
 		}
 
