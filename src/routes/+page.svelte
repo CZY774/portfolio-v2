@@ -749,8 +749,7 @@
 			<div>
 				<p class="mb-1 text-lg font-light tracking-wider text-gray-500">thanks for stopping by</p>
 				<h2 class="text-7xl leading-none font-light md:text-8xl lg:text-9xl">
-					<span class="block text-white/90">have</span>
-					<span class="block text-white/90">a</span>
+					<span class="block text-white/90">have a</span>
 					<span class="block text-[#0736fe]">great</span>
 					<span class="block text-white/90">day</span>
 				</h2>
