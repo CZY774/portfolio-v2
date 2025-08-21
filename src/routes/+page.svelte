@@ -105,10 +105,10 @@
 		apps: [
 			{
 				type: 'app',
-				title: 'E-Commerce Platform',
-				desc: 'Modern shopping experience with Next.js',
-				link: 'https://github.com/username/project1',
-				image: '/images/project1.jpg'
+				title: 'Muncul River Tubing',
+				desc: 'Business website built with Laravel & Bootstrap',
+				link: 'https://munculrivertubing.com',
+				image: '/images/website-1.png'
 			},
 			{
 				type: 'app',
