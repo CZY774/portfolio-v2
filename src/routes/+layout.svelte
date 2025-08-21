@@ -1,6 +1,6 @@
 <script lang="ts">
 	import '../app.css';
-	import favicon from '$lib/assets/favicon.svg';
+	import favicon from '$lib/assets/logo-3.svg';
 	import { onMount } from 'svelte';
 
 	let { children } = $props();
