@@ -266,15 +266,24 @@
 		const colors = [];
 
 		for (let i = 0; i < 800; i++) {
-			vertices.push((Math.random() - 0.5) * 2000);
-			vertices.push((Math.random() - 0.5) * 2000);
-			vertices.push((Math.random() - 0.5) * 2000);
+	vertices.push((Math.random() - 0.5) * 2000);
+	vertices.push((Math.random() - 0.5) * 2000);
+	vertices.push((Math.random() - 0.5) * 2000);
 
-			// Subtle colors that work in both modes
-			colors.push(0.4); // R - muted
-			colors.push(0.4); // G - muted
-			colors.push(0.7); // B - subtle blue tint
-		}
+	// Dynamic colors based on theme or better contrast
+	const isDark = document.documentElement.classList.contains('dark');
+	if (isDark) {
+		// Dark mode - lighter particles
+		colors.push(0.6); // R
+		colors.push(0.6); // G  
+		colors.push(0.9); // B - blue tint
+	} else {
+		// Light mode - darker particles for visibility
+		colors.push(0.2); // R - darker
+		colors.push(0.3); // G - darker
+		colors.push(0.6); // B - visible blue
+	}
+}
 
 		geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
 		geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
