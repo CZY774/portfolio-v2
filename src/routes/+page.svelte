@@ -152,6 +152,12 @@
 		document.addEventListener('mousemove', (e) => {
 			mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
 			mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+			
+			// Update CSS custom properties for background interaction
+			const mouseX = (e.clientX / window.innerWidth) * 100;
+			const mouseY = (e.clientY / window.innerHeight) * 100;
+			document.body.style.setProperty('--mouse-x', `${mouseX}%`);
+			document.body.style.setProperty('--mouse-y', `${mouseY}%`);
 		});
 
 		// Simulate loading
@@ -163,14 +169,19 @@
 	function scrollToSection(sectionId: string) {
 		const element = document.getElementById(sectionId);
 		if (element) {
-			if (window.gsap) {
+			const offsetTop = element.offsetTop - 80; // Account for fixed nav
+			
+			if (window.gsap && window.ScrollTrigger) {
 				window.gsap.to(window, { 
-					scrollTo: { y: element, offsetY: 80 }, 
+					scrollTo: { y: offsetTop }, 
 					duration: 1.5, 
 					ease: 'power2.inOut' 
 				});
 			} else {
-				element.scrollIntoView({ behavior: 'smooth' });
+				window.scrollTo({
+					top: offsetTop,
+					behavior: 'smooth'
+				});
 			}
 		}
 		// Close mobile menu if open
