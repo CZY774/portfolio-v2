@@ -21,3 +21,20 @@
 		will-change: transform;
 	}
 }
+
+/* Custom brutalist styles */
+.font-mono {
+	font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+.text-primary {
+	color: #0736fe;
+}
+
+.bg-primary {
+	background-color: #0736fe;
+}
+
+.border-primary {
+	border-color: #0736fe;
+}
