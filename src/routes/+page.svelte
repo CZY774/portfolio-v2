@@ -282,14 +282,14 @@
 <!-- Landing Section -->
 <section id="landing" class="section min-h-screen flex items-center justify-center relative z-10 px-8">
 	<div class="text-center max-w-6xl mx-auto">
-		<h1 class="hero-title text-8xl md:text-9xl lg:text-[12rem] font-light leading-none mb-8">
+		<h1 class="hero-title text-8xl md:text-9xl lg:text-[12rem] font-light leading-none mb-12">
 			cornelius <span class="text-[#0736fe]">yoga</span>
 		</h1>
 		<p class="hero-desc text-xl md:text-2xl font-light mb-12 max-w-3xl mx-auto">
 			digital designer & developer crafting meaningful experiences through clean code and thoughtful design
 		</p>
 		<div class="hero-desc flex flex-wrap justify-center items-center gap-8 mb-16 text-lg">
-			<span>jakarta, indonesia</span>
+			<span>kudus, indonesia</span>
 			<div class="flex space-x-6">
 				<a href="https://instagram.com/corneliusyoga" class="hover:text-[#0736fe] transition-colors">ig</a>
 				<a href="https://github.com/corneliusyoga" class="hover:text-[#0736fe] transition-colors">github</a>
