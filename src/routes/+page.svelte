@@ -60,7 +60,7 @@
 				title: 'E-Commerce Platform',
 				desc: 'Modern shopping experience with Next.js',
 				link: 'https://github.com/username/project1',
-				image: '/images/project1.jpg'
+				image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&h=600&fit=crop'
 			},
 			{
 				type: 'app',
