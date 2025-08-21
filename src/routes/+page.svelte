@@ -353,28 +353,47 @@
 </nav>
 
 <!-- Landing Section -->
-<section id="landing" class="section min-h-screen flex items-center justify-center relative z-10 px-8">
-	<div class="text-center max-w-6xl mx-auto">
-		<h1 class="hero-title text-8xl md:text-9xl lg:text-[12rem] font-light leading-none mb-8">
+<section
+	id="landing"
+	class="section relative z-10 flex min-h-screen items-center justify-center px-8"
+>
+	<div class="mx-auto max-w-6xl text-center">
+		<h1 class="hero-title mb-8 text-8xl leading-none font-light md:text-9xl lg:text-[12rem]">
 			cornelius <span class="text-[#0736fe]">yoga</span>
 		</h1>
-		<p class="hero-desc text-xl md:text-2xl font-light mb-12 max-w-3xl mx-auto">
-			digital designer & developer crafting meaningful experiences through clean code and thoughtful design
+		<p class="hero-desc mx-auto mb-12 max-w-3xl text-xl font-light md:text-2xl">
+			digital designer & developer crafting meaningful experiences through clean code and thoughtful
+			design
 		</p>
-		<div class="hero-desc flex flex-wrap justify-center items-center gap-8 mb-16 text-lg">
+		<div class="hero-desc mb-16 flex flex-wrap items-center justify-center gap-8 text-lg">
 			<span>jakarta, indonesia</span>
 			<div class="flex space-x-6">
-				<a href="https://instagram.com/corneliusyoga" class="hover:text-[#0736fe] transition-colors">ig</a>
-				<a href="https://github.com/corneliusyoga" class="hover:text-[#0736fe] transition-colors">github</a>
-				<a href="https://linkedin.com/in/corneliusyoga" class="hover:text-[#0736fe] transition-colors">linkedin</a>
-				<a href="https://youtube.com/@corneliusyoga" class="hover:text-[#0736fe] transition-colors">youtube</a>
+				<a href="https://instagram.com/corneliusyoga" class="transition-colors hover:text-[#0736fe]"
+					>ig</a
+				>
+				<a href="https://github.com/corneliusyoga" class="transition-colors hover:text-[#0736fe]"
+					>github</a
+				>
+				<a
+					href="https://linkedin.com/in/corneliusyoga"
+					class="transition-colors hover:text-[#0736fe]">linkedin</a
+				>
+				<a href="https://youtube.com/@corneliusyoga" class="transition-colors hover:text-[#0736fe]"
+					>youtube</a
+				>
 			</div>
 		</div>
 		<div class="hero-desc flex justify-center space-x-8">
-			<button on:click={() => scrollToSection('work')} class="border border-current px-8 py-3 hover:bg-[#0736fe] hover:border-[#0736fe] hover:text-white transition-all">
+			<button
+				on:click={() => scrollToSection('work')}
+				class="border border-current px-8 py-3 transition-all hover:border-[#0736fe] hover:bg-[#0736fe] hover:text-white"
+			>
 				view work
 			</button>
-			<button on:click={() => scrollToSection('footer')} class="bg-[#0736fe] text-white px-8 py-3 hover:bg-[#0736fe]/90 transition-colors">
+			<button
+				on:click={() => scrollToSection('footer')}
+				class="bg-[#0736fe] px-8 py-3 text-white transition-colors hover:bg-[#0736fe]/90"
+			>
 				get in touch
 			</button>
 		</div>
