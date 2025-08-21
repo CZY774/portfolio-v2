@@ -298,22 +298,22 @@
 
 	const career = [
 		{
-			institution: 'Tech Startup Inc.',
-			date: '2023 - Present',
-			role: 'Frontend Developer',
-			achievement: 'Led UI/UX redesign increasing user engagement by 40%'
+			institution: 'Satya Wacana Christian University',
+			date: '2022 - Present',
+			role: 'Committee Chairman, Steering Committee, Teaching Assistant',
+			achievement: 'Led 50+ team members in international events and increased its registrants by 254%'
 		},
 		{
-			institution: 'Digital Agency Co.',
-			date: '2022 - 2023',
-			role: 'Web Developer',
-			achievement: 'Delivered 15+ client projects with 100% satisfaction rate'
+			institution: 'Metanoia Youth Commission GKMI Kudus',
+			date: '2017 - 2022',
+			role: 'Committee Chairman & Media Production Head',
+			achievement: 'Produced 5+ shortmovies, 3 aftermovies, reached 1000+ views'
 		},
 		{
-			institution: 'University of Technology',
-			date: '2019 - 2023',
-			role: 'Computer Science Student',
-			achievement: 'Graduated Cum Laude, GPA 3.8/4.0'
+			institution: 'Senior High School 1 Kudus',
+			date: '2020 - 2022',
+			role: 'Head of Section 9 OSIS: ICT & Media Production Head',
+			achievement: 'Managed 3 social media platforms with 8K+ followers'
 		}
 	];
 
@@ -669,7 +669,7 @@
 				</h1>
 				<div class="hero-desc">
 					<p class="mb-12 text-2xl leading-relaxed font-light text-gray-600 dark:text-gray-400">
-						digital designer & developer<br />
+						a forth-year informatics engineering student<br />
 						based in kudus, indonesia
 					</p>
 				</div>
