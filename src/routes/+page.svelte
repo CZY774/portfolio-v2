@@ -559,18 +559,18 @@
 		<h2 class="animate-in mb-24 text-6xl font-light md:text-8xl">about me</h2>
 
 		<!-- Tech Stack Marquee -->
-		<div class="animate-in mb-32 overflow-hidden relative">
-	<div class="marquee-container">
-		<div class="marquee-track">
-			{#each techStack as tech}
-				<i class="{tech} tech-icon"></i>
-			{/each}
-			{#each techStack as tech}
-				<i class="{tech} tech-icon"></i>
-			{/each}
+		<div class="animate-in relative mb-32 overflow-hidden">
+			<div class="marquee-container">
+				<div class="marquee-track">
+					{#each techStack as tech}
+						<i class="{tech} tech-icon"></i>
+					{/each}
+					{#each techStack as tech}
+						<i class="{tech} tech-icon"></i>
+					{/each}
+				</div>
+			</div>
 		</div>
-	</div>
-</div>
 
 		<!-- Career Summary -->
 		<div class="animate-in">
@@ -747,7 +747,7 @@
 	<div class="container mx-auto max-w-7xl">
 		<div class="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
 			<div>
-				<p class="mb-8 text-lg font-light tracking-wider text-gray-500">created by</p>
+				<p class="mb-1  text-lg font-light tracking-wider text-gray-500">created by :</p>
 				<h2 class="text-7xl leading-none font-light md:text-8xl lg:text-9xl">
 					<span class="block text-white/90">cornelius</span>
 					<span class="block text-white/90">ardhani</span>
