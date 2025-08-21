@@ -1,3 +1,23 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
+
+@layer base {
+	html {
+		scroll-behavior: smooth;
+	}
+
+	body {
+		overflow-x: hidden;
+	}
+
+	* {
+		box-sizing: border-box;
+	}
+}
+
+@layer utilities {
+	.parallax {
+		will-change: transform;
+	}
+}
