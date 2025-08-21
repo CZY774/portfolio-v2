@@ -145,8 +145,8 @@
 		// Initialize GSAP animations
 		initGSAP();
 
-		// Initialize scroll navigation
-		initScrollNavigation();
+		// Initialize scroll navigation with better implementation
+		initSmoothScrolling();
 
 		// Mouse tracking for interactive background
 		document.addEventListener('mousemove', (e) => {
@@ -160,29 +160,23 @@
 			document.body.style.setProperty('--mouse-y', `${mouseY}%`);
 		});
 
-		// Simulate loading
+		// Enhanced loading animation
 		setTimeout(() => {
 			isLoading = false;
-		}, 2000);
+		}, 3000);
 	});
 
 	function scrollToSection(sectionId: string) {
 		const element = document.getElementById(sectionId);
 		if (element) {
-			const offsetTop = element.offsetTop - 80; // Account for fixed nav
-			
-			if (window.gsap && window.ScrollTrigger) {
-				window.gsap.to(window, { 
-					scrollTo: { y: offsetTop }, 
-					duration: 1.5, 
-					ease: 'power2.inOut' 
-				});
-			} else {
-				window.scrollTo({
-					top: offsetTop,
-					behavior: 'smooth'
-				});
-			}
+			const headerOffset = 80;
+			const elementPosition = element.getBoundingClientRect().top;
+			const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+			window.scrollTo({
+				top: offsetPosition,
+				behavior: 'smooth'
+			});
 		}
 		// Close mobile menu if open
 		mobileMenuOpen = false;
@@ -192,45 +186,23 @@
 		mobileMenuOpen = !mobileMenuOpen;
 	}
 
-	function initScrollNavigation() {
-		// Detect if a link's href goes to the current page
-		function getSamePageAnchor(link: HTMLAnchorElement) {
-			if (
-				link.protocol !== window.location.protocol ||
-				link.host !== window.location.host ||
-				link.pathname !== window.location.pathname ||
-				link.search !== window.location.search
-			) {
-				return false;
-			}
-			return link.hash;
-		}
-
-		// Scroll to a given hash, preventing the event given if there is one
-		function scrollToHash(hash: string, e?: Event) {
-			const elem = hash ? document.querySelector(hash) : false;
-			if (elem) {
-				if (e) e.preventDefault();
-				if (window.gsap) {
-					window.gsap.to(window, { scrollTo: elem, duration: 1.5, ease: 'power2.inOut' });
-				} else {
-					elem.scrollIntoView({ behavior: 'smooth' });
-				}
-			}
-		}
-
-		// If a link's href is within the current page, scroll to it instead
-		document.querySelectorAll('a[href]').forEach((a) => {
-			a.addEventListener('click', (e) => {
-				const anchor = getSamePageAnchor(a as HTMLAnchorElement);
-				if (anchor) {
-					scrollToHash(anchor, e);
+	function initSmoothScrolling() {
+		// Enhanced smooth scrolling implementation
+		document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+			anchor.addEventListener('click', function (e) {
+				e.preventDefault();
+				const targetId = this.getAttribute('href')?.substring(1);
+				if (targetId) {
+					scrollToSection(targetId);
 				}
 			});
 		});
 
-		// Scroll to the element in the URL's hash on load
-		scrollToHash(window.location.hash);
+		// Handle URL hash on load
+		if (window.location.hash) {
+			const targetId = window.location.hash.substring(1);
+			setTimeout(() => scrollToSection(targetId), 100);
+		}
 	}
 
 	function initThreeJS() {
@@ -238,33 +210,35 @@
 
 		scene = new THREE.Scene();
 		camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-		renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
+		renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
 		renderer.setSize(window.innerWidth, window.innerHeight);
+		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-		// Create particles
+		// Create particles with better colors
 		const geometry = new THREE.BufferGeometry();
 		const vertices = [];
 		const colors = [];
 
-		for (let i = 0; i < 1500; i++) {
+		for (let i = 0; i < 800; i++) {
 			vertices.push((Math.random() - 0.5) * 2000);
 			vertices.push((Math.random() - 0.5) * 2000);
 			vertices.push((Math.random() - 0.5) * 2000);
 
-			// Better colors for both light and dark mode
-			colors.push(0.03); // R - blue tint
-			colors.push(0.21); // G - blue tint  
-			colors.push(0.99); // B - blue (#0736fe)
+			// Subtle colors that work in both modes
+			colors.push(0.4); // R - muted
+			colors.push(0.4); // G - muted  
+			colors.push(0.7); // B - subtle blue tint
 		}
 
 		geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
 		geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
 
 		const material = new THREE.PointsMaterial({
-			size: 4,
+			size: 2,
 			vertexColors: true,
-			opacity: 0.8,
-			transparent: true
+			opacity: 0.3,
+			transparent: true,
+			blending: THREE.AdditiveBlending
 		});
 		particles = new THREE.Points(geometry, material);
 		scene.add(particles);
@@ -278,6 +252,7 @@
 			camera.aspect = window.innerWidth / window.innerHeight;
 			camera.updateProjectionMatrix();
 			renderer.setSize(window.innerWidth, window.innerHeight);
+			renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 		});
 	}
 
@@ -285,9 +260,13 @@
 		if (!particles || !renderer || !scene || !camera) return;
 		requestAnimationFrame(animate);
 		
-		// Interactive rotation based on mouse position
-		particles.rotation.x += 0.0008 + (mouse.y * 0.0002);
-		particles.rotation.y += 0.0012 + (mouse.x * 0.0002);
+		// Enhanced interactive rotation with background distortion effect
+		particles.rotation.x += 0.0003 + (mouse.y * 0.0001);
+		particles.rotation.y += 0.0005 + (mouse.x * 0.0001);
+		
+		// Add subtle scaling based on mouse position for distortion effect
+		const scale = 1 + (mouse.x * 0.02 + mouse.y * 0.02) * 0.1;
+		particles.scale.set(scale, scale, scale);
 		
 		renderer.render(scene, camera);
 	}
@@ -297,42 +276,30 @@
 
 		window.gsap.registerPlugin(window.ScrollTrigger);
 
-		// Landing animations
-		window.gsap.from('.hero-title', {
-			duration: 1.5,
-			y: 100,
+		// Landing animations with stagger
+		window.gsap.from('.hero-title .word', {
+			duration: 1.2,
+			y: 120,
 			opacity: 0,
-			stagger: 0.3,
+			stagger: 0.15,
 			ease: 'power3.out',
-			delay: 2.2
+			delay: 3.2
 		});
 
 		window.gsap.from('.hero-desc', {
 			duration: 1,
-			y: 50,
+			y: 60,
 			opacity: 0,
-			delay: 3
-		});
-
-		// Parallax effect
-		window.gsap.to('.parallax-bg', {
-			yPercent: -50,
-			ease: 'none',
-			scrollTrigger: {
-				trigger: '.parallax-bg',
-				start: 'top bottom',
-				end: 'bottom top',
-				scrub: true
-			}
+			delay: 3.8
 		});
 
 		// Section animations
 		window.gsap.utils.toArray('.section').forEach((section: any) => {
 			window.gsap.from(section.querySelectorAll('.animate-in'), {
-				y: 100,
+				y: 80,
 				opacity: 0,
 				duration: 1,
-				stagger: 0.2,
+				stagger: 0.1,
 				ease: 'power3.out',
 				scrollTrigger: {
 					trigger: section,
@@ -359,14 +326,24 @@
 	<title>cornelius yoga - creative developer & designer</title>
 </svelte:head>
 
-<!-- Loader -->
+<!-- Enhanced Loader -->
 {#if isLoading}
 	<div class="fixed inset-0 z-50 flex items-center justify-center bg-white dark:bg-gray-950">
 		<div class="text-center">
-			<div
-				class="mb-8 h-16 w-16 animate-spin rounded-full border-4 border-[#0736fe] border-t-transparent"
-			></div>
-			<h2 class="text-2xl font-light tracking-wide">loading portfolio</h2>
+			<!-- Animated Logo -->
+			<div class="mb-12">
+				<div class="text-6xl font-light mb-4">
+					<span class="inline-block animate-fade-in-up" style="animation-delay: 0.2s;">c</span>
+					<span class="inline-block animate-fade-in-up" style="animation-delay: 0.4s;">y</span>
+				</div>
+				<!-- Progress Bar -->
+				<div class="w-32 h-0.5 bg-gray-200 dark:bg-gray-800 mx-auto overflow-hidden">
+					<div class="h-full bg-[#0736fe] animate-loading-bar"></div>
+				</div>
+			</div>
+			<p class="text-lg font-light tracking-wider opacity-0 animate-fade-in" style="animation-delay: 1s;">
+				loading portfolio
+			</p>
 		</div>
 	</div>
 {/if}
@@ -411,7 +388,7 @@
 {/if}
 
 <!-- WebGL Background -->
-<canvas bind:this={canvas} class="fixed inset-0 z-0 opacity-60 pointer-events-none"></canvas>
+<canvas bind:this={canvas} class="fixed inset-0 z-0 pointer-events-none"></canvas>
 
 <!-- Navigation -->
 <nav class="fixed top-0 right-0 left-0 z-40 bg-white/90 backdrop-blur-sm dark:bg-gray-950/90">
@@ -442,14 +419,14 @@
 		</div>
 	</div>
 
-	<!-- Mobile Menu -->
+	<!-- Enhanced Mobile Menu -->
 	{#if mobileMenuOpen}
-		<div class="mobile-menu fixed inset-0 bg-white dark:bg-gray-950 flex items-center justify-center">
+		<div class="mobile-menu fixed top-0 left-0 w-full h-screen bg-white/95 dark:bg-gray-950/95 backdrop-blur-md flex items-center justify-center">
 			<div class="text-center space-y-8">
-				<button onclick={() => scrollToSection('landing')} class="block text-4xl font-light hover:text-[#0736fe] transition-colors">home</button>
-				<button onclick={() => scrollToSection('about')} class="block text-4xl font-light hover:text-[#0736fe] transition-colors">about</button>
-				<button onclick={() => scrollToSection('work')} class="block text-4xl font-light hover:text-[#0736fe] transition-colors">work</button>
-				<button onclick={() => scrollToSection('footer')} class="block text-4xl font-light hover:text-[#0736fe] transition-colors">contact</button>
+				<button onclick={() => scrollToSection('landing')} class="block text-4xl font-light hover:text-[#0736fe] transition-colors transform hover:scale-105">home</button>
+				<button onclick={() => scrollToSection('about')} class="block text-4xl font-light hover:text-[#0736fe] transition-colors transform hover:scale-105">about</button>
+				<button onclick={() => scrollToSection('work')} class="block text-4xl font-light hover:text-[#0736fe] transition-colors transform hover:scale-105">work</button>
+				<button onclick={() => scrollToSection('footer')} class="block text-4xl font-light hover:text-[#0736fe] transition-colors transform hover:scale-105">contact</button>
 			</div>
 		</div>
 	{/if}
@@ -464,7 +441,8 @@
 		<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 			<div>
 				<h1 class="hero-title mb-12 text-7xl leading-none font-light md:text-8xl lg:text-9xl">
-					cornelius <span class="text-[#0736fe]">yoga</span>
+					<span class="word inline-block">cornelius</span> 
+					<span class="word inline-block text-[#0736fe]">yoga</span>
 				</h1>
 				<div class="hero-desc">
 					<p class="text-2xl font-light text-gray-600 dark:text-gray-400 leading-relaxed mb-12">
@@ -497,7 +475,7 @@
 				<div class="flex justify-end">
 					<button
 						onclick={() => scrollToSection('work')}
-						class="border border-current px-8 py-3 transition-all hover:border-[#0736fe] hover:bg-[#0736fe] hover:text-white"
+						class="custom-button border border-current px-8 py-3 transition-all hover:border-[#0736fe] hover:bg-[#0736fe] hover:text-white"
 					>
 						view work
 					</button>
@@ -560,7 +538,7 @@
 			{#each ['all', 'apps', 'photo', 'videos'] as filter}
 				<button
 					onclick={() => (currentFilter = filter)}
-					class="border border-current px-6 py-2 transition-all {currentFilter === filter
+					class="custom-button border border-current px-6 py-2 transition-all {currentFilter === filter
 						? 'border-[#0736fe] bg-[#0736fe] text-white'
 						: 'hover:text-[#0736fe] hover:border-[#0736fe]'}"
 				>
@@ -618,7 +596,7 @@
 								<a
 									href={work.link}
 									target="_blank"
-									class="inline-flex items-center space-x-2 text-[#0736fe] hover:underline group"
+									class="custom-button inline-flex items-center space-x-2 text-[#0736fe] hover:underline group"
 								>
 									<span class="text-lg">view project</span>
 									<svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -628,7 +606,7 @@
 							{:else if work.type === 'photo'}
 								<button
 									onclick={() => openModal(work, 'image')}
-									class="inline-flex items-center space-x-2 text-[#0736fe] hover:underline group"
+									class="custom-button inline-flex items-center space-x-2 text-[#0736fe] hover:underline group"
 								>
 									<span class="text-lg">look closer</span>
 									<svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -638,7 +616,7 @@
 							{:else if work.type === 'video' && work.url}
 								<button
 									onclick={() => openModal(work, 'video')}
-									class="inline-flex items-center space-x-2 text-[#0736fe] hover:underline group"
+									class="custom-button inline-flex items-center space-x-2 text-[#0736fe] hover:underline group"
 								>
 									<span class="text-lg">play video</span>
 									<svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -654,57 +632,92 @@
 	</div>
 </section>
 
-<!-- Footer -->
-<footer id="footer" class="section relative z-10 px-8 py-32">
-	<div class="container mx-auto max-w-7xl text-center">
-		<!-- Large Typography -->
-		<div class="mb-20">
-			<div class="text-[15vw] md:text-[12vw] lg:text-[10vw] font-light leading-none mb-8 tracking-tight">
-				<div class="outline-text">cornelius</div>
-				<div class="outline-text">ardhani</div>
-				<div class="text-[#0736fe]">yoga</div>
-				<div class="outline-text">pratama</div>
+<!-- Footer - Following the reference design exactly -->
+<footer id="footer" class="section relative z-10 px-8 py-32 bg-black text-white">
+	<div class="container mx-auto max-w-7xl">
+		<!-- Large Typography matching the reference -->
+		<div class="text-center mb-20">
+			<!-- CZAV Typography -->
+			<div class="text-[20vw] sm:text-[15vw] md:text-[12vw] lg:text-[10vw] font-light leading-[0.8] tracking-tighter mb-8">
+				<div class="outline-text-white opacity-80">CZAV</div>
+			</div>
+			
+			<!-- Created by text -->
+			<div class="mb-12">
+				<p class="text-lg text-gray-400 mb-4">created by:</p>
+				<div class="text-4xl sm:text-5xl md:text-6xl font-light leading-tight">
+					<div class="outline-text-white opacity-90">cornelius ardhani</div>
+					<div class="text-[#0736fe] font-medium">yoga</div>
+					<div class="outline-text-white opacity-90">pratama</div>
+				</div>
 			</div>
 		</div>
 
 		<!-- Contact Info -->
-		<div class="mb-16 space-y-6">
+		<div class="text-center mb-16 space-y-6">
 			<a 
 				href="mailto:cornelius@example.com" 
-				class="block text-2xl md:text-3xl font-light hover:text-[#0736fe] transition-colors duration-300"
+				class="custom-button block text-2xl md:text-3xl font-light hover:text-[#0736fe] transition-colors duration-300"
 			>
 				cornelius@example.com
 			</a>
 			<a 
 				href="tel:+6281234567890" 
-				class="block text-xl md:text-2xl font-light text-gray-600 dark:text-gray-400 hover:text-[#0736fe] transition-colors duration-300"
+				class="custom-button block text-xl md:text-2xl font-light text-gray-400 hover:text-[#0736fe] transition-colors duration-300"
 			>
 				+62 812-3456-7890
 			</a>
-			<p class="text-lg text-gray-600 dark:text-gray-400">
+			<p class="text-lg text-gray-400">
 				jakarta, indonesia
 			</p>
 		</div>
 
 		<!-- Divider -->
-		<div class="h-px bg-gray-200 dark:bg-gray-800 mb-8"></div>
+		<div class="h-px bg-gray-800 mb-8"></div>
 
 		<!-- Copyright -->
-		<p class="text-gray-600 dark:text-gray-400">
-			created by cornelius ardhani yoga pratama
+		<p class="text-center text-gray-500">
+			© 2024 cornelius ardhani yoga pratama
 		</p>
 	</div>
 </footer>
 
 <style>
-	/* Enhanced cursor styles */
+	/* Enhanced cursor styles with better visibility */
 	:global(*, *::before, *::after) {
-		cursor: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iNiIgZmlsbD0iIzA3MzZmZSIgZmlsbC1vcGFjaXR5PSIwLjgiLz4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMTQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzA3MzZmZSIgc3Ryb2tlLXdpZHRoPSIyIiBvcGFjaXR5PSIwLjQiLz4KPC9zdmc+') 20 20, auto !important;
+		cursor: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iNCIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjEiLz4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFjaXR5PSIwLjYiLz4KPC9zdmc+') 16 16, auto !important;
+	}
+
+	/* Dark mode cursor */
+	:global(.dark *, .dark *::before, .dark *::after) {
+		cursor: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iNCIgZmlsbD0iIzAwMDAwMCIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjEiLz4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFjaXR5PSIwLjYiLz4KPC9zdmc+') 16 16, auto !important;
 	}
 
 	/* Hover cursor for interactive elements */
 	:global(button, a, [role="button"], input, textarea, select) {
-		cursor: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iOCIgZmlsbD0iIzA3MzZmZSIvPgo8Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIxOCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDczNmZlIiBzdHJva2Utd2lkdGg9IjMiLz4KPC9zdmc+') 20 20, pointer !important;
+		cursor: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iNiIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjMDczNmZlIiBzdHJva2Utd2lkdGg9IjIiLz4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzA3MzZmZSIgc3Ryb2tlLXdpZHRoPSIyIi8+Cjwvc3ZnPg==') 16 16, pointer !important;
+	}
+
+	/* Dark mode hover cursor */
+	:global(.dark button, .dark a, .dark [role="button"], .dark input, .dark textarea, .dark select) {
+		cursor: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iNiIgZmlsbD0iIzAwMDAwMCIgc3Ryb2tlPSIjMDczNmZlIiBzdHJva2Utd2lkdGg9IjIiLz4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzA3MzZmZSIgc3Ryb2tlLXdpZHRoPSIyIi8+Cjwvc3ZnPg==') 16 16, pointer !important;
+	}
+
+	/* Remove button pulse effects */
+	:global(.custom-button) {
+		outline: none !important;
+		box-shadow: none !important;
+	}
+
+	:global(.custom-button:focus) {
+		outline: 2px solid #0736fe !important;
+		outline-offset: 2px !important;
+		box-shadow: none !important;
+	}
+
+	:global(.custom-button:active) {
+		transform: none !important;
+		box-shadow: none !important;
 	}
 
 	/* Hide scrollbar */
@@ -714,6 +727,54 @@
 	:global(html) {
 		-ms-overflow-style: none;
 		scrollbar-width: none;
+	}
+
+	/* Enhanced loading animations */
+	@keyframes fade-in-up {
+		from {
+			opacity: 0;
+			transform: translateY(30px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	@keyframes loading-bar {
+		0% {
+			width: 0%;
+		}
+		50% {
+			width: 70%;
+		}
+		100% {
+			width: 100%;
+		}
+	}
+
+	@keyframes fade-in {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+
+	.animate-fade-in-up {
+		animation: fade-in-up 0.8s ease-out forwards;
+		opacity: 0;
+	}
+
+	.animate-loading-bar {
+		animation: loading-bar 2.5s ease-in-out forwards;
+		width: 0%;
+	}
+
+	.animate-fade-in {
+		animation: fade-in 0.6s ease-out forwards;
+		opacity: 0;
 	}
 
 	/* Hamburger Menu Animation */
@@ -766,35 +827,133 @@
 		transform: rotate(-135deg);
 	}
 
-	/* Mobile Menu Animation */
+	/* Enhanced Mobile Menu Animation */
 	.mobile-menu {
-		animation: slideIn 0.3s ease-out;
+		animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+		backdrop-filter: blur(12px);
+		-webkit-backdrop-filter: blur(12px);
 	}
 
 	@keyframes slideIn {
 		from {
 			opacity: 0;
-			transform: translateY(-20px);
+			transform: scale(0.95) translateY(-10px);
 		}
 		to {
 			opacity: 1;
-			transform: translateY(0);
+			transform: scale(1) translateY(0);
 		}
 	}
 
-	/* Outline text effect */
-	.outline-text {
-		-webkit-text-stroke: 2px currentColor;
+	/* Outline text effect for footer */
+	.outline-text-white {
+		-webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
 		-webkit-text-fill-color: transparent;
-		color: currentColor;
+		color: transparent;
+	}
+
+	/* Enhanced background interaction */
+	:global(body) {
+		transition: background 0.1s ease;
+		--mouse-x: 50%;
+		--mouse-y: 50%;
+	}
+
+	:global(body:hover) {
+		background: radial-gradient(
+			circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+			rgba(7, 54, 254, 0.02) 0%, 
+			transparent 40%
+		);
+	}
+
+	:global(.dark body:hover) {
+		background: radial-gradient(
+			circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+			rgba(7, 54, 254, 0.06) 0%, 
+			transparent 40%
+		);
 	}
 
 	/* Work item hover effects */
 	.work-item {
-		transition: transform 0.3s ease;
+		transition: transform 0.3s ease, filter 0.3s ease;
 	}
 
 	.work-item:hover {
 		transform: translateY(-5px);
+		filter: brightness(1.05);
+	}
+
+	/* Better mobile responsiveness */
+	@media (max-width: 640px) {
+		.hamburger {
+			width: 20px;
+			height: 16px;
+		}
+		
+		.hamburger span {
+			height: 2px;
+		}
+		
+		.hamburger span:nth-child(2) {
+			top: 7px;
+		}
+		
+		.hamburger span:nth-child(3) {
+			top: 14px;
+		}
+		
+		.hamburger.active span:nth-child(1) {
+			top: 7px;
+		}
+		
+		.hamburger.active span:nth-child(3) {
+			top: 7px;
+		}
+	}
+
+	/* Reduced motion support */
+	@media (prefers-reduced-motion: reduce) {
+		*,
+		*::before,
+		*::after {
+			animation-duration: 0.01ms !important;
+			animation-iteration-count: 1 !important;
+			transition-duration: 0.01ms !important;
+			scroll-behavior: auto !important;
+		}
+
+		.track {
+			animation: none;
+		}
+
+		canvas {
+			display: none !important;
+		}
+	}
+
+	/* Print styles */
+	@media print {
+		* {
+			background: transparent !important;
+			color: black !important;
+			text-shadow: none !important;
+			filter: none !important;
+		}
+
+		canvas, .mobile-menu {
+			display: none !important;
+		}
+
+		.fixed {
+			position: static !important;
+		}
+	}
+
+	/* Enhanced focus states for accessibility */
+	:global(button:focus, a:focus) {
+		outline: 2px solid #0736fe !important;
+		outline-offset: 4px !important;
 	}
 </style>
