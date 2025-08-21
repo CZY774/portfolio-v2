@@ -5,6 +5,7 @@
 	import Work from '$lib/components/Work.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 	import WebGL from '$lib/components/WebGL.svelte';
+	import Navigation from '$lib/components/Navigation.svelte';
 
 	let scrollY = 0;
 	let innerHeight = 0;
@@ -30,7 +31,10 @@
 		const handleWheel = (e) => {
 			e.preventDefault();
 			targetScrollY += e.deltaY * 0.5;
-			targetScrollY = Math.max(0, Math.min(targetScrollY, document.body.scrollHeight - window.innerHeight));
+			targetScrollY = Math.max(
+				0,
+				Math.min(targetScrollY, document.body.scrollHeight - window.innerHeight)
+			);
 			smoothScroll();
 		};
 
@@ -64,7 +68,7 @@
 
 		return () => {
 			window.removeEventListener('wheel', handleWheel);
-			ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+			ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
 		};
 	});
 
@@ -76,9 +80,11 @@
 
 <svelte:window bind:scrollY bind:innerHeight />
 
-<div class="relative min-h-screen bg-white dark:bg-black text-black dark:text-white transition-colors duration-300">
+<div
+	class="relative min-h-screen bg-white text-black transition-colors duration-300 dark:bg-black dark:text-white"
+>
 	<WebGL />
-	
+
 	<div class="relative z-10">
 		<Landing />
 		<About />
