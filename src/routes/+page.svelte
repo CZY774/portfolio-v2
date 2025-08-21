@@ -392,7 +392,7 @@
 				class="animate-fade-in text-lg font-light tracking-wider opacity-0"
 				style="animation-delay: 1s;"
 			>
-				loading portfolio...
+				loading portfolio
 			</p>
 		</div>
 	</div>
