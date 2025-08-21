@@ -1,15 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	let canvas: HTMLCanvasElement;
-	let scene: any, camera: any, renderer: any, particles: any;
-	let currentFilter = $state('all');
-	let isLoading = $state(true);
-	let isModalOpen = $state(false);
-	let modalContent = $state<any>(null);
-	let modalType = $state<'image' | 'video' | null>(null);
-
-	// Declare THREE as global
+	// Declare global interfaces
 	declare global {
 		interface Window {
 			THREE: any;
@@ -17,6 +9,14 @@
 			ScrollTrigger: any;
 		}
 	}
+
+	let canvas: HTMLCanvasElement;
+	let scene: any, camera: any, renderer: any, particles: any;
+	let currentFilter = $state('all');
+	let isLoading = $state(true);
+	let isModalOpen = $state(false);
+	let modalContent = $state<any>(null);
+	let modalType = $state<'image' | 'video' | null>(null);
 
 	let THREE: any;
 
@@ -297,6 +297,11 @@
 	<div
 		class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-8 cursor-crosshair"
 		onclick={closeModal}
+		role="dialog"
+		aria-modal="true"
+		onkeydown={(e) => {
+			if (e.key === 'Escape') closeModal();
+		}}
 	>
 		<div class="relative max-h-full w-full max-w-4xl cursor-default" onclick={(e) => e.stopPropagation()}>
 			<button class="absolute -top-12 right-0 text-2xl text-white hover:text-[#0736fe] transition-colors cursor-crosshair" onclick={closeModal}>✕</button>
@@ -469,7 +474,10 @@
 								alt={work.title}
 								class="h-full w-full object-cover opacity-80 transition-opacity duration-500 group-hover:opacity-100"
 								loading="lazy"
-								onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iI2Y1ZjVmNSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzk5OTk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIE5vdCBGb3VuZDwvdGV4dD48L3N2Zz4='"
+								onerror={(e) => {
+									const target = e.target as HTMLImageElement;
+									target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iI2Y1ZjVmNSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzk5OTk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIE5vdCBGb3VuZDwvdGV4dD48L3N2Zz4=';
+								}}
 							/>
 							<div
 								class="absolute inset-0 bg-[#0736fe]/0 hover:bg-[#0736fe]/20 transition-all duration-500 flex items-center justify-center"
