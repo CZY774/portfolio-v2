@@ -107,7 +107,7 @@
 				type: 'app',
 				title: 'Muncul River Tubing',
 				desc: 'Business website built with Laravel & Bootstrap',
-				link: 'https://munculrivertubing.com',
+				link: 'https://www.munculrivertubing.com',
 				image: '/images/website-1.png'
 			},
 			{
@@ -818,11 +818,11 @@
 		box-shadow: none !important;
 	}
 
-	:global(.custom-button:focus) {
+	/* :global(.custom-button:focus) {
 		outline: 2px solid #0736fe !important;
 		outline-offset: 2px !important;
 		box-shadow: none !important;
-	}
+	} */
 
 	:global(.custom-button:active) {
 		transform: none !important;
@@ -1064,8 +1064,8 @@
 	}
 
 	/* Enhanced focus states for accessibility */
-	:global(button:focus, a:focus) {
+	/* :global(button:focus, a:focus) {
 		outline: 2px solid #0736fe !important;
 		outline-offset: 4px !important;
-	}
+	} */
 </style>
