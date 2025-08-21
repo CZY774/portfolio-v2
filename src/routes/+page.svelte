@@ -758,7 +758,7 @@
 			<div class="text-right">
 				<div class="space-y-8">
 					<p class="text-xl leading-relaxed font-light text-gray-400">
-						idc how many americano<br />
+						idk how many americano<br />
 						i have been drinking,<br />
 						<span class="text-[#0736fe]">good design needs time</span>
 					</p>
