@@ -352,60 +352,29 @@
 	</div>
 </nav>
 
-<!-- Landing Section - Updated to match reference image -->
-<section
-	id="landing"
-	class="section relative z-10 flex min-h-screen items-center justify-center px-8"
->
-	<div class="mx-auto max-w-6xl text-center">
-		<div class="mb-16">
-			<h1 class="hero-title text-6xl leading-none font-light md:text-8xl lg:text-[10rem]">
-				CORNELIUS <span class="text-[#0736fe]">YOGA</span>
-			</h1>
-		</div>
-
-		<div class="hero-desc mx-auto mb-16 max-w-3xl">
-			<h2 class="mb-6 text-2xl font-light md:text-3xl">CONTACT</h2>
-			<p class="mb-8 text-xl font-light italic md:text-2xl">
-				unlock<br />
-				the another angle.
-			</p>
-			<p class="text-lg text-gray-600 md:text-xl dark:text-gray-400">
-				tacto is a design firm that creates experiences with stories.<br />
-				tactoはストーリーのある体験をつくるエクスペリエンスデザインファームです。
-			</p>
-		</div>
-
-		<div class="hero-desc mb-16 flex flex-wrap items-center justify-center gap-8 text-lg">
-			<span>kudus, indonesia</span>
+<!-- Landing Section -->
+<section id="landing" class="section min-h-screen flex items-center justify-center relative z-10 px-8">
+	<div class="text-center max-w-6xl mx-auto">
+		<h1 class="hero-title text-8xl md:text-9xl lg:text-[12rem] font-light leading-none mb-8">
+			cornelius <span class="text-[#0736fe]">yoga</span>
+		</h1>
+		<p class="hero-desc text-xl md:text-2xl font-light mb-12 max-w-3xl mx-auto">
+			digital designer & developer crafting meaningful experiences through clean code and thoughtful design
+		</p>
+		<div class="hero-desc flex flex-wrap justify-center items-center gap-8 mb-16 text-lg">
+			<span>jakarta, indonesia</span>
 			<div class="flex space-x-6">
-				<a href="https://instagram.com/corneliusyoga" class="transition-colors hover:text-[#0736fe]"
-					>ig</a
-				>
-				<a href="https://github.com/corneliusyoga" class="transition-colors hover:text-[#0736fe]"
-					>github</a
-				>
-				<a
-					href="https://linkedin.com/in/corneliusyoga"
-					class="transition-colors hover:text-[#0736fe]">linkedin</a
-				>
-				<a href="https://youtube.com/@corneliusyoga" class="transition-colors hover:text-[#0736fe]"
-					>youtube</a
-				>
+				<a href="https://instagram.com/corneliusyoga" class="hover:text-[#0736fe] transition-colors">ig</a>
+				<a href="https://github.com/corneliusyoga" class="hover:text-[#0736fe] transition-colors">github</a>
+				<a href="https://linkedin.com/in/corneliusyoga" class="hover:text-[#0736fe] transition-colors">linkedin</a>
+				<a href="https://youtube.com/@corneliusyoga" class="hover:text-[#0736fe] transition-colors">youtube</a>
 			</div>
 		</div>
-
 		<div class="hero-desc flex justify-center space-x-8">
-			<button
-				onclick={() => scrollToSection('work')}
-				class="border border-current px-8 py-3 transition-all hover:border-[#0736fe] hover:bg-[#0736fe] hover:text-white"
-			>
+			<button on:click={() => scrollToSection('work')} class="border border-current px-8 py-3 hover:bg-[#0736fe] hover:border-[#0736fe] hover:text-white transition-all">
 				view work
 			</button>
-			<button
-				onclick={() => scrollToSection('footer')}
-				class="bg-[#0736fe] px-8 py-3 text-white transition-colors hover:bg-[#0736fe]/90"
-			>
+			<button on:click={() => scrollToSection('footer')} class="bg-[#0736fe] text-white px-8 py-3 hover:bg-[#0736fe]/90 transition-colors">
 				get in touch
 			</button>
 		</div>
