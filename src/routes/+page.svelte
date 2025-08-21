@@ -559,19 +559,18 @@
 		<h2 class="animate-in mb-24 text-6xl font-light md:text-8xl">about me</h2>
 
 		<!-- Tech Stack Marquee -->
-		<div class="animate-in relative mb-32 overflow-hidden">
-			<div class="marquee">
-				<div class="track">
-					<div class="content">
-						{#each [...techStack, ...techStack] as tech}
-							<i
-								class="{tech} mr-16 text-6xl opacity-60 transition-all duration-300 hover:text-[#0736fe] hover:opacity-100"
-							></i>
-						{/each}
-					</div>
-				</div>
-			</div>
+		<div class="animate-in mb-32 overflow-hidden relative">
+	<div class="marquee-container">
+		<div class="marquee-track">
+			{#each techStack as tech}
+				<i class="{tech} tech-icon"></i>
+			{/each}
+			{#each techStack as tech}
+				<i class="{tech} tech-icon"></i>
+			{/each}
 		</div>
+	</div>
+</div>
 
 		<!-- Career Summary -->
 		<div class="animate-in">
