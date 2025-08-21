@@ -60,14 +60,14 @@
 				title: 'E-Commerce Platform',
 				desc: 'Modern shopping experience with Next.js',
 				link: 'https://github.com/username/project1',
-				image: '/images/project1.jpg' // Changed to local path
+				image: '/images/project1.jpg'
 			},
 			{
 				type: 'app',
 				title: 'Task Management App',
 				desc: 'Productivity tool built with React & TypeScript',
 				link: 'https://github.com/username/project2',
-				image: '/images/project2.jpg' // Changed to local path
+				image: '/images/project2.jpg'
 			}
 		],
 		photo: [
@@ -75,13 +75,13 @@
 				type: 'photo',
 				title: 'Urban Architecture',
 				desc: 'Street photography series from Jakarta',
-				image: '/images/photo1.jpg' // Changed to local path
+				image: '/images/photo1.jpg'
 			},
 			{
 				type: 'photo',
 				title: 'Digital Portraits',
 				desc: 'Contemporary portrait photography',
-				image: '/images/photo2.jpg' // Changed to local path
+				image: '/images/photo2.jpg'
 			}
 		],
 		videos: [
@@ -90,14 +90,14 @@
 				title: 'Motion Graphics Reel',
 				desc: 'Creative animations and transitions',
 				url: 'https://www.youtube.com/embed/TXQzKo2j-ok',
-				image: '/images/video1.jpg' // Changed to local path
+				image: '/images/video1.jpg'
 			},
 			{
 				type: 'video',
 				title: 'Brand Identity Video',
 				desc: 'Logo animation and brand presentation',
 				url: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-				image: '/images/video2.jpg' // Changed to local path
+				image: '/images/video2.jpg'
 			}
 		]
 	};
@@ -143,11 +143,55 @@
 		// Initialize GSAP animations
 		initGSAP();
 
+		// Initialize scroll navigation
+		initScrollNavigation();
+
 		// Simulate loading
 		setTimeout(() => {
 			isLoading = false;
 		}, 2000);
 	});
+
+	function initScrollNavigation() {
+		// Detect if a link's href goes to the current page
+		function getSamePageAnchor(link: HTMLAnchorElement) {
+			if (
+				link.protocol !== window.location.protocol ||
+				link.host !== window.location.host ||
+				link.pathname !== window.location.pathname ||
+				link.search !== window.location.search
+			) {
+				return false;
+			}
+			return link.hash;
+		}
+
+		// Scroll to a given hash, preventing the event given if there is one
+		function scrollToHash(hash: string, e?: Event) {
+			const elem = hash ? document.querySelector(hash) : false;
+			if (elem) {
+				if (e) e.preventDefault();
+				if (window.gsap) {
+					window.gsap.to(window, { scrollTo: elem, duration: 1.5, ease: 'power2.inOut' });
+				} else {
+					elem.scrollIntoView({ behavior: 'smooth' });
+				}
+			}
+		}
+
+		// If a link's href is within the current page, scroll to it instead
+		document.querySelectorAll('a[href]').forEach((a) => {
+			a.addEventListener('click', (e) => {
+				const anchor = getSamePageAnchor(a as HTMLAnchorElement);
+				if (anchor) {
+					scrollToHash(anchor, e);
+				}
+			});
+		});
+
+		// Scroll to the element in the URL's hash on load
+		scrollToHash(window.location.hash);
+	}
 
 	function initThreeJS() {
 		if (!THREE || !canvas) return;
@@ -175,7 +219,12 @@
 		geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
 		geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
 
-		const material = new THREE.PointsMaterial({ size: 3, vertexColors: true, opacity: 0.6, transparent: true });
+		const material = new THREE.PointsMaterial({
+			size: 3,
+			vertexColors: true,
+			opacity: 0.6,
+			transparent: true
+		});
 		particles = new THREE.Points(geometry, material);
 		scene.add(particles);
 
@@ -249,20 +298,6 @@
 		});
 	}
 
-	function scrollToSection(id: string) {
-		const element = document.getElementById(id);
-		if (element && window.gsap) {
-			window.gsap.to(window, {
-				duration: 1.5,
-				scrollTo: { y: element, offsetY: 0 },
-				ease: 'power2.inOut'
-			});
-		} else if (element) {
-			// Fallback smooth scroll
-			element.scrollIntoView({ behavior: 'smooth' });
-		}
-	}
-
 	function openModal(content: any, type: 'image' | 'video') {
 		modalContent = content;
 		modalType = type;
@@ -295,7 +330,7 @@
 <!-- Modal -->
 {#if isModalOpen}
 	<div
-		class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-8 cursor-crosshair"
+		class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-8"
 		onclick={closeModal}
 		role="dialog"
 		aria-modal="true"
@@ -303,8 +338,11 @@
 			if (e.key === 'Escape') closeModal();
 		}}
 	>
-		<div class="relative max-h-full w-full max-w-4xl cursor-default" onclick={(e) => e.stopPropagation()}>
-			<button class="absolute -top-12 right-0 text-2xl text-white hover:text-[#0736fe] transition-colors cursor-crosshair" onclick={closeModal}>✕</button>
+		<div class="relative max-h-full w-full max-w-4xl" onclick={(e) => e.stopPropagation()}>
+			<button
+				class="absolute -top-12 right-0 text-2xl text-white hover:text-[#0736fe] transition-colors"
+				onclick={closeModal}>✕</button
+			>
 			{#if modalType === 'image'}
 				<img
 					src={modalContent.image}
@@ -335,20 +373,11 @@
 <nav class="fixed top-0 right-0 left-0 z-40 bg-white/90 backdrop-blur-sm dark:bg-gray-950/90">
 	<div class="container mx-auto px-8 py-6">
 		<div class="flex items-center justify-between">
-			<button onclick={() => scrollToSection('landing')} class="text-lg font-medium hover:text-[#0736fe] transition-colors cursor-crosshair">cy</button>
+			<a href="#landing" class="text-lg font-medium hover:text-[#0736fe] transition-colors">cy</a>
 			<div class="flex space-x-8">
-				<button
-					onclick={() => scrollToSection('about')}
-					class="transition-colors hover:text-[#0736fe] cursor-crosshair">about</button
-				>
-				<button
-					onclick={() => scrollToSection('work')}
-					class="transition-colors hover:text-[#0736fe] cursor-crosshair">work</button
-				>
-				<button
-					onclick={() => scrollToSection('footer')}
-					class="transition-colors hover:text-[#0736fe] cursor-crosshair">contact</button
-				>
+				<a href="#about" class="transition-colors hover:text-[#0736fe]">about</a>
+				<a href="#work" class="transition-colors hover:text-[#0736fe]">work</a>
+				<a href="#footer" class="transition-colors hover:text-[#0736fe]">contact</a>
 			</div>
 		</div>
 	</div>
@@ -362,42 +391,50 @@
 	<div class="mx-auto max-w-7xl">
 		<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 			<div>
-				<h1 class="hero-title mb-8 text-7xl leading-none font-light md:text-8xl lg:text-9xl">
+				<h1 class="hero-title mb-12 text-7xl leading-none font-light md:text-8xl lg:text-9xl">
 					cornelius <span class="text-[#0736fe]">yoga</span>
 				</h1>
-				<div class="hero-desc mb-12">
-					<h2 class="text-4xl font-light mb-6 leading-tight">
-						unlock<br />
-						<span class="border-b-2 border-[#0736fe] pb-1">the another angle.</span>
-					</h2>
-					<p class="text-xl font-light text-gray-600 dark:text-gray-400 leading-relaxed">
-						digital designer & developer crafting meaningful experiences through clean code and thoughtful design. based in kudus, indonesia.
+				<div class="hero-desc">
+					<p class="text-2xl font-light text-gray-600 dark:text-gray-400 leading-relaxed mb-12">
+						digital designer & developer<br />
+						based in kudus, indonesia
 					</p>
 				</div>
 			</div>
 			<div class="hero-desc text-right">
 				<div class="mb-12">
-					<p class="text-lg mb-4">jakarta, indonesia</p>
-					<div class="flex justify-end space-x-6">
-						<a href="https://instagram.com/corneliusyoga" class="transition-colors hover:text-[#0736fe] cursor-crosshair">ig</a>
-						<a href="https://github.com/corneliusyoga" class="transition-colors hover:text-[#0736fe] cursor-crosshair">github</a>
-						<a href="https://linkedin.com/in/corneliusyoga" class="transition-colors hover:text-[#0736fe] cursor-crosshair">linkedin</a>
-						<a href="https://youtube.com/@corneliusyoga" class="transition-colors hover:text-[#0736fe] cursor-crosshair">youtube</a>
+					<div class="flex justify-end space-x-6 mb-8">
+						<a
+							href="https://instagram.com/corneliusyoga"
+							class="transition-colors hover:text-[#0736fe]">ig</a
+						>
+						<a
+							href="https://github.com/corneliusyoga"
+							class="transition-colors hover:text-[#0736fe]">github</a
+						>
+						<a
+							href="https://linkedin.com/in/corneliusyoga"
+							class="transition-colors hover:text-[#0736fe]">linkedin</a
+						>
+						<a
+							href="https://youtube.com/@corneliusyoga"
+							class="transition-colors hover:text-[#0736fe]">youtube</a
+						>
 					</div>
 				</div>
 				<div class="flex justify-end space-x-4">
-					<button
-						onclick={() => scrollToSection('work')}
-						class="border border-current px-8 py-3 transition-all hover:border-[#0736fe] hover:bg-[#0736fe] hover:text-white cursor-crosshair"
+					<a
+						href="#work"
+						class="border border-current px-8 py-3 transition-all hover:border-[#0736fe] hover:bg-[#0736fe] hover:text-white"
 					>
 						view work
-					</button>
-					<button
-						onclick={() => scrollToSection('footer')}
-						class="bg-[#0736fe] px-8 py-3 text-white transition-colors hover:bg-[#0736fe]/90 cursor-crosshair"
+					</a>
+					<a
+						href="#footer"
+						class="bg-[#0736fe] px-8 py-3 text-white transition-colors hover:bg-[#0736fe]/90"
 					>
 						get in touch
-					</button>
+					</a>
 				</div>
 			</div>
 		</div>
@@ -411,16 +448,15 @@
 
 		<!-- Tech Stack Marquee -->
 		<div class="animate-in mb-32 overflow-hidden relative">
-			<div class="marquee-container">
-				<div class="marquee-content">
-					{#each techStack as tech}
-						<i class="{tech} text-6xl opacity-60 hover:opacity-100 hover:text-[#0736fe] transition-all duration-300 cursor-crosshair"></i>
-					{/each}
-				</div>
-				<div class="marquee-content" aria-hidden="true">
-					{#each techStack as tech}
-						<i class="{tech} text-6xl opacity-60 hover:opacity-100 hover:text-[#0736fe] transition-all duration-300 cursor-crosshair"></i>
-					{/each}
+			<div class="marquee">
+				<div class="track">
+					<div class="content">
+						{#each [...techStack, ...techStack] as tech}
+							<i
+								class="{tech} text-6xl opacity-60 hover:opacity-100 hover:text-[#0736fe] transition-all duration-300 mr-16"
+							></i>
+						{/each}
+					</div>
 				</div>
 			</div>
 		</div>
@@ -430,9 +466,13 @@
 			<h3 class="mb-16 text-4xl font-light">career journey</h3>
 			<div class="space-y-12">
 				{#each career as item}
-					<div class="border-b border-gray-200 pb-12 dark:border-gray-800 hover:border-[#0736fe] transition-colors duration-300">
+					<div
+						class="border-b border-gray-200 pb-12 dark:border-gray-800 hover:border-[#0736fe] transition-colors duration-300"
+					>
 						<div class="mb-4 flex flex-col justify-between md:flex-row md:items-center">
-							<h4 class="text-2xl font-medium hover:text-[#0736fe] transition-colors duration-300 cursor-crosshair">{item.institution}</h4>
+							<h4 class="text-2xl font-medium hover:text-[#0736fe] transition-colors duration-300">
+								{item.institution}
+							</h4>
 							<span class="text-gray-600 dark:text-gray-400">{item.date}</span>
 						</div>
 						<p class="mb-4 text-xl text-[#0736fe]">{item.role}</p>
@@ -454,7 +494,7 @@
 			{#each ['all', 'apps', 'photo', 'videos'] as filter}
 				<button
 					onclick={() => (currentFilter = filter)}
-					class="border border-current px-6 py-2 transition-all cursor-crosshair {currentFilter === filter
+					class="border border-current px-6 py-2 transition-all {currentFilter === filter
 						? 'border-[#0736fe] bg-[#0736fe] text-white'
 						: 'hover:text-[#0736fe] hover:border-[#0736fe]'}"
 				>
@@ -468,7 +508,9 @@
 			{#each filteredWorks as work}
 				<div class="work-item group">
 					{#if work.image}
-						<div class="relative mb-8 aspect-[4/3] overflow-hidden bg-gray-100 dark:bg-gray-900 hover:scale-105 transition-transform duration-500">
+						<div
+							class="relative mb-8 aspect-[4/3] overflow-hidden bg-gray-100 dark:bg-gray-900 hover:scale-105 transition-transform duration-500"
+						>
 							<img
 								src={work.image}
 								alt={work.title}
@@ -476,39 +518,45 @@
 								loading="lazy"
 								onerror={(e) => {
 									const target = e.target as HTMLImageElement;
-									target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iI2Y1ZjVmNSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzk5OTk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIE5vdCBGb3VuZDwvdGV4dD48L3N2Zz4=';
+									target.src =
+										'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iI2Y1ZjVmNSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzk5OTk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIE5vdCBGb3VuZDwvdGV4dD48L3N2Zz4=';
 								}}
 							/>
 							<div
 								class="absolute inset-0 bg-[#0736fe]/0 hover:bg-[#0736fe]/20 transition-all duration-500 flex items-center justify-center"
 							>
-								<span class="text-2xl font-light text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">{work.title.toLowerCase()}</span>
+								<span
+									class="text-2xl font-light text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+									>{work.title.toLowerCase()}</span
+								>
 							</div>
 						</div>
 					{/if}
 
-					<h3 class="mb-4 text-3xl font-light hover:text-[#0736fe] transition-colors duration-300 cursor-crosshair">{work.title}</h3>
+					<h3 class="mb-4 text-3xl font-light hover:text-[#0736fe] transition-colors duration-300">
+						{work.title}
+					</h3>
 					<p class="mb-6 text-lg text-gray-600 dark:text-gray-400">{work.desc}</p>
 
 					{#if work.type === 'app' && work.link}
 						<a
 							href={work.link}
 							target="_blank"
-							class="inline-block border border-current px-6 py-2 transition-all hover:border-[#0736fe] hover:bg-[#0736fe] hover:text-white cursor-crosshair"
+							class="inline-block border border-current px-6 py-2 transition-all hover:border-[#0736fe] hover:bg-[#0736fe] hover:text-white"
 						>
 							view project
 						</a>
 					{:else if work.type === 'photo'}
 						<button
 							onclick={() => openModal(work, 'image')}
-							class="inline-block border border-current px-6 py-2 transition-all hover:border-[#0736fe] hover:bg-[#0736fe] hover:text-white cursor-crosshair"
+							class="inline-block border border-current px-6 py-2 transition-all hover:border-[#0736fe] hover:bg-[#0736fe] hover:text-white"
 						>
 							look closer
 						</button>
 					{:else if work.type === 'video' && work.url}
 						<button
 							onclick={() => openModal(work, 'video')}
-							class="inline-block border border-current px-6 py-2 transition-all hover:border-[#0736fe] hover:bg-[#0736fe] hover:text-white cursor-crosshair"
+							class="inline-block border border-current px-6 py-2 transition-all hover:border-[#0736fe] hover:bg-[#0736fe] hover:text-white"
 						>
 							play video
 						</button>
@@ -520,79 +568,34 @@
 </section>
 
 <!-- Footer -->
-<footer id="footer" class="section relative z-10 px-8 py-24 bg-gradient-to-b from-transparent to-gray-50 dark:to-gray-900">
+<footer id="footer" class="section relative z-10 px-8 py-24">
 	<div class="container mx-auto max-w-7xl">
 		<div class="text-center mb-16">
-			<h2 class="animate-in text-6xl font-light mb-8 md:text-7xl">
-				Ready to Bring<br />
-				Your Vision to <span class="text-[#0736fe]">Life?</span>
-			</h2>
-			<p class="animate-in text-xl text-gray-600 dark:text-gray-400 mb-12 max-w-2xl mx-auto">
-				Let's collaborate and create something extraordinary together. I'm always excited about new challenges and innovative projects.
-			</p>
-			<div class="animate-in flex flex-col sm:flex-row gap-6 justify-center items-center">
+			<div class="mb-16">
+				<div class="text-[20vw] md:text-[15vw] lg:text-[12vw] font-light leading-none outline-text mb-8">
+					CZY
+				</div>
+			</div>
+			<div class="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">
 				<a
 					href="mailto:cornelius@example.com"
-					class="bg-[#0736fe] text-white px-8 py-4 text-lg transition-all hover:bg-[#0736fe]/90 hover:scale-105 cursor-crosshair"
+					class="bg-[#0736fe] text-white px-8 py-4 text-lg transition-all hover:bg-[#0736fe]/90 hover:scale-105"
 				>
 					Let's Get Started →
 				</a>
 				<div class="flex space-x-6">
-					<a href="mailto:cornelius@example.com" class="text-gray-600 dark:text-gray-400 hover:text-[#0736fe] underline cursor-crosshair">Email</a>
-					<a href="https://instagram.com/corneliusyoga" class="text-gray-600 dark:text-gray-400 hover:text-[#0736fe] underline cursor-crosshair">Instagram</a>
-					<a href="https://linkedin.com/in/corneliusyoga" class="text-gray-600 dark:text-gray-400 hover:text-[#0736fe] underline cursor-crosshair">LinkedIn</a>
-					<a href="https://dribbble.com/corneliusyoga" class="text-gray-600 dark:text-gray-400 hover:text-[#0736fe] underline cursor-crosshair">Dribbble</a>
+					<a href="mailto:cornelius@example.com" class="text-gray-600 dark:text-gray-400 hover:text-[#0736fe] underline">Email</a>
+					<a href="https://instagram.com/corneliusyoga" class="text-gray-600 dark:text-gray-400 hover:text-[#0736fe] underline">Instagram</a>
+					<a href="https://linkedin.com/in/corneliusyoga" class="text-gray-600 dark:text-gray-400 hover:text-[#0736fe] underline">LinkedIn</a>
+					<a href="https://dribbble.com/corneliusyoga" class="text-gray-600 dark:text-gray-400 hover:text-[#0736fe] underline">Dribbble</a>
 				</div>
 			</div>
 		</div>
 		
 		<div class="border-t border-gray-200 dark:border-gray-800 pt-8 text-center">
 			<p class="animate-in text-gray-600 dark:text-gray-400">
-				© 2025 Design & Coded with ❤️ by Cornelius Ardhani Yoga Pratama
+				created by cornelius ardhani yoga pratama
 			</p>
 		</div>
 	</div>
 </footer>
-
-<style>
-	.marquee-container {
-		display: flex;
-		overflow: hidden;
-		gap: 4rem;
-	}
-
-	.marquee-content {
-		display: flex;
-		gap: 4rem;
-		animation: marquee 30s linear infinite;
-		flex-shrink: 0;
-	}
-
-	@keyframes marquee {
-		0% {
-			transform: translateX(0%);
-		}
-		100% {
-			transform: translateX(-100%);
-		}
-	}
-
-	/* Custom cursor */
-	* {
-		cursor: default;
-	}
-
-	.cursor-crosshair {
-		cursor: crosshair !important;
-	}
-
-	/* Hover effects for background elements */
-	.work-item:hover ~ canvas {
-		opacity: 0.8;
-	}
-
-	section:hover ~ canvas {
-		opacity: 0.7;
-		transition: opacity 0.3s ease;
-	}
-</style>
