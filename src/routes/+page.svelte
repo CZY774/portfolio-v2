@@ -252,11 +252,15 @@
 	}
 </script>
 
+<svelte:head>
+  <title>cornelius yoga - creative developer & designer</title>
+</svelte:head>
+
 <!-- Loader -->
 {#if isLoading}
 	<div class="fixed inset-0 bg-white dark:bg-gray-950 z-50 flex items-center justify-center">
 		<div class="text-center">
-			<div class="w-16 h-16 border-4 border-[#0736fe] border-t-transparent rounded-full animate-spin mb-8"></div>
+			<!-- <div class="w-16 h-16 border-4 border-[#0736fe] border-t-transparent rounded-full animate-spin mb-8"></div> -->
 			<h2 class="text-2xl font-light tracking-wide">loading portfolio</h2>
 		</div>
 	</div>
