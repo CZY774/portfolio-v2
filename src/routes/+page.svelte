@@ -751,7 +751,7 @@
 				<h2 class="text-7xl leading-none font-light md:text-8xl lg:text-9xl">
 					<span class="block text-white/90">have a</span>
 					<span class="block text-[#0736fe]">great</span>
-					<span class="block text-white/90">day</span>
+					<span class="block text-white/90">day!</span>
 				</h2>
 			</div>
 			<div class="text-right">
