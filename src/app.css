@@ -151,7 +151,7 @@ input[type="reset"] {
 	user-select: none !important;
 }
 
-.custom-button:focus,
+/* .custom-button:focus,
 button:focus,
 a[role="button"]:focus,
 input[type="button"]:focus,
@@ -161,7 +161,7 @@ input[type="reset"]:focus {
 	outline-offset: 2px !important;
 	box-shadow: none !important;
 	transform: none !important;
-}
+} */
 
 .custom-button:active,
 button:active,
@@ -197,11 +197,11 @@ input[type="reset"] {
 	background: none;
 }
 
-button:focus-visible,
+/* button:focus-visible,
 a:focus-visible {
 	outline: 2px solid #0736fe;
 	outline-offset: 2px;
-}
+} */
 
 /* Enhanced loading animations */
 @keyframes fade-in-up {
@@ -507,11 +507,11 @@ button, a, .work-item {
 }
 
 /* Better focus states for accessibility */
-button:focus,
+/* button:focus,
 a:focus {
 	outline: 2px solid #0736fe;
 	outline-offset: 4px;
-}
+} */
 
 /* Smooth page transitions */
 .page-transition {
