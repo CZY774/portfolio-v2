@@ -63,7 +63,7 @@ h1, h2, h3, h4, h5, h6 {
 	position: relative;
 	white-space: nowrap;
 	will-change: transform;
-	animation: marquee 90s linear infinite;
+	animation: marquee 10s linear infinite;
 }
 
 .track .content {
