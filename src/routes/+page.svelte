@@ -767,7 +767,7 @@
 				<div class="space-y-8">
 					<p class="text-xl leading-relaxed font-light text-gray-400">
 						idk how many coffee<br />
-						i have been drinking,<br />
+						i've been drinking,<br />
 						<span class="text-[#0736fe]">good design needs time</span>
 					</p>
 					<div class="text-sm font-light text-gray-600">kudus, indonesia — 2025</div>
