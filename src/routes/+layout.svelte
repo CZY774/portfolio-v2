@@ -51,7 +51,7 @@
 	/>
 	<meta
 		name="keywords"
-		content="cornelius yoga, web developer, ui/ux designer, frontend developer, fullstack developer, kudus, salatiga, semarang, tangerang, jakarta, universitas kristen satya wacana, uksw, fti, fakultas teknologi informasi, scwu, satya wacana christian university, indonesia"
+		content="cornelius yoga, web developer, android developer, ui/ux designer, frontend developer, fullstack developer, kudus, salatiga, semarang, tangerang, jakarta, universitas kristen satya wacana, uksw, fti, fakultas teknologi informasi, scwu, satya wacana christian university, indonesia"
 	/>
 </svelte:head>
 
