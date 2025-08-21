@@ -266,24 +266,24 @@
 		const colors = [];
 
 		for (let i = 0; i < 800; i++) {
-	vertices.push((Math.random() - 0.5) * 2000);
-	vertices.push((Math.random() - 0.5) * 2000);
-	vertices.push((Math.random() - 0.5) * 2000);
+			vertices.push((Math.random() - 0.5) * 2000);
+			vertices.push((Math.random() - 0.5) * 2000);
+			vertices.push((Math.random() - 0.5) * 2000);
 
-	// Dynamic colors based on theme or better contrast
-	const isDark = document.documentElement.classList.contains('dark');
-	if (isDark) {
-		// Dark mode - lighter particles
-		colors.push(0.6); // R
-		colors.push(0.6); // G  
-		colors.push(0.9); // B - blue tint
-	} else {
-		// Light mode - darker particles for visibility
-		colors.push(0.2); // R - darker
-		colors.push(0.3); // G - darker
-		colors.push(0.6); // B - visible blue
-	}
-}
+			// Dynamic colors based on theme or better contrast
+			const isDark = document.documentElement.classList.contains('dark');
+			if (isDark) {
+				// Dark mode - lighter particles
+				colors.push(0.6); // R
+				colors.push(0.6); // G
+				colors.push(0.9); // B - blue tint
+			} else {
+				// Light mode - darker particles for visibility
+				colors.push(0.2); // R - darker
+				colors.push(0.3); // G - darker
+				colors.push(0.6); // B - visible blue
+			}
+		}
 
 		geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
 		geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
@@ -291,7 +291,7 @@
 		const material = new THREE.PointsMaterial({
 			size: 2,
 			vertexColors: true,
-			opacity: 0.3,
+			opacity: 0.6, // Increased from 0.3 to 0.6
 			transparent: true,
 			blending: THREE.AdditiveBlending
 		});
