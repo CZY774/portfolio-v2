@@ -13,6 +13,8 @@
 	declare global {
 		interface Window {
 			THREE: any;
+			gsap: any;
+			ScrollTrigger: any;
 		}
 	}
 
@@ -58,14 +60,14 @@
 				title: 'E-Commerce Platform',
 				desc: 'Modern shopping experience with Next.js',
 				link: 'https://github.com/username/project1',
-				image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&h=600&fit=crop'
+				image: '/images/project1.jpg' // Changed to local path
 			},
 			{
 				type: 'app',
 				title: 'Task Management App',
 				desc: 'Productivity tool built with React & TypeScript',
 				link: 'https://github.com/username/project2',
-				image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&h=600&fit=crop'
+				image: '/images/project2.jpg' // Changed to local path
 			}
 		],
 		photo: [
@@ -73,13 +75,13 @@
 				type: 'photo',
 				title: 'Urban Architecture',
 				desc: 'Street photography series from Jakarta',
-				image: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&h=600&fit=crop'
+				image: '/images/photo1.jpg' // Changed to local path
 			},
 			{
 				type: 'photo',
 				title: 'Digital Portraits',
 				desc: 'Contemporary portrait photography',
-				image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop'
+				image: '/images/photo2.jpg' // Changed to local path
 			}
 		],
 		videos: [
@@ -88,14 +90,14 @@
 				title: 'Motion Graphics Reel',
 				desc: 'Creative animations and transitions',
 				url: 'https://www.youtube.com/embed/TXQzKo2j-ok',
-				image: 'https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=800&h=600&fit=crop'
+				image: '/images/video1.jpg' // Changed to local path
 			},
 			{
 				type: 'video',
 				title: 'Brand Identity Video',
 				desc: 'Logo animation and brand presentation',
 				url: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-				image: 'https://images.unsplash.com/photo-1536240478700-b869070f9279?w=800&h=600&fit=crop'
+				image: '/images/video2.jpg' // Changed to local path
 			}
 		]
 	};
@@ -160,20 +162,20 @@
 		const vertices = [];
 		const colors = [];
 
-		for (let i = 0; i < 1000; i++) {
+		for (let i = 0; i < 1500; i++) {
 			vertices.push((Math.random() - 0.5) * 2000);
 			vertices.push((Math.random() - 0.5) * 2000);
 			vertices.push((Math.random() - 0.5) * 2000);
 
-			colors.push(Math.random());
-			colors.push(Math.random());
-			colors.push(Math.random());
+			colors.push(Math.random() * 0.3 + 0.7);
+			colors.push(Math.random() * 0.3 + 0.7);
+			colors.push(Math.random() * 0.3 + 0.7);
 		}
 
 		geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
 		geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
 
-		const material = new THREE.PointsMaterial({ size: 2, vertexColors: true });
+		const material = new THREE.PointsMaterial({ size: 3, vertexColors: true, opacity: 0.6, transparent: true });
 		particles = new THREE.Points(geometry, material);
 		scene.add(particles);
 
@@ -192,22 +194,18 @@
 	function animate() {
 		if (!particles || !renderer || !scene || !camera) return;
 		requestAnimationFrame(animate);
-		particles.rotation.x += 0.0005;
-		particles.rotation.y += 0.001;
+		particles.rotation.x += 0.0008;
+		particles.rotation.y += 0.0012;
 		renderer.render(scene, camera);
 	}
 
 	function initGSAP() {
-		// @ts-ignore
-		gsap.registerPlugin(ScrollTrigger);
+		if (!window.gsap || !window.ScrollTrigger) return;
 
-		// Smooth scroll
-		// @ts-ignore
-		gsap.to(window, { duration: 2, scrollTo: 0 });
+		window.gsap.registerPlugin(window.ScrollTrigger);
 
 		// Landing animations
-		// @ts-ignore
-		gsap.from('.hero-title', {
+		window.gsap.from('.hero-title', {
 			duration: 1.5,
 			y: 100,
 			opacity: 0,
@@ -216,8 +214,7 @@
 			delay: 2.2
 		});
 
-		// @ts-ignore
-		gsap.from('.hero-desc', {
+		window.gsap.from('.hero-desc', {
 			duration: 1,
 			y: 50,
 			opacity: 0,
@@ -225,8 +222,7 @@
 		});
 
 		// Parallax effect
-		// @ts-ignore
-		gsap.to('.parallax-bg', {
+		window.gsap.to('.parallax-bg', {
 			yPercent: -50,
 			ease: 'none',
 			scrollTrigger: {
@@ -238,9 +234,8 @@
 		});
 
 		// Section animations
-		// @ts-ignore
-		gsap.utils.toArray('.section').forEach((section: any) => {
-			gsap.from(section.querySelectorAll('.animate-in'), {
+		window.gsap.utils.toArray('.section').forEach((section: any) => {
+			window.gsap.from(section.querySelectorAll('.animate-in'), {
 				y: 100,
 				opacity: 0,
 				duration: 1,
@@ -256,13 +251,15 @@
 
 	function scrollToSection(id: string) {
 		const element = document.getElementById(id);
-		if (element) {
-			// @ts-ignore
-			gsap.to(window, {
+		if (element && window.gsap) {
+			window.gsap.to(window, {
 				duration: 1.5,
-				scrollTo: element,
+				scrollTo: { y: element, offsetY: 0 },
 				ease: 'power2.inOut'
 			});
+		} else if (element) {
+			// Fallback smooth scroll
+			element.scrollIntoView({ behavior: 'smooth' });
 		}
 	}
 
@@ -298,11 +295,11 @@
 <!-- Modal -->
 {#if isModalOpen}
 	<div
-		class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-8"
+		class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-8 cursor-crosshair"
 		onclick={closeModal}
 	>
-		<div class="relative max-h-full w-full max-w-4xl" onclick={(e) => e.stopPropagation()}>
-			<button class="absolute -top-12 right-0 text-2xl text-white" onclick={closeModal}>×</button>
+		<div class="relative max-h-full w-full max-w-4xl cursor-default" onclick={(e) => e.stopPropagation()}>
+			<button class="absolute -top-12 right-0 text-2xl text-white hover:text-[#0736fe] transition-colors cursor-crosshair" onclick={closeModal}>✕</button>
 			{#if modalType === 'image'}
 				<img
 					src={modalContent.image}
@@ -327,25 +324,25 @@
 {/if}
 
 <!-- WebGL Background -->
-<canvas bind:this={canvas} class="fixed inset-0 z-0 opacity-30"></canvas>
+<canvas bind:this={canvas} class="fixed inset-0 z-0 opacity-60 pointer-events-none"></canvas>
 
 <!-- Navigation -->
-<nav class="fixed top-0 right-0 left-0 z-40 bg-white/80 backdrop-blur-sm dark:bg-gray-950/80">
+<nav class="fixed top-0 right-0 left-0 z-40 bg-white/90 backdrop-blur-sm dark:bg-gray-950/90">
 	<div class="container mx-auto px-8 py-6">
 		<div class="flex items-center justify-between">
-			<button onclick={() => scrollToSection('landing')} class="text-lg font-medium">cy</button>
+			<button onclick={() => scrollToSection('landing')} class="text-lg font-medium hover:text-[#0736fe] transition-colors cursor-crosshair">cy</button>
 			<div class="flex space-x-8">
 				<button
 					onclick={() => scrollToSection('about')}
-					class="transition-colors hover:text-[#0736fe]">about</button
+					class="transition-colors hover:text-[#0736fe] cursor-crosshair">about</button
 				>
 				<button
 					onclick={() => scrollToSection('work')}
-					class="transition-colors hover:text-[#0736fe]">work</button
+					class="transition-colors hover:text-[#0736fe] cursor-crosshair">work</button
 				>
 				<button
 					onclick={() => scrollToSection('footer')}
-					class="transition-colors hover:text-[#0736fe]">contact</button
+					class="transition-colors hover:text-[#0736fe] cursor-crosshair">contact</button
 				>
 			</div>
 		</div>
@@ -355,47 +352,49 @@
 <!-- Landing Section -->
 <section
 	id="landing"
-	class="section relative z-10 flex min-h-screen items-center justify-center px-8"
+	class="section relative z-10 flex min-h-screen items-center justify-center px-8 py-24"
 >
-	<div class="mx-auto max-w-6xl text-center">
-		<h1 class="hero-title mb-8 text-8xl leading-none font-light md:text-9xl lg:text-[12rem]">
-			cornelius <span class="text-[#0736fe]">yoga</span>
-		</h1>
-		<p class="hero-desc mx-auto mb-12 max-w-3xl text-xl font-light md:text-2xl">
-			digital designer & developer crafting meaningful experiences through clean code and thoughtful
-			design
-		</p>
-		<div class="hero-desc mb-16 flex flex-wrap items-center justify-center gap-8 text-lg">
-			<span>jakarta, indonesia</span>
-			<div class="flex space-x-6">
-				<a href="https://instagram.com/corneliusyoga" class="transition-colors hover:text-[#0736fe]"
-					>ig</a
-				>
-				<a href="https://github.com/corneliusyoga" class="transition-colors hover:text-[#0736fe]"
-					>github</a
-				>
-				<a
-					href="https://linkedin.com/in/corneliusyoga"
-					class="transition-colors hover:text-[#0736fe]">linkedin</a
-				>
-				<a href="https://youtube.com/@corneliusyoga" class="transition-colors hover:text-[#0736fe]"
-					>youtube</a
-				>
+	<div class="mx-auto max-w-7xl">
+		<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+			<div>
+				<h1 class="hero-title mb-8 text-7xl leading-none font-light md:text-8xl lg:text-9xl">
+					cornelius <span class="text-[#0736fe]">yoga</span>
+				</h1>
+				<div class="hero-desc mb-12">
+					<h2 class="text-4xl font-light mb-6 leading-tight">
+						unlock<br />
+						<span class="border-b-2 border-[#0736fe] pb-1">the another angle.</span>
+					</h2>
+					<p class="text-xl font-light text-gray-600 dark:text-gray-400 leading-relaxed">
+						digital designer & developer crafting meaningful experiences through clean code and thoughtful design. based in kudus, indonesia.
+					</p>
+				</div>
 			</div>
-		</div>
-		<div class="hero-desc flex justify-center space-x-8">
-			<button
-				onclick={() => scrollToSection('work')}
-				class="border border-current px-8 py-3 transition-all hover:border-[#0736fe] hover:bg-[#0736fe] hover:text-white"
-			>
-				view work
-			</button>
-			<button
-				onclick={() => scrollToSection('footer')}
-				class="bg-[#0736fe] px-8 py-3 text-white transition-colors hover:bg-[#0736fe]/90"
-			>
-				get in touch
-			</button>
+			<div class="hero-desc text-right">
+				<div class="mb-12">
+					<p class="text-lg mb-4">jakarta, indonesia</p>
+					<div class="flex justify-end space-x-6">
+						<a href="https://instagram.com/corneliusyoga" class="transition-colors hover:text-[#0736fe] cursor-crosshair">ig</a>
+						<a href="https://github.com/corneliusyoga" class="transition-colors hover:text-[#0736fe] cursor-crosshair">github</a>
+						<a href="https://linkedin.com/in/corneliusyoga" class="transition-colors hover:text-[#0736fe] cursor-crosshair">linkedin</a>
+						<a href="https://youtube.com/@corneliusyoga" class="transition-colors hover:text-[#0736fe] cursor-crosshair">youtube</a>
+					</div>
+				</div>
+				<div class="flex justify-end space-x-4">
+					<button
+						onclick={() => scrollToSection('work')}
+						class="border border-current px-8 py-3 transition-all hover:border-[#0736fe] hover:bg-[#0736fe] hover:text-white cursor-crosshair"
+					>
+						view work
+					</button>
+					<button
+						onclick={() => scrollToSection('footer')}
+						class="bg-[#0736fe] px-8 py-3 text-white transition-colors hover:bg-[#0736fe]/90 cursor-crosshair"
+					>
+						get in touch
+					</button>
+				</div>
+			</div>
 		</div>
 	</div>
 </section>
@@ -406,11 +405,18 @@
 		<h2 class="animate-in mb-24 text-6xl font-light md:text-8xl">about me</h2>
 
 		<!-- Tech Stack Marquee -->
-		<div class="animate-in mb-32 overflow-hidden">
-			<div class="animate-marquee flex space-x-16">
-				{#each [...techStack, ...techStack] as tech}
-					<i class="{tech} text-6xl opacity-60"></i>
-				{/each}
+		<div class="animate-in mb-32 overflow-hidden relative">
+			<div class="marquee-container">
+				<div class="marquee-content">
+					{#each techStack as tech}
+						<i class="{tech} text-6xl opacity-60 hover:opacity-100 hover:text-[#0736fe] transition-all duration-300 cursor-crosshair"></i>
+					{/each}
+				</div>
+				<div class="marquee-content" aria-hidden="true">
+					{#each techStack as tech}
+						<i class="{tech} text-6xl opacity-60 hover:opacity-100 hover:text-[#0736fe] transition-all duration-300 cursor-crosshair"></i>
+					{/each}
+				</div>
 			</div>
 		</div>
 
@@ -419,9 +425,9 @@
 			<h3 class="mb-16 text-4xl font-light">career journey</h3>
 			<div class="space-y-12">
 				{#each career as item}
-					<div class="border-b border-gray-200 pb-12 dark:border-gray-800">
+					<div class="border-b border-gray-200 pb-12 dark:border-gray-800 hover:border-[#0736fe] transition-colors duration-300">
 						<div class="mb-4 flex flex-col justify-between md:flex-row md:items-center">
-							<h4 class="text-2xl font-medium">{item.institution}</h4>
+							<h4 class="text-2xl font-medium hover:text-[#0736fe] transition-colors duration-300 cursor-crosshair">{item.institution}</h4>
 							<span class="text-gray-600 dark:text-gray-400">{item.date}</span>
 						</div>
 						<p class="mb-4 text-xl text-[#0736fe]">{item.role}</p>
@@ -443,9 +449,9 @@
 			{#each ['all', 'apps', 'photo', 'videos'] as filter}
 				<button
 					onclick={() => (currentFilter = filter)}
-					class="border border-current px-6 py-2 transition-all {currentFilter === filter
+					class="border border-current px-6 py-2 transition-all cursor-crosshair {currentFilter === filter
 						? 'border-[#0736fe] bg-[#0736fe] text-white'
-						: 'hover:text-[#0736fe]'}"
+						: 'hover:text-[#0736fe] hover:border-[#0736fe]'}"
 				>
 					{filter}
 				</button>
@@ -457,43 +463,44 @@
 			{#each filteredWorks as work}
 				<div class="work-item group">
 					{#if work.image}
-						<div class="relative mb-8 aspect-[4/3] overflow-hidden bg-gray-100 dark:bg-gray-900">
+						<div class="relative mb-8 aspect-[4/3] overflow-hidden bg-gray-100 dark:bg-gray-900 hover:scale-105 transition-transform duration-500">
 							<img
 								src={work.image}
 								alt={work.title}
-								class="h-full w-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+								class="h-full w-full object-cover opacity-80 transition-opacity duration-500 group-hover:opacity-100"
 								loading="lazy"
+								onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iI2Y1ZjVmNSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzk5OTk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIE5vdCBGb3VuZDwvdGV4dD48L3N2Zz4='"
 							/>
 							<div
-								class="absolute inset-0 flex items-center justify-center transition-opacity duration-500 group-hover:opacity-0"
+								class="absolute inset-0 bg-[#0736fe]/0 hover:bg-[#0736fe]/20 transition-all duration-500 flex items-center justify-center"
 							>
-								<span class="text-2xl font-light">{work.title.toLowerCase()}</span>
+								<span class="text-2xl font-light text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">{work.title.toLowerCase()}</span>
 							</div>
 						</div>
 					{/if}
 
-					<h3 class="mb-4 text-3xl font-light">{work.title}</h3>
+					<h3 class="mb-4 text-3xl font-light hover:text-[#0736fe] transition-colors duration-300 cursor-crosshair">{work.title}</h3>
 					<p class="mb-6 text-lg text-gray-600 dark:text-gray-400">{work.desc}</p>
 
 					{#if work.type === 'app' && work.link}
 						<a
 							href={work.link}
 							target="_blank"
-							class="inline-block border border-current px-6 py-2 transition-all hover:border-[#0736fe] hover:bg-[#0736fe] hover:text-white"
+							class="inline-block border border-current px-6 py-2 transition-all hover:border-[#0736fe] hover:bg-[#0736fe] hover:text-white cursor-crosshair"
 						>
 							view project
 						</a>
 					{:else if work.type === 'photo'}
 						<button
 							onclick={() => openModal(work, 'image')}
-							class="inline-block border border-current px-6 py-2 transition-all hover:border-[#0736fe] hover:bg-[#0736fe] hover:text-white"
+							class="inline-block border border-current px-6 py-2 transition-all hover:border-[#0736fe] hover:bg-[#0736fe] hover:text-white cursor-crosshair"
 						>
 							look closer
 						</button>
 					{:else if work.type === 'video' && work.url}
 						<button
 							onclick={() => openModal(work, 'video')}
-							class="inline-block border border-current px-6 py-2 transition-all hover:border-[#0736fe] hover:bg-[#0736fe] hover:text-white"
+							class="inline-block border border-current px-6 py-2 transition-all hover:border-[#0736fe] hover:bg-[#0736fe] hover:text-white cursor-crosshair"
 						>
 							play video
 						</button>
@@ -505,25 +512,79 @@
 </section>
 
 <!-- Footer -->
-<footer id="footer" class="section relative z-10 px-8 py-24">
-	<div class="container mx-auto max-w-7xl text-center">
-		<p class="animate-in text-lg text-gray-600 dark:text-gray-400">
-			created by Cornelius Ardhani Yoga Pratama
-		</p>
+<footer id="footer" class="section relative z-10 px-8 py-24 bg-gradient-to-b from-transparent to-gray-50 dark:to-gray-900">
+	<div class="container mx-auto max-w-7xl">
+		<div class="text-center mb-16">
+			<h2 class="animate-in text-6xl font-light mb-8 md:text-7xl">
+				Ready to Bring<br />
+				Your Vision to <span class="text-[#0736fe]">Life?</span>
+			</h2>
+			<p class="animate-in text-xl text-gray-600 dark:text-gray-400 mb-12 max-w-2xl mx-auto">
+				Let's collaborate and create something extraordinary together. I'm always excited about new challenges and innovative projects.
+			</p>
+			<div class="animate-in flex flex-col sm:flex-row gap-6 justify-center items-center">
+				<a
+					href="mailto:cornelius@example.com"
+					class="bg-[#0736fe] text-white px-8 py-4 text-lg transition-all hover:bg-[#0736fe]/90 hover:scale-105 cursor-crosshair"
+				>
+					Let's Get Started →
+				</a>
+				<div class="flex space-x-6">
+					<a href="mailto:cornelius@example.com" class="text-gray-600 dark:text-gray-400 hover:text-[#0736fe] underline cursor-crosshair">Email</a>
+					<a href="https://instagram.com/corneliusyoga" class="text-gray-600 dark:text-gray-400 hover:text-[#0736fe] underline cursor-crosshair">Instagram</a>
+					<a href="https://linkedin.com/in/corneliusyoga" class="text-gray-600 dark:text-gray-400 hover:text-[#0736fe] underline cursor-crosshair">LinkedIn</a>
+					<a href="https://dribbble.com/corneliusyoga" class="text-gray-600 dark:text-gray-400 hover:text-[#0736fe] underline cursor-crosshair">Dribbble</a>
+				</div>
+			</div>
+		</div>
+		
+		<div class="border-t border-gray-200 dark:border-gray-800 pt-8 text-center">
+			<p class="animate-in text-gray-600 dark:text-gray-400">
+				© 2025 Design & Coded with ❤️ by Cornelius Ardhani Yoga Pratama
+			</p>
+		</div>
 	</div>
 </footer>
 
 <style>
+	.marquee-container {
+		display: flex;
+		overflow: hidden;
+		gap: 4rem;
+	}
+
+	.marquee-content {
+		display: flex;
+		gap: 4rem;
+		animation: marquee 30s linear infinite;
+		flex-shrink: 0;
+	}
+
 	@keyframes marquee {
 		0% {
 			transform: translateX(0%);
 		}
 		100% {
-			transform: translateX(-50%);
+			transform: translateX(-100%);
 		}
 	}
 
-	.animate-marquee {
-		animation: marquee 30s linear infinite;
+	/* Custom cursor */
+	* {
+		cursor: default;
+	}
+
+	.cursor-crosshair {
+		cursor: crosshair !important;
+	}
+
+	/* Hover effects for background elements */
+	.work-item:hover ~ canvas {
+		opacity: 0.8;
+	}
+
+	section:hover ~ canvas {
+		opacity: 0.7;
+		transition: opacity 0.3s ease;
 	}
 </style>
