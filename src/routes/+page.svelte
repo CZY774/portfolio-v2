@@ -87,9 +87,11 @@
 
 	let filteredWorks = $derived(() => {
 		if (currentFilter === 'all') {
-			return [...works.apps, ...works.photo, ...works.videos];
+			return [...works.apps.map(w => ({...w, type: 'apps'})), 
+					...works.photo.map(w => ({...w, type: 'photo'})), 
+					...works.videos.map(w => ({...w, type: 'videos'}))];
 		}
-		return works[currentFilter as keyof typeof works] || [];
+		return (works[currentFilter as keyof typeof works] || []).map(w => ({...w, type: currentFilter}));
 	});
 
 	onMount(() => {
@@ -222,8 +224,13 @@
 	}
 
 	function openModal(content: any, type: 'image' | 'video') {
-		// Modal implementation would go here
-		console.log('Opening modal:', content, type);
+		if (type === 'video' && content.url) {
+			// Simple way to open video - you can enhance this with a proper modal
+			window.open(content.url, '_blank');
+		} else if (type === 'image' && content.image) {
+			// Simple way to open image - you can enhance this with a proper modal
+			window.open(content.image, '_blank');
+		}
 	}
 </script>
 
@@ -348,6 +355,11 @@
 								<span class="text-2xl font-light">{work.title.toLowerCase()}</span>
 							</div>
 						</div>
+					{:else}
+						<!-- For videos without image -->
+						<div class="relative mb-8 overflow-hidden bg-gray-100 dark:bg-gray-900 aspect-[4/3] flex items-center justify-center">
+							<span class="text-2xl font-light">{work.title.toLowerCase()}</span>
+						</div>
 					{/if}
 					
 					<h3 class="text-3xl font-light mb-4">{work.title}</h3>
@@ -357,7 +369,7 @@
 						<a href={work.link} target="_blank" class="inline-block border border-current px-6 py-2 hover:bg-[#0736fe] hover:border-[#0736fe] hover:text-white transition-all">
 							view project
 						</a>
-					{:else if work.image && currentFilter === 'photo'}
+					{:else if work.type === 'photo'}
 						<button onclick={() => openModal(work, 'image')} class="inline-block border border-current px-6 py-2 hover:bg-[#0736fe] hover:border-[#0736fe] hover:text-white transition-all">
 							look closer
 						</button>
