@@ -632,53 +632,32 @@
 	</div>
 </section>
 
-<!-- Footer - Following the reference design exactly -->
+<!-- Footer - Layout inspired by landing section -->
 <footer id="footer" class="section relative z-10 px-8 py-32 bg-black text-white">
 	<div class="container mx-auto max-w-7xl">
-		<!-- Large Typography matching the reference -->
-		<div class="text-center mb-20">
-			<!-- CZAV Typography -->
-			<div class="text-[20vw] sm:text-[15vw] md:text-[12vw] lg:text-[10vw] font-light leading-[0.8] tracking-tighter mb-8">
-				<div class="outline-text-white opacity-80">CZAV</div>
+		<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+			<div>
+				<p class="text-lg font-light text-gray-500 tracking-wider uppercase mb-8">created by</p>
+				<h2 class="text-7xl leading-none font-light md:text-8xl lg:text-9xl">
+					<span class="block text-white/90">cornelius</span>
+					<span class="block text-white/90">ardhani</span> 
+					<span class="block text-[#0736fe]">yoga</span>
+					<span class="block text-white/90">pratama</span>
+				</h2>
 			</div>
-			
-			<!-- Created by text -->
-			<div class="mb-12">
-				<p class="text-lg text-gray-400 mb-4">created by:</p>
-				<div class="text-4xl sm:text-5xl md:text-6xl font-light leading-tight">
-					<div class="outline-text-white opacity-90">cornelius ardhani</div>
-					<div class="text-[#0736fe] font-medium">yoga</div>
-					<div class="outline-text-white opacity-90">pratama</div>
+			<div class="text-right">
+				<div class="space-y-8">
+					<p class="text-xl font-light text-gray-400 leading-relaxed">
+						idc how many americano<br />
+						i have been drinking,<br />
+						<span class="text-[#0736fe]">good design needs time</span>
+					</p>
+					<div class="text-sm text-gray-600 font-light">
+						kudus, indonesia — 2024
+					</div>
 				</div>
 			</div>
 		</div>
-
-		<!-- Contact Info -->
-		<div class="text-center mb-16 space-y-6">
-			<a 
-				href="mailto:cornelius@example.com" 
-				class="custom-button block text-2xl md:text-3xl font-light hover:text-[#0736fe] transition-colors duration-300"
-			>
-				cornelius@example.com
-			</a>
-			<a 
-				href="tel:+6281234567890" 
-				class="custom-button block text-xl md:text-2xl font-light text-gray-400 hover:text-[#0736fe] transition-colors duration-300"
-			>
-				+62 812-3456-7890
-			</a>
-			<p class="text-lg text-gray-400">
-				jakarta, indonesia
-			</p>
-		</div>
-
-		<!-- Divider -->
-		<div class="h-px bg-gray-800 mb-8"></div>
-
-		<!-- Copyright -->
-		<p class="text-center text-gray-500">
-			© 2024 cornelius ardhani yoga pratama
-		</p>
 	</div>
 </footer>
 
