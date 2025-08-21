@@ -279,9 +279,9 @@
 				colors.push(0.9); // B - blue tint
 			} else {
 				// Light mode - darker particles for visibility
-				colors.push(0.2); // R - darker
-				colors.push(0.3); // G - darker
-				colors.push(0.6); // B - visible blue
+				colors.push(0.1); // R - darker
+				colors.push(0.2); // G - darker
+				colors.push(0.3); // B - visible blue
 			}
 		}
 
