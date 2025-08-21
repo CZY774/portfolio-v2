@@ -405,7 +405,6 @@
 			<div class="hidden md:flex space-x-8">
 				<button onclick={() => scrollToSection('about')} class="transition-colors hover:text-[#0736fe]">about</button>
 				<button onclick={() => scrollToSection('work')} class="transition-colors hover:text-[#0736fe]">work</button>
-				<button onclick={() => scrollToSection('footer')} class="transition-colors hover:text-[#0736fe]">contact</button>
 			</div>
 
 			<!-- Mobile Menu Button -->
