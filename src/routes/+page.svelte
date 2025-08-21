@@ -343,7 +343,7 @@
 				</div>
 			</div>
 			<p class="text-lg font-light tracking-wider opacity-0 animate-fade-in" style="animation-delay: 1s;">
-				loading portfolio
+				loading portfolio...
 			</p>
 		</div>
 	</div>
