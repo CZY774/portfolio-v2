@@ -17,6 +17,8 @@
 	let isModalOpen = $state(false);
 	let modalContent = $state<any>(null);
 	let modalType = $state<'image' | 'video' | null>(null);
+	let mobileMenuOpen = $state(false);
+	let mouse = $state({ x: 0, y: 0 });
 
 	let THREE: any;
 
@@ -60,7 +62,7 @@
 				title: 'E-Commerce Platform',
 				desc: 'Modern shopping experience with Next.js',
 				link: 'https://github.com/username/project1',
-				image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&h=600&fit=crop'
+				image: '/images/project1.jpg'
 			},
 			{
 				type: 'app',
@@ -146,11 +148,38 @@
 		// Initialize scroll navigation
 		initScrollNavigation();
 
+		// Mouse tracking for interactive background
+		document.addEventListener('mousemove', (e) => {
+			mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+			mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+		});
+
 		// Simulate loading
 		setTimeout(() => {
 			isLoading = false;
 		}, 2000);
 	});
+
+	function scrollToSection(sectionId: string) {
+		const element = document.getElementById(sectionId);
+		if (element) {
+			if (window.gsap) {
+				window.gsap.to(window, { 
+					scrollTo: { y: element, offsetY: 80 }, 
+					duration: 1.5, 
+					ease: 'power2.inOut' 
+				});
+			} else {
+				element.scrollIntoView({ behavior: 'smooth' });
+			}
+		}
+		// Close mobile menu if open
+		mobileMenuOpen = false;
+	}
+
+	function toggleMobileMenu() {
+		mobileMenuOpen = !mobileMenuOpen;
+	}
 
 	function initScrollNavigation() {
 		// Detect if a link's href goes to the current page
@@ -211,18 +240,19 @@
 			vertices.push((Math.random() - 0.5) * 2000);
 			vertices.push((Math.random() - 0.5) * 2000);
 
-			colors.push(Math.random() * 0.3 + 0.7);
-			colors.push(Math.random() * 0.3 + 0.7);
-			colors.push(Math.random() * 0.3 + 0.7);
+			// Better colors for both light and dark mode
+			colors.push(0.03); // R - blue tint
+			colors.push(0.21); // G - blue tint  
+			colors.push(0.99); // B - blue (#0736fe)
 		}
 
 		geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
 		geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
 
 		const material = new THREE.PointsMaterial({
-			size: 3,
+			size: 4,
 			vertexColors: true,
-			opacity: 0.6,
+			opacity: 0.8,
 			transparent: true
 		});
 		particles = new THREE.Points(geometry, material);
@@ -243,8 +273,11 @@
 	function animate() {
 		if (!particles || !renderer || !scene || !camera) return;
 		requestAnimationFrame(animate);
-		particles.rotation.x += 0.0008;
-		particles.rotation.y += 0.0012;
+		
+		// Interactive rotation based on mouse position
+		particles.rotation.x += 0.0008 + (mouse.y * 0.0002);
+		particles.rotation.y += 0.0012 + (mouse.x * 0.0002);
+		
 		renderer.render(scene, camera);
 	}
 
@@ -373,14 +406,42 @@
 <nav class="fixed top-0 right-0 left-0 z-40 bg-white/90 backdrop-blur-sm dark:bg-gray-950/90">
 	<div class="container mx-auto px-8 py-6">
 		<div class="flex items-center justify-between">
-			<a href="#landing" class="text-lg font-medium hover:text-[#0736fe] transition-colors">cy</a>
-			<div class="flex space-x-8">
-				<a href="#about" class="transition-colors hover:text-[#0736fe]">about</a>
-				<a href="#work" class="transition-colors hover:text-[#0736fe]">work</a>
-				<a href="#footer" class="transition-colors hover:text-[#0736fe]">contact</a>
+			<button 
+				onclick={() => scrollToSection('landing')} 
+				class="text-lg font-medium hover:text-[#0736fe] transition-colors"
+			>
+				cy
+			</button>
+			
+			<!-- Desktop Navigation -->
+			<div class="hidden md:flex space-x-8">
+				<button onclick={() => scrollToSection('about')} class="transition-colors hover:text-[#0736fe]">about</button>
+				<button onclick={() => scrollToSection('work')} class="transition-colors hover:text-[#0736fe]">work</button>
+				<button onclick={() => scrollToSection('footer')} class="transition-colors hover:text-[#0736fe]">contact</button>
 			</div>
+
+			<!-- Mobile Menu Button -->
+			<button onclick={toggleMobileMenu} class="md:hidden relative z-50 p-2">
+				<div class="hamburger {mobileMenuOpen ? 'active' : ''}">
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+			</button>
 		</div>
 	</div>
+
+	<!-- Mobile Menu -->
+	{#if mobileMenuOpen}
+		<div class="mobile-menu fixed inset-0 bg-white dark:bg-gray-950 flex items-center justify-center">
+			<div class="text-center space-y-8">
+				<button onclick={() => scrollToSection('landing')} class="block text-4xl font-light hover:text-[#0736fe] transition-colors">home</button>
+				<button onclick={() => scrollToSection('about')} class="block text-4xl font-light hover:text-[#0736fe] transition-colors">about</button>
+				<button onclick={() => scrollToSection('work')} class="block text-4xl font-light hover:text-[#0736fe] transition-colors">work</button>
+				<button onclick={() => scrollToSection('footer')} class="block text-4xl font-light hover:text-[#0736fe] transition-colors">contact</button>
+			</div>
+		</div>
+	{/if}
 </nav>
 
 <!-- Landing Section -->
@@ -422,19 +483,13 @@
 						>
 					</div>
 				</div>
-				<div class="flex justify-end space-x-4">
-					<a
-						href="#work"
+				<div class="flex justify-end">
+					<button
+						onclick={() => scrollToSection('work')}
 						class="border border-current px-8 py-3 transition-all hover:border-[#0736fe] hover:bg-[#0736fe] hover:text-white"
 					>
 						view work
-					</a>
-					<a
-						href="#footer"
-						class="bg-[#0736fe] px-8 py-3 text-white transition-colors hover:bg-[#0736fe]/90"
-					>
-						get in touch
-					</a>
+					</button>
 				</div>
 			</div>
 		</div>
@@ -504,63 +559,84 @@
 		</div>
 
 		<!-- Work Grid -->
-		<div class="animate-in grid grid-cols-1 gap-16 md:grid-cols-2">
-			{#each filteredWorks as work}
-				<div class="work-item group">
-					{#if work.image}
+		<div class="animate-in space-y-24">
+			{#each filteredWorks as work, index}
+				<div class="work-item group {index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} flex flex-col md:flex gap-16 items-center">
+					<!-- Image Container -->
+					<div class="w-full md:w-1/2">
 						<div
-							class="relative mb-8 aspect-[4/3] overflow-hidden bg-gray-100 dark:bg-gray-900 hover:scale-105 transition-transform duration-500"
+							class="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-[#0736fe]/20 to-[#0736fe]/40 hover:from-[#0736fe]/10 hover:to-[#0736fe]/20 transition-all duration-700 group cursor-pointer"
 						>
-							<img
-								src={work.image}
-								alt={work.title}
-								class="h-full w-full object-cover opacity-80 transition-opacity duration-500 group-hover:opacity-100"
-								loading="lazy"
-								onerror={(e) => {
-									const target = e.target as HTMLImageElement;
-									target.src =
-										'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iI2Y1ZjVmNSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzk5OTk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIE5vdCBGb3VuZDwvdGV4dD48L3N2Zz4=';
-								}}
-							/>
-							<div
-								class="absolute inset-0 bg-[#0736fe]/0 hover:bg-[#0736fe]/20 transition-all duration-500 flex items-center justify-center"
-							>
-								<span
-									class="text-2xl font-light text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-									>{work.title.toLowerCase()}</span
-								>
+							<!-- Default overlay with number -->
+							<div class="absolute inset-0 flex items-center justify-center bg-[#0736fe]/60 group-hover:bg-[#0736fe]/20 transition-all duration-700">
+								<span class="text-8xl font-light text-white/40 group-hover:text-white/20 transition-all duration-700">
+									{String(index + 1).padStart(2, '0')}
+								</span>
 							</div>
+							
+							<!-- Actual image that appears on hover -->
+							{#if work.image}
+								<img
+									src={work.image}
+									alt={work.title}
+									class="h-full w-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+									loading="lazy"
+									onerror={(e) => {
+										const target = e.target as HTMLImageElement;
+										target.src =
+											'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iIzA3MzZmZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIyNCIgZmlsbD0iI2ZmZmZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIE5vdCBGb3VuZDwvdGV4dD48L3N2Zz4=';
+									}}
+								/>
+							{/if}
 						</div>
-					{/if}
+					</div>
 
-					<h3 class="mb-4 text-3xl font-light hover:text-[#0736fe] transition-colors duration-300">
-						{work.title}
-					</h3>
-					<p class="mb-6 text-lg text-gray-600 dark:text-gray-400">{work.desc}</p>
+					<!-- Content -->
+					<div class="w-full md:w-1/2 space-y-6 {index % 2 === 0 ? 'md:pl-8' : 'md:pr-8'}">
+						<div class="space-y-2">
+							<span class="text-sm uppercase tracking-wider text-[#0736fe] font-medium">{work.type}</span>
+							<h3 class="text-4xl font-light leading-tight hover:text-[#0736fe] transition-colors duration-300">
+								{work.title}
+							</h3>
+						</div>
+						
+						<p class="text-xl text-gray-600 dark:text-gray-400 leading-relaxed">{work.desc}</p>
 
-					{#if work.type === 'app' && work.link}
-						<a
-							href={work.link}
-							target="_blank"
-							class="inline-block border border-current px-6 py-2 transition-all hover:border-[#0736fe] hover:bg-[#0736fe] hover:text-white"
-						>
-							view project
-						</a>
-					{:else if work.type === 'photo'}
-						<button
-							onclick={() => openModal(work, 'image')}
-							class="inline-block border border-current px-6 py-2 transition-all hover:border-[#0736fe] hover:bg-[#0736fe] hover:text-white"
-						>
-							look closer
-						</button>
-					{:else if work.type === 'video' && work.url}
-						<button
-							onclick={() => openModal(work, 'video')}
-							class="inline-block border border-current px-6 py-2 transition-all hover:border-[#0736fe] hover:bg-[#0736fe] hover:text-white"
-						>
-							play video
-						</button>
-					{/if}
+						<div class="pt-4">
+							{#if work.type === 'app' && work.link}
+								<a
+									href={work.link}
+									target="_blank"
+									class="inline-flex items-center space-x-2 text-[#0736fe] hover:underline group"
+								>
+									<span class="text-lg">view project</span>
+									<svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+									</svg>
+								</a>
+							{:else if work.type === 'photo'}
+								<button
+									onclick={() => openModal(work, 'image')}
+									class="inline-flex items-center space-x-2 text-[#0736fe] hover:underline group"
+								>
+									<span class="text-lg">look closer</span>
+									<svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+									</svg>
+								</button>
+							{:else if work.type === 'video' && work.url}
+								<button
+									onclick={() => openModal(work, 'video')}
+									class="inline-flex items-center space-x-2 text-[#0736fe] hover:underline group"
+								>
+									<span class="text-lg">play video</span>
+									<svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1.01M15 10h1.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+									</svg>
+								</button>
+							{/if}
+						</div>
+					</div>
 				</div>
 			{/each}
 		</div>
@@ -568,34 +644,146 @@
 </section>
 
 <!-- Footer -->
-<footer id="footer" class="section relative z-10 px-8 py-24">
-	<div class="container mx-auto max-w-7xl">
-		<div class="text-center mb-16">
-			<div class="mb-16">
-				<div class="text-[20vw] md:text-[15vw] lg:text-[12vw] font-light leading-none outline-text mb-8">
-					CZY
-				</div>
-			</div>
-			<div class="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">
-				<a
-					href="mailto:cornelius@example.com"
-					class="bg-[#0736fe] text-white px-8 py-4 text-lg transition-all hover:bg-[#0736fe]/90 hover:scale-105"
-				>
-					Let's Get Started →
-				</a>
-				<div class="flex space-x-6">
-					<a href="mailto:cornelius@example.com" class="text-gray-600 dark:text-gray-400 hover:text-[#0736fe] underline">Email</a>
-					<a href="https://instagram.com/corneliusyoga" class="text-gray-600 dark:text-gray-400 hover:text-[#0736fe] underline">Instagram</a>
-					<a href="https://linkedin.com/in/corneliusyoga" class="text-gray-600 dark:text-gray-400 hover:text-[#0736fe] underline">LinkedIn</a>
-					<a href="https://dribbble.com/corneliusyoga" class="text-gray-600 dark:text-gray-400 hover:text-[#0736fe] underline">Dribbble</a>
-				</div>
+<footer id="footer" class="section relative z-10 px-8 py-32">
+	<div class="container mx-auto max-w-7xl text-center">
+		<!-- Large Typography -->
+		<div class="mb-20">
+			<div class="text-[15vw] md:text-[12vw] lg:text-[10vw] font-light leading-none mb-8 tracking-tight">
+				<div class="outline-text">cornelius</div>
+				<div class="outline-text">ardhani</div>
+				<div class="text-[#0736fe]">yoga</div>
+				<div class="outline-text">pratama</div>
 			</div>
 		</div>
-		
-		<div class="border-t border-gray-200 dark:border-gray-800 pt-8 text-center">
-			<p class="animate-in text-gray-600 dark:text-gray-400">
-				created by cornelius ardhani yoga pratama
+
+		<!-- Contact Info -->
+		<div class="mb-16 space-y-6">
+			<a 
+				href="mailto:cornelius@example.com" 
+				class="block text-2xl md:text-3xl font-light hover:text-[#0736fe] transition-colors duration-300"
+			>
+				cornelius@example.com
+			</a>
+			<a 
+				href="tel:+6281234567890" 
+				class="block text-xl md:text-2xl font-light text-gray-600 dark:text-gray-400 hover:text-[#0736fe] transition-colors duration-300"
+			>
+				+62 812-3456-7890
+			</a>
+			<p class="text-lg text-gray-600 dark:text-gray-400">
+				jakarta, indonesia
 			</p>
 		</div>
+
+		<!-- Divider -->
+		<div class="h-px bg-gray-200 dark:bg-gray-800 mb-8"></div>
+
+		<!-- Copyright -->
+		<p class="text-gray-600 dark:text-gray-400">
+			created by cornelius ardhani yoga pratama
+		</p>
 	</div>
 </footer>
+
+<style>
+	/* Enhanced cursor styles */
+	:global(*, *::before, *::after) {
+		cursor: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iNiIgZmlsbD0iIzA3MzZmZSIgZmlsbC1vcGFjaXR5PSIwLjgiLz4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMTQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzA3MzZmZSIgc3Ryb2tlLXdpZHRoPSIyIiBvcGFjaXR5PSIwLjQiLz4KPC9zdmc+') 20 20, auto !important;
+	}
+
+	/* Hover cursor for interactive elements */
+	:global(button, a, [role="button"], input, textarea, select) {
+		cursor: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iOCIgZmlsbD0iIzA3MzZmZSIvPgo8Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIxOCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDczNmZlIiBzdHJva2Utd2lkdGg9IjMiLz4KPC9zdmc+') 20 20, pointer !important;
+	}
+
+	/* Hide scrollbar */
+	:global(::-webkit-scrollbar) {
+		display: none;
+	}
+	:global(html) {
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+	}
+
+	/* Hamburger Menu Animation */
+	.hamburger {
+		width: 24px;
+		height: 20px;
+		position: relative;
+		transform: rotate(0deg);
+		transition: 0.3s ease-in-out;
+		cursor: pointer;
+	}
+
+	.hamburger span {
+		display: block;
+		position: absolute;
+		height: 2px;
+		width: 100%;
+		background: currentColor;
+		border-radius: 1px;
+		opacity: 1;
+		left: 0;
+		transform: rotate(0deg);
+		transition: 0.3s ease-in-out;
+	}
+
+	.hamburger span:nth-child(1) {
+		top: 0px;
+	}
+
+	.hamburger span:nth-child(2) {
+		top: 9px;
+	}
+
+	.hamburger span:nth-child(3) {
+		top: 18px;
+	}
+
+	.hamburger.active span:nth-child(1) {
+		top: 9px;
+		transform: rotate(135deg);
+	}
+
+	.hamburger.active span:nth-child(2) {
+		opacity: 0;
+		left: -60px;
+	}
+
+	.hamburger.active span:nth-child(3) {
+		top: 9px;
+		transform: rotate(-135deg);
+	}
+
+	/* Mobile Menu Animation */
+	.mobile-menu {
+		animation: slideIn 0.3s ease-out;
+	}
+
+	@keyframes slideIn {
+		from {
+			opacity: 0;
+			transform: translateY(-20px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	/* Outline text effect */
+	.outline-text {
+		-webkit-text-stroke: 2px currentColor;
+		-webkit-text-fill-color: transparent;
+		color: currentColor;
+	}
+
+	/* Work item hover effects */
+	.work-item {
+		transition: transform 0.3s ease;
+	}
+
+	.work-item:hover {
+		transform: translateY(-5px);
+	}
+</style>
