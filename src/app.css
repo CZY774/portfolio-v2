@@ -16,14 +16,32 @@ body {
 	cursor: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMiIgZmlsbD0iIzA3MzZmZSIvPgo8L3N2Zz4K'), auto;
 }
 
-/* Custom cursor for all elements */
-*, *::before, *::after {
-	cursor: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMiIgZmlsbD0iIzA3MzZmZSIvPgo8L3N2Zz4K'), auto !important;
+/* Custom scrollbar */
+::-webkit-scrollbar {
+	width: 8px;
 }
 
-/* Hover cursor for interactive elements */
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #0736fe;
+	border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #0525cc;
+}
+
+/* Custom cursor for all elements - bigger and more attractive */
+*, *::before, *::after {
+	cursor: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iNCIgZmlsbD0iIzA3MzZmZSIvPgo8Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIxMiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDczNmZlIiBzdHJva2Utd2lkdGg9IjEiIG9wYWNpdHk9IjAuNSIvPgo8L3N2Zz4K') 20 20, auto !important;
+}
+
+/* Hover cursor for interactive elements - animated ring */
 button, a, [role="button"], input, textarea, select {
-	cursor: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDczNmZlIiBzdHJva2Utd2lkdGg9IjIiLz4KPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMiIgZmlsbD0iIzA3MzZmZSIvPgo8L3N2Zz4K'), pointer !important;
+	cursor: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iNCIgZmlsbD0iIzA3MzZmZSIvPgo8Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIxNiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDczNmZlIiBzdHJva2Utd2lkdGg9IjIiLz4KPC9zdmc+') 20 20, pointer !important;
 }
 
 /* Typography */
@@ -237,14 +255,88 @@ button, a, .work-item {
 	background: linear-gradient(to bottom, transparent, rgba(17, 24, 39, 0.5));
 }
 
-/* CZY outline text effect */
-.outline-text {
-	color: transparent;
-	-webkit-text-stroke: 2px #0736fe;
-	text-stroke: 2px #0736fe;
+/* Animated sections styles */
+.animated-section {
+	height: 100vh;
+	width: 100%;
+	top: 0;
+	position: fixed;
+	visibility: hidden;
 }
 
-.dark .outline-text {
-	-webkit-text-stroke: 2px #0736fe;
-	text-stroke: 2px #0736fe;
+.animated-section .outer,
+.animated-section .inner {
+	width: 100%;
+	height: 100%;
+	overflow-y: hidden;
+}
+
+.animated-section .bg {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	background-size: cover;
+	background-position: center;
+}
+
+.animated-section .bg::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.1) 100%);
+	z-index: 1;
+}
+
+.animated-section .content {
+	position: relative;
+	z-index: 10;
+	color: white;
+	text-align: center;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 2rem;
+}
+
+.section-heading {
+	font-size: clamp(3rem, 8vw, 10rem);
+	font-weight: 300;
+	text-align: center;
+	margin: 0;
+	line-height: 1.1;
+}
+
+.section-heading * {
+	will-change: transform;
+}
+
+.clip-text {
+	overflow: hidden;
+}
+
+/* Section backgrounds */
+.landing-bg {
+	background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.dark .landing-bg {
+	background: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 100%);
+}
+
+.about-bg {
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.work-bg {
+	background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.footer-bg {
+	background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
 }
