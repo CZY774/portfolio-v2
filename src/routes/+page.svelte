@@ -543,7 +543,7 @@
 				<div class="flex justify-end">
 					<button
 						onclick={() => scrollToSection('work')}
-						class="custom-button border border-current px-8 py-3 transition-all hover:border-[#0736fe] hover:bg-[#0736fe] hover:text-white"
+						class="custom-button border border-current px-8 py-3 transition-all hover:border-[#0736fe] hover:bg-[#0736fe] hover:text-[white]"
 					>
 						view work
 					</button>
@@ -747,7 +747,7 @@
 	<div class="container mx-auto max-w-7xl">
 		<div class="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
 			<div>
-				<p class="mb-1  text-lg font-light tracking-wider text-gray-500">created by :</p>
+				<p class="mb-1 text-lg font-light tracking-wider text-gray-500">created by :</p>
 				<h2 class="text-7xl leading-none font-light md:text-8xl lg:text-9xl">
 					<span class="block text-white/90">cornelius</span>
 					<span class="block text-white/90">ardhani</span>
