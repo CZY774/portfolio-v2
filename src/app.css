@@ -2,12 +2,6 @@
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
 
-/* * {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
-} */
-
 html {
 	scroll-behavior: smooth;
 }
@@ -17,10 +11,29 @@ body {
 	line-height: 1.6;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	cursor: default;
+}
+
+/* Custom cursor */
+* {
+	cursor: default !important;
+}
+
+button, a, [role="button"] {
+	cursor: crosshair !important;
+}
+
+.cursor-crosshair {
+	cursor: crosshair !important;
 }
 
 /* Typography */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
 	font-weight: 300;
 	letter-spacing: -0.02em;
 }
@@ -93,10 +106,55 @@ a:focus-visible {
 	}
 }
 
+/* Enhanced marquee */
+.marquee-container {
+	display: flex;
+	overflow: hidden;
+	gap: 4rem;
+}
+
+.marquee-content {
+	display: flex;
+	gap: 4rem;
+	animation: smoothMarquee 25s linear infinite;
+	flex-shrink: 0;
+	will-change: transform;
+}
+
+@keyframes smoothMarquee {
+	0% {
+		transform: translateX(0%);
+	}
+	100% {
+		transform: translateX(-100%);
+	}
+}
+
+/* Pause animation on hover */
+.marquee-container:hover .marquee-content {
+	animation-play-state: paused;
+}
+
+/* Enhanced background particles */
+canvas {
+	pointer-events: none;
+	transition: opacity 0.5s ease;
+}
+
+/* Hover effects */
+.work-item:hover {
+	transform: translateY(-5px);
+	transition: transform 0.3s ease;
+}
+
 /* Responsive typography */
 @media (max-width: 768px) {
 	body {
 		font-size: 14px;
+	}
+	
+	.marquee-content {
+		gap: 2rem;
 	}
 }
 
@@ -126,9 +184,13 @@ a:focus-visible {
 		transition-duration: 0.01ms !important;
 		scroll-behavior: auto !important;
 	}
-	
-	.animate-marquee {
+
+	.marquee-content {
 		animation: none;
+	}
+
+	canvas {
+		display: none !important;
 	}
 }
 
@@ -140,11 +202,11 @@ a:focus-visible {
 		text-shadow: none !important;
 		filter: none !important;
 	}
-	
+
 	canvas {
 		display: none !important;
 	}
-	
+
 	.fixed {
 		position: static !important;
 	}
@@ -159,4 +221,27 @@ a:focus-visible {
 
 .animate-spin {
 	animation: spin 1s linear infinite;
+}
+
+/* Enhanced interactions */
+.group:hover .group-hover\:opacity-100 {
+	opacity: 1;
+}
+
+.group:hover .group-hover\:opacity-0 {
+	opacity: 0;
+}
+
+/* Smooth transitions for all interactive elements */
+button, a, .work-item, .marquee-content i {
+	transition: all 0.3s ease;
+}
+
+/* Background gradient overlay */
+.bg-gradient-to-b {
+	background: linear-gradient(to bottom, transparent, rgba(245, 245, 245, 0.5));
+}
+
+.dark .bg-gradient-to-b {
+	background: linear-gradient(to bottom, transparent, rgba(17, 24, 39, 0.5));
 }
