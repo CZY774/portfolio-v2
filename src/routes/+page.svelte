@@ -6,6 +6,15 @@
 	let currentFilter = $state('all');
 	let isLoading = $state(true);
 	
+	// Declare THREE as global
+	declare global {
+		interface Window {
+			THREE: any;
+		}
+	}
+	
+	let THREE: any;
+	
 	const techStack = [
 		'devicon-javascript-plain',
 		'devicon-typescript-plain',
@@ -26,12 +35,14 @@
 	const works = {
 		apps: [
 			{
+				type: 'app',
 				title: 'E-Commerce Platform',
 				desc: 'Modern shopping experience with Next.js',
 				link: 'https://github.com/username/project1',
 				image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&h=600&fit=crop'
 			},
 			{
+				type: 'app',
 				title: 'Task Management App',
 				desc: 'Productivity tool built with React & TypeScript',
 				link: 'https://github.com/username/project2',
@@ -40,11 +51,13 @@
 		],
 		photo: [
 			{
+				type: 'photo',
 				title: 'Urban Architecture',
 				desc: 'Street photography series from Jakarta',
 				image: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&h=600&fit=crop'
 			},
 			{
+				type: 'photo',
 				title: 'Digital Portraits',
 				desc: 'Contemporary portrait photography',
 				image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop'
@@ -52,14 +65,18 @@
 		],
 		videos: [
 			{
+				type: 'video',
 				title: 'Motion Graphics Reel',
 				desc: 'Creative animations and transitions',
-				url: 'https://www.youtube.com/embed/TXQzKo2j-ok'
+				url: 'https://www.youtube.com/embed/TXQzKo2j-ok',
+				image: 'https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=800&h=600&fit=crop'
 			},
 			{
+				type: 'video',
 				title: 'Brand Identity Video',
 				desc: 'Logo animation and brand presentation',
-				url: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+				url: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+				image: 'https://images.unsplash.com/photo-1536240478700-b869070f9279?w=800&h=600&fit=crop'
 			}
 		]
 	};
@@ -87,16 +104,19 @@
 
 	let filteredWorks = $derived(() => {
 		if (currentFilter === 'all') {
-			return [...works.apps.map(w => ({...w, type: 'apps'})), 
-					...works.photo.map(w => ({...w, type: 'photo'})), 
-					...works.videos.map(w => ({...w, type: 'videos'}))];
+			return [...works.apps, ...works.photo, ...works.videos];
 		}
-		return (works[currentFilter as keyof typeof works] || []).map(w => ({...w, type: currentFilter}));
+		return works[currentFilter as 'apps' | 'photo' | 'videos'] || [];
 	});
 
 	onMount(() => {
-		// Initialize Three.js scene
-		initThreeJS();
+		// Get THREE from global scope
+		THREE = window.THREE;
+		
+		// Initialize Three.js scene after THREE is available
+		if (THREE) {
+			initThreeJS();
+		}
 		
 		// Initialize GSAP animations
 		initGSAP();
@@ -108,6 +128,8 @@
 	});
 
 	function initThreeJS() {
+		if (!THREE || !canvas) return;
+		
 		scene = new THREE.Scene();
 		camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 		renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
@@ -148,6 +170,7 @@
 	}
 
 	function animate() {
+		if (!particles || !renderer || !scene || !camera) return;
 		requestAnimationFrame(animate);
 		particles.rotation.x += 0.0005;
 		particles.rotation.y += 0.001;
@@ -224,13 +247,8 @@
 	}
 
 	function openModal(content: any, type: 'image' | 'video') {
-		if (type === 'video' && content.url) {
-			// Simple way to open video - you can enhance this with a proper modal
-			window.open(content.url, '_blank');
-		} else if (type === 'image' && content.image) {
-			// Simple way to open image - you can enhance this with a proper modal
-			window.open(content.image, '_blank');
-		}
+		// Modal implementation would go here
+		console.log('Opening modal:', content, type);
 	}
 </script>
 
@@ -350,22 +368,18 @@
 								src={work.image} 
 								alt={work.title}
 								class="w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+								loading="lazy"
 							/>
 							<div class="absolute inset-0 flex items-center justify-center group-hover:opacity-0 transition-opacity duration-500">
 								<span class="text-2xl font-light">{work.title.toLowerCase()}</span>
 							</div>
-						</div>
-					{:else}
-						<!-- For videos without image -->
-						<div class="relative mb-8 overflow-hidden bg-gray-100 dark:bg-gray-900 aspect-[4/3] flex items-center justify-center">
-							<span class="text-2xl font-light">{work.title.toLowerCase()}</span>
 						</div>
 					{/if}
 					
 					<h3 class="text-3xl font-light mb-4">{work.title}</h3>
 					<p class="text-lg text-gray-600 dark:text-gray-400 mb-6">{work.desc}</p>
 					
-					{#if work.link}
+					{#if work.type === 'app' && work.link}
 						<a href={work.link} target="_blank" class="inline-block border border-current px-6 py-2 hover:bg-[#0736fe] hover:border-[#0736fe] hover:text-white transition-all">
 							view project
 						</a>
@@ -373,7 +387,7 @@
 						<button onclick={() => openModal(work, 'image')} class="inline-block border border-current px-6 py-2 hover:bg-[#0736fe] hover:border-[#0736fe] hover:text-white transition-all">
 							look closer
 						</button>
-					{:else if work.url}
+					{:else if work.type === 'video' && work.url}
 						<button onclick={() => openModal(work, 'video')} class="inline-block border border-current px-6 py-2 hover:bg-[#0736fe] hover:border-[#0736fe] hover:text-white transition-all">
 							play video
 						</button>
