@@ -682,15 +682,15 @@
 							class="transition-colors hover:text-[#0736fe]">ig</a
 						>
 						<a
-							href="https://github.com/corneliusyoga"
+							href="https://github.com/CZY774"
 							class="transition-colors hover:text-[#0736fe]">github</a
 						>
 						<a
-							href="https://linkedin.com/in/corneliusyoga"
+							href="https://www.linkedin.com/in/cornelius-yoga-783b6a291/"
 							class="transition-colors hover:text-[#0736fe]">linkedin</a
 						>
 						<a
-							href="https://youtube.com/@corneliusyoga"
+							href="https://youtube.com/@CZY774"
 							class="transition-colors hover:text-[#0736fe]">youtube</a
 						>
 					</div>
