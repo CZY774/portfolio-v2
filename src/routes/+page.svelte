@@ -140,6 +140,20 @@
             },
             {
                 type: 'app',
+                title: 'People & Goods',
+                desc: 'A mobile app that showcases user and product data fetched from DummyJSON API using Retrofit, GSON, and showcased with Jetpack Compose.',
+                link: 'https://github.com/CZY774/TugasTigaPemrogramanMobile-672022204',
+                image: '/images/mobile-2.png'
+            },
+            {
+                type: 'app',
+                title: 'Siasat Wannabe',
+                desc: 'A mobile application for lecture management built with Jetpack Compose and Firebase Firestore.',
+                link: 'https://github.com/CZY774/TASPemrogramanMobile',
+                image: '/images/mobile-3.png'
+            },
+            {
+                type: 'app',
                 title: 'Wordle',
                 desc: 'A modern, accessible, and beautiful Wordle clone built with Vue 3, Vite, TypeScript, and Tailwind CSS.',
                 link: 'https://github.com/CZY774/wordle-vue',
@@ -157,7 +171,7 @@
                 title: 'Mood Tracker App',
                 desc: 'A cross-platform mobile application for tracking moods and viewing statistics. Built with React-Native, Expo, and SQLite.',
                 link: 'https://github.com/CZY774/mood-dairy-app-expocli',
-                image: '/images/website-14.png'
+                image: '/images/mobile-1.png'
             },
             {
                 type: 'app',
