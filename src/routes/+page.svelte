@@ -103,8 +103,8 @@
 
 	const works: Works = {
 		apps: [
-            {
-                type: 'app',
+			{
+				type: 'app',
 				title: 'CornelVHub',
 				desc: 'VMS platform built with Flask, MongoDB, Redis, & deployed on GCP',
 				link: 'https://yoga-672022204-service-975615093796.asia-southeast2.run.app/',
@@ -131,55 +131,55 @@
 				link: 'https://www.figma.com/proto/sfsRHIHF9RIqKK28RfIbLB/Prototype-Portfolio?page-id=58%3A110&node-id=58-260&p=f&viewport=714%2C-1868%2C0.65&t=T1XFOcaTmdvAG88S-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=58%3A260',
 				image: '/images/website-8.png'
 			},
-            {
-                type: 'app',
-                title: 'Supermarket & Warehouse Management System',
-                desc: 'A system built in Java using NetBeans IDE and MySQL, featuring OOP principles and real-time time tracking.',
-                link: 'https://github.com/CZY774/gudang-supermarket-java-netbeans',
-                image: '/images/website-6.png'
-            },
-            {
-                type: 'app',
-                title: 'People & Goods',
-                desc: 'A mobile app that showcases user and product data fetched from DummyJSON API using Retrofit, GSON, and showcased with Jetpack Compose.',
-                link: 'https://github.com/CZY774/TugasTigaPemrogramanMobile-672022204',
-                image: '/images/mobile-2.png'
-            },
-            {
-                type: 'app',
-                title: 'Siasat Wannabe',
-                desc: 'A mobile application for lecture management built with Jetpack Compose and Firebase Firestore.',
-                link: 'https://github.com/CZY774/TASPemrogramanMobile',
-                image: '/images/mobile-3.png'
-            },
-            {
-                type: 'app',
-                title: 'Wordle',
-                desc: 'A modern, accessible, and beautiful Wordle clone built with Vue 3, Vite, TypeScript, and Tailwind CSS.',
-                link: 'https://github.com/CZY774/wordle-vue',
-                image: '/images/website-10.png'
-            },
-            {
-                type: 'app',
-                title: 'Habit Tracker',
-                desc: 'Track, visualize, and improve your daily habits with a sleek, accessible, and responsive web app built using SvelteKit, TypeScript, and Tailwind CSS.',
-                link: 'https://github.com/CZY774/habit-tracker-sveltekit',
-                image: '/images/website-11.png'
-            },
-            {
-                type: 'app',
-                title: 'Mood Tracker App',
-                desc: 'A cross-platform mobile application for tracking moods and viewing statistics. Built with React-Native, Expo, and SQLite.',
-                link: 'https://github.com/CZY774/mood-dairy-app-expocli',
-                image: '/images/mobile-1.png'
-            },
-            {
-                type: 'app',
-                title: 'Personal Portfolio Website 1st gen',
-                desc: 'A personal portfolio website showcasing skills, projects, and experiences. Built with TypeScript and Tailwind CSS.',
-                link: 'https://github.com/CZY774/Portfolio',
-                image: '/images/website-13.png'
-            },
+			{
+				type: 'app',
+				title: 'Supermarket & Warehouse Management System',
+				desc: 'A system built in Java using NetBeans IDE and MySQL, featuring OOP principles and real-time time tracking.',
+				link: 'https://github.com/CZY774/gudang-supermarket-java-netbeans',
+				image: '/images/website-6.png'
+			},
+			{
+				type: 'app',
+				title: 'People & Goods',
+				desc: 'A mobile app that showcases user and product data fetched from DummyJSON API using Retrofit, GSON, and showcased with Jetpack Compose.',
+				link: 'https://github.com/CZY774/TugasTigaPemrogramanMobile-672022204',
+				image: '/images/mobile-2.png'
+			},
+			{
+				type: 'app',
+				title: 'Siasat Wannabe',
+				desc: 'A mobile application for lecture management built with Jetpack Compose and Firebase Firestore.',
+				link: 'https://github.com/CZY774/TASPemrogramanMobile',
+				image: '/images/mobile-3.png'
+			},
+			{
+				type: 'app',
+				title: 'Wordle',
+				desc: 'A modern, accessible, and beautiful Wordle clone built with Vue 3, Vite, TypeScript, and Tailwind CSS.',
+				link: 'https://github.com/CZY774/wordle-vue',
+				image: '/images/website-10.png'
+			},
+			{
+				type: 'app',
+				title: 'Habit Tracker',
+				desc: 'Track, visualize, and improve your daily habits with a sleek, accessible, and responsive web app built using SvelteKit, TypeScript, and Tailwind CSS.',
+				link: 'https://github.com/CZY774/habit-tracker-sveltekit',
+				image: '/images/website-11.png'
+			},
+			{
+				type: 'app',
+				title: 'Mood Tracker App',
+				desc: 'A cross-platform mobile application for tracking moods and viewing statistics. Built with React-Native, Expo, and SQLite.',
+				link: 'https://github.com/CZY774/mood-dairy-app-expocli',
+				image: '/images/mobile-1.png'
+			},
+			{
+				type: 'app',
+				title: 'Personal Portfolio Website 1st gen',
+				desc: 'A personal portfolio website showcasing skills, projects, and experiences. Built with TypeScript and Tailwind CSS.',
+				link: 'https://github.com/CZY774/Portfolio',
+				image: '/images/website-13.png'
+			},
 			{
 				type: 'app',
 				title: 'Bubble Laundry',
@@ -187,13 +187,13 @@
 				link: 'https://czy774.github.io/bubble_laundry/',
 				image: '/images/website-3.png'
 			},
-            {
-                type: 'app',
-                title: 'Muncul River Tubing',
-                desc: 'Business website built with Laravel & Bootstrap',
-                link: 'https://munculrivertubing.com',
-                image: '/images/website-1.png'
-            },
+			{
+				type: 'app',
+				title: 'Muncul River Tubing',
+				desc: 'Business website built with Laravel & Bootstrap',
+				link: 'https://munculrivertubing.com',
+				image: '/images/website-1.png'
+			},
 			{
 				type: 'app',
 				title: 'Point of Sale',
@@ -315,7 +315,8 @@
 			institution: 'Satya Wacana Christian University',
 			date: '2022 - Present',
 			role: 'Committee Chairman, Steering Committee, Teaching Assistant',
-			achievement: 'Led 50+ team members in international events and increased its registrants by 254%'
+			achievement:
+				'Led 50+ team members in international events and increased its registrants by 254%'
 		},
 		{
 			institution: 'Metanoia Youth Commission GKMI Kudus',
@@ -539,6 +540,29 @@
 
 <svelte:head>
 	<title>cornelius yoga - creative developer & designer</title>
+	<meta
+		name="description"
+		content="Creative developer & designer crafting digital experiences that blend aesthetic beauty with functional innovation. Based in Kudus, Indonesia."
+	/>
+	<meta
+		name="keywords"
+		content="cornelius yoga, web developer, android developer, ui/ux designer, frontend developer, fullstack developer, kudus, salatiga, semarang, tangerang, jakarta, universitas kristen satya wacana, uksw, fti, fakultas teknologi informasi, scwu, satya wacana christian university, indonesia"
+	/>
+	<meta property="og:title" content="Corneliuze Yoga — Portfolio" />
+	<meta
+		property="og:description"
+		content="Creative developer & designer crafting digital experiences that blend aesthetic beauty with functional innovation."
+	/>
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://corneliusyoga.vercel.app/" />
+	<meta property="og:image" content="https://corneliusyoga.vercel.app/website-12.png" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content="Corneliuze Yoga — Portfolio" />
+	<meta
+		name="twitter:description"
+		content="Creative developer & designer crafting digital experiences that blend aesthetic beauty with functional innovation."
+	/>
+	<meta name="twitter:image" content="https://corneliusyoga.vercel.app/website-12.png" />
 </svelte:head>
 
 <!-- Enhanced Loader -->
@@ -695,17 +719,15 @@
 							href="https://instagram.com/corneliusyoga"
 							class="transition-colors hover:text-[#0736fe]">ig</a
 						>
-						<a
-							href="https://github.com/CZY774"
-							class="transition-colors hover:text-[#0736fe]">github</a
+						<a href="https://github.com/CZY774" class="transition-colors hover:text-[#0736fe]"
+							>github</a
 						>
 						<a
 							href="https://www.linkedin.com/in/cornelius-yoga-783b6a291/"
 							class="transition-colors hover:text-[#0736fe]">linkedin</a
 						>
-						<a
-							href="https://youtube.com/@CZY774"
-							class="transition-colors hover:text-[#0736fe]">youtube</a
+						<a href="https://youtube.com/@CZY774" class="transition-colors hover:text-[#0736fe]"
+							>youtube</a
 						>
 					</div>
 				</div>
@@ -828,9 +850,7 @@
 					<!-- Content -->
 					<div class="w-full space-y-6 md:w-1/2 {index % 2 === 0 ? 'md:pl-8' : 'md:pr-8'}">
 						<div class="space-y-2">
-							<span class="text-sm font-medium tracking-wider text-[#0736fe]"
-								>{work.type}</span
-							>
+							<span class="text-sm font-medium tracking-wider text-[#0736fe]">{work.type}</span>
 							<h3
 								class="text-4xl leading-tight font-light transition-colors duration-300 hover:text-[#0736fe]"
 							>
@@ -845,7 +865,7 @@
 								<a
 									href={work.link}
 									target="_blank"
-                                    rel="noopener noreferrer"
+									rel="noopener noreferrer"
 									class="custom-button group inline-flex items-center space-x-2 text-[#0736fe] hover:underline"
 								>
 									<span class="text-lg">view project</span>
