@@ -2,6 +2,13 @@
 	import '../app.css';
 	import favicon from '$lib/assets/CZY logo-03.svg';
 	import { onMount } from 'svelte';
+	import { dev } from '$app/environment';
+	import { injectAnalytics } from '@vercel/analytics/sveltekit';
+	import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
+
+	// Inject Vercel Analytics and Speed Insights
+	injectAnalytics({ mode: dev ? 'development' : 'production' });
+	injectSpeedInsights();
 
 	let { children } = $props();
 	let darkMode = $state(false);
