@@ -798,7 +798,7 @@
 					onclick={() => (currentFilter = filter)}
 					class="custom-button border border-current px-6 py-2 transition-all {currentFilter ===
 					filter
-						? 'border-[#0736fe] bg-[#0736fe] text-white'
+						? 'border-[#0736fe] bg-[#0736fe] dark:text-white'
 						: 'hover:border-[#0736fe] hover:text-[#0736fe]'}"
 				>
 					{filter}
