@@ -105,13 +105,6 @@
 		apps: [
 			{
 				type: 'app',
-				title: 'CornelVHub',
-				desc: 'VMS platform built with Flask, MongoDB, Redis, & deployed on GCP',
-				link: 'https://yoga-672022204-service-975615093796.asia-southeast2.run.app/',
-				image: '/images/website-2.png'
-			},
-			{
-				type: 'app',
 				title: 'EduVerse by Belum Ada Ide',
 				desc: 'UI/UX winner for a desktop based educational platform for junior high school students',
 				link: 'https://www.figma.com/proto/iADoy42ojxwFJrOPRwKbAi/EduVerse-by-Belum-Ada-Ide?page-id=0%3A1&node-id=15-404&p=f&viewport=22%2C1366%2C0.04&t=pA0UioQrdVVisDYT-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=26%3A472',
@@ -130,6 +123,13 @@
 				desc: 'A prototype design for a personal portfolio website, showcasing skills and projects',
 				link: 'https://www.figma.com/proto/sfsRHIHF9RIqKK28RfIbLB/Prototype-Portfolio?page-id=58%3A110&node-id=58-260&p=f&viewport=714%2C-1868%2C0.65&t=T1XFOcaTmdvAG88S-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=58%3A260',
 				image: '/images/website-8.png'
+			},
+			{
+				type: 'app',
+				title: 'CornelVHub',
+				desc: 'VMS platform built with Flask, MongoDB, Redis, & deployed on GCP',
+				link: 'https://yoga-672022204-service-975615093796.asia-southeast2.run.app/',
+				image: '/images/website-2.png'
 			},
 			{
 				type: 'app',
@@ -172,6 +172,13 @@
 				desc: 'A cross-platform mobile application for tracking moods and viewing statistics. Built with React-Native, Expo, and SQLite.',
 				link: 'https://github.com/CZY774/mood-dairy-app-expocli',
 				image: '/images/mobile-1.png'
+			},
+			{
+				type: 'app',
+				title: 'Job Tracker Dashboard',
+				desc: 'A modern job application tracking dashboard built with Next.js, ShadCN UI, Prisma, and PostgreSQL.',
+				link: 'https://github.com/CZY774/job-tracker-nextjs',
+				image: '/images/website-14.png'
 			},
 			{
 				type: 'app',
