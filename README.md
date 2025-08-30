@@ -247,26 +247,6 @@ npm run preview
 - `eslint` - Code linting
 - `svelte-check` - Type checking
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 👨‍💻 Author
-
-**Cornelius Ardhani Yoga Pratama**
-- GitHub: [@corneliusyoga](https://github.com/corneliusyoga)
-- LinkedIn: [@corneliusyoga](https://linkedin.com/in/corneliusyoga)
-- Instagram: [@corneliusyoga](https://instagram.com/corneliusyoga)
-- YouTube: [@corneliusyoga](https://youtube.com/@corneliusyoga)
-
 ## 🙏 Acknowledgments
 
 - [SvelteKit](https://kit.svelte.dev/) for the amazing framework
@@ -276,6 +256,15 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Vercel](https://vercel.com/) for seamless deployment
 - [Inter Font](https://rsms.me/inter/) for beautiful typography
 
----
+## <img src="https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif" width="25px" alt="waving hand"> Get In Touch
+<div align="center">
+  <a href="https://www.instagram.com/corneliusyoga" target="_blank"><img src="https://img.shields.io/badge/Instagram-%23E4405F.svg?&style=for-the-badge&logo=instagram&logoColor=white" alt="Instagram"></a>&nbsp;
+  <a href="https://www.linkedin.com/in/cornelius-yoga-783b6a291" target="_blank"><img src="https://img.shields.io/badge/LinkedIn-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"></a>&nbsp;
+  <a href="https://www.youtube.com/channel/UCj0TlW5vLO6r_Nlwc8oFBpw" target="_blank"><img src="https://img.shields.io/badge/YouTube-%23FF0000.svg?&style=for-the-badge&logo=youtube&logoColor=white" alt="YouTube"></a>&nbsp;
+  <a href="https://czy.digital" target="_blank"><img src="https://img.shields.io/badge/Portfolio-%23000000.svg?&style=for-the-badge&logo=react&logoColor=white" alt="Portfolio"></a>
+  <br/><br/>
+  <img src="https://komarev.com/ghpvc/?username=CZY774&style=flat-square&color=0366D6" alt="Profile Views" />
+  <br/>
+  <sub>Made by Cornelius Ardhani Yoga Pratama</sub>
+</div>
 
-⚡ **Built with modern web technologies for optimal performance and user experience** ⚡
