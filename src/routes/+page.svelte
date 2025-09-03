@@ -82,7 +82,8 @@
 		'devicon-vitejs-plain',
 		'devicon-graphql-plain',
 		'devicon-grafana-plain',
-		'devicon-grpc-plain'
+		'devicon-grpc-plain',
+		'devicon-uwsgi-plain'
 	];
 
 	// Define proper types for works
