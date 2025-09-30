@@ -183,6 +183,13 @@
 			},
 			{
 				type: 'app',
+				title: 'URL Shortener',
+				desc: 'A URL shortening application built with Express.js, MongoDB, and Tailwind CSS v4.',
+				link: 'https://github.com/CZY774/url-shortener-expressjs',
+				image: '/images/website-15.png'
+			},
+			{
+				type: 'app',
 				title: 'Personal Portfolio Website 1st gen',
 				desc: 'A personal portfolio website showcasing skills, projects, and experiences. Built with TypeScript and Tailwind CSS.',
 				link: 'https://github.com/CZY774/Portfolio',
