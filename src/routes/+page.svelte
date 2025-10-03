@@ -613,14 +613,20 @@
 		onclick={closeModal}
 		role="dialog"
 		aria-modal="true"
+		tabindex="-1"
 		onkeydown={(e) => {
 			if (e.key === 'Escape') closeModal();
 		}}
 	>
-		<div class="relative max-h-full w-full max-w-4xl" onclick={(e) => e.stopPropagation()}>
+		<div 
+			class="relative max-h-full w-full max-w-4xl" 
+			onclick={(e) => e.stopPropagation()}
+			onkeydown={(e) => e.stopPropagation()}
+			role="presentation">
 			<button
 				class="absolute -top-12 right-0 text-2xl text-white transition-colors hover:text-[#0736fe]"
-				onclick={closeModal}>✕</button
+				onclick={closeModal}
+				aria-label="Close modal">✕</button
 			>
 			{#if modalType === 'image'}
 				<img
@@ -672,7 +678,7 @@
 			</div>
 
 			<!-- Mobile Menu Button -->
-			<button onclick={toggleMobileMenu} class="relative z-50 p-2 md:hidden">
+			<button onclick={toggleMobileMenu} class="relative z-50 p-2 md:hidden" aria-label="Toggle menu">
 				<div class="hamburger {mobileMenuOpen ? 'active' : ''}">
 					<span></span>
 					<span></span>
