@@ -7,14 +7,20 @@
         stroke-width: 0px;
       }
 
-      .cls-2 {
+      .cls-2, .cls-3 {
+        isolation: isolate;
+      }
+
+      .cls-3 {
         fill: #fff;
-        font-family: Inter-Black, Inter;
+        font-family: Inter-ExtraBold, Inter;
         font-size: 472.7px;
-        font-weight: 800;
+        font-weight: 700;
       }
     </style>
   </defs>
-  <rect class="cls-1" y="268.08" width="1080" height="508.13"/>
-  <text class="cls-2" transform="translate(113.64 644.71)"><tspan x="0" y="0">czy</tspan></text>
+  <rect class="cls-1" width="1080" height="1080"/>
+  <g class="cls-2">
+    <text class="cls-3" transform="translate(64.1 833.5)"><tspan x="0" y="0">czy</tspan></text>
+  </g>
 </svg>
