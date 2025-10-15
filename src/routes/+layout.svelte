@@ -1,6 +1,6 @@
 <script lang="ts">
 	import '../app.css';
-	import favicon from '$lib/assets/CZY logo-03.svg';
+	import favicon from '$lib/assets/CZY-logo.svg';
 	import { onMount } from 'svelte';
 	import { dev } from '$app/environment';
 	import { injectAnalytics } from '@vercel/analytics/sveltekit';
