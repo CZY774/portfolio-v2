@@ -143,6 +143,13 @@
 			},
 			{
 				type: 'app',
+				title: 'CZmoneY',
+				desc: 'Personal finance management application built in SvelteKit and Supabase.',
+				link: 'https://czmoney.vercel.app/',
+				image: '/images/website-16.png'
+			},
+			{
+				type: 'app',
 				title: 'People & Goods',
 				desc: 'A mobile app that showcases user and product data fetched from DummyJSON API using Retrofit, GSON, and showcased with Jetpack Compose.',
 				link: 'https://github.com/CZY774/TugasTigaPemrogramanMobile-672022204',
@@ -328,6 +335,13 @@
 	};
 
 	const career = [
+		{
+			institution: 'PT Sumber Alfaria Trijaya Tbk (Alfamart)',
+			date: '2025 - Present',
+			role: 'Supply and Distribution Dev Intern',
+			achievement:
+				'Migrated legacy systems to modern web applications, improving efficiency by 10%'
+		},
 		{
 			institution: 'Satya Wacana Christian University',
 			date: '2022 - Present',
