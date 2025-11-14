@@ -1,15 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	// Declare global interfaces
-	declare global {
-		interface Window {
-			THREE: any;
-			gsap: any;
-			ScrollTrigger: any;
-		}
-	}
-
 	let canvas: HTMLCanvasElement;
 	let scene: any, camera: any, renderer: any, particles: any;
 	let currentFilter = $state('all');
@@ -427,7 +418,7 @@
 	function initSmoothScrolling() {
 		// Enhanced smooth scrolling implementation
 		document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-			anchor.addEventListener('click', function (e) {
+			anchor.addEventListener('click', function (this: HTMLAnchorElement, e: Event) {
 				e.preventDefault();
 				const targetId = this.getAttribute('href')?.substring(1);
 				if (targetId) {
