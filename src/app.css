@@ -26,26 +26,57 @@ html {
 }
 
 /* Enhanced custom cursor - better visibility */
-*, *::before, *::after {
-	cursor: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iNCIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjEuNSIvPjwvc3ZnPg==') 16 16, auto !important;
+*,
+*::before,
+*::after {
+	cursor:
+		url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iNCIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjEuNSIvPjwvc3ZnPg==')
+			16 16,
+		auto !important;
 }
 
 /* Dark mode cursor - much more visible, won't blend with particles */
-.dark *, .dark *::before, .dark *::after {
-	cursor: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iNiIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiLz48Y2lyY2xlIGN4PSIxNiIgY3k9IjE2IiByPSIzIiBmaWxsPSIjMDAwMDAwIi8+PC9zdmc+') 16 16, auto !important;
+.dark *,
+.dark *::before,
+.dark *::after {
+	cursor:
+		url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iNiIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiLz48Y2lyY2xlIGN4PSIxNiIgY3k9IjE2IiByPSIzIiBmaWxsPSIjMDAwMDAwIi8+PC9zdmc+')
+			16 16,
+		auto !important;
 }
 
 /* Hover cursor for interactive elements - distinct and visible */
-button, a, [role="button"], input, textarea, select {
-	cursor: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iOCIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjMDczNmZlIiBzdHJva2Utd2lkdGg9IjIiLz48Y2lyY2xlIGN4PSIxNiIgY3k9IjE2IiByPSI0IiBmaWxsPSIjMDczNmZlIi8+PC9zdmc+') 16 16, pointer !important;
+button,
+a,
+[role='button'],
+input,
+textarea,
+select {
+	cursor:
+		url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iOCIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjMDczNmZlIiBzdHJva2Utd2lkdGg9IjIiLz48Y2lyY2xlIGN4PSIxNiIgY3k9IjE2IiByPSI0IiBmaWxsPSIjMDczNmZlIi8+PC9zdmc+')
+			16 16,
+		pointer !important;
 }
 
-.dark button, .dark a, .dark [role="button"], .dark input, .dark textarea, .dark select {
-	cursor: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iOCIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjMDczNmZlIiBzdHJva2Utd2lkdGg9IjMiLz48Y2lyY2xlIGN4PSIxNiIgY3k9IjE2IiByPSI0IiBmaWxsPSIjMDczNmZlIi8+PC9zdmc+') 16 16, pointer !important;
+.dark button,
+.dark a,
+.dark [role='button'],
+.dark input,
+.dark textarea,
+.dark select {
+	cursor:
+		url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iOCIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjMDczNmZlIiBzdHJva2Utd2lkdGg9IjMiLz48Y2lyY2xlIGN4PSIxNiIgY3k9IjE2IiByPSI0IiBmaWxsPSIjMDczNmZlIi8+PC9zdmc+')
+			16 16,
+		pointer !important;
 }
 
 /* Typography */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
 	font-weight: 300;
 	letter-spacing: -0.02em;
 }
@@ -82,14 +113,13 @@ h1, h2, h3, h4, h5, h6 {
 	}
 }
 
-
 /* Responsive adjustments */
 @media (max-width: 768px) {
 	.tech-icon {
 		font-size: 2.5rem;
 		margin-right: 3rem;
 	}
-	
+
 	.marquee-track {
 		animation-duration: 80s;
 	}
@@ -100,7 +130,7 @@ h1, h2, h3, h4, h5, h6 {
 		font-size: 2rem;
 		margin-right: 2rem;
 	}
-	
+
 	.marquee-track {
 		animation-duration: 100s;
 	}
@@ -136,10 +166,10 @@ html.lenis {
 /* Remove ALL button pulse effects completely */
 .custom-button,
 button,
-a[role="button"],
-input[type="button"],
-input[type="submit"],
-input[type="reset"] {
+a[role='button'],
+input[type='button'],
+input[type='submit'],
+input[type='reset'] {
 	outline: none !important;
 	box-shadow: none !important;
 	transform: none !important;
@@ -165,10 +195,10 @@ input[type="reset"]:focus {
 
 .custom-button:active,
 button:active,
-a[role="button"]:active,
-input[type="button"]:active,
-input[type="submit"]:active,
-input[type="reset"]:active {
+a[role='button']:active,
+input[type='button']:active,
+input[type='submit']:active,
+input[type='reset']:active {
 	transform: none !important;
 	box-shadow: none !important;
 	outline: none !important;
@@ -177,19 +207,19 @@ input[type="reset"]:active {
 
 .custom-button:hover,
 button:hover,
-a[role="button"]:hover,
-input[type="button"]:hover,
-input[type="submit"]:hover,
-input[type="reset"]:hover {
+a[role='button']:hover,
+input[type='button']:hover,
+input[type='submit']:hover,
+input[type='reset']:hover {
 	transform: none !important;
 	box-shadow: none !important;
 }
 
 /* Remove any webkit button styling */
 button,
-input[type="button"],
-input[type="submit"],
-input[type="reset"] {
+input[type='button'],
+input[type='submit'],
+input[type='reset'] {
 	-webkit-appearance: none !important;
 	-moz-appearance: none !important;
 	appearance: none !important;
@@ -270,37 +300,35 @@ body {
 }
 
 body:hover {
-	background: 
+	background:
 		radial-gradient(
-			circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
-			rgba(7, 54, 254, 0.30) 0%, 
-			rgba(7, 54, 254, 0.10) 30%,
+			circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+			rgba(7, 54, 254, 0.3) 0%,
+			rgba(7, 54, 254, 0.1) 30%,
 			transparent 60%
 		),
 		radial-gradient(
-			ellipse 800px 400px at var(--mouse-x, 50%) var(--mouse-y, 50%), 
-			rgba(7, 54, 254, 0.20) 0%, 
+			ellipse 800px 400px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+			rgba(7, 54, 254, 0.2) 0%,
 			transparent 40%
 		);
 }
 
 /* Dark mode hover effect - more intense */
 .dark body:hover {
-	background: 
+	background:
 		radial-gradient(
-			circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
-			rgba(7, 54, 254, 0.30) 0%, 
+			circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+			rgba(7, 54, 254, 0.3) 0%,
 			rgba(7, 54, 254, 0.18) 30%,
 			transparent 60%
 		),
 		radial-gradient(
-			ellipse 600px 300px at var(--mouse-x, 50%) var(--mouse-y, 50%), 
-			rgba(7, 54, 254, 0.24) 0%, 
+			ellipse 600px 300px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+			rgba(7, 54, 254, 0.24) 0%,
 			transparent 50%
 		);
 }
-
-
 
 /* Responsive typography */
 @media (max-width: 768px) {
@@ -354,7 +382,8 @@ body:hover {
 		filter: none !important;
 	}
 
-	canvas, .mobile-menu {
+	canvas,
+	.mobile-menu {
 		display: none !important;
 	}
 
@@ -384,7 +413,9 @@ body:hover {
 }
 
 /* Smooth transitions for all interactive elements */
-button, a, .work-item {
+button,
+a,
+.work-item {
 	transition: all 0.3s ease;
 }
 
@@ -462,10 +493,18 @@ button, a, .work-item {
 	animation: slideUp 0.6s ease-out forwards;
 }
 
-.work-grid-item:nth-child(1) { animation-delay: 0.1s; }
-.work-grid-item:nth-child(2) { animation-delay: 0.2s; }
-.work-grid-item:nth-child(3) { animation-delay: 0.3s; }
-.work-grid-item:nth-child(4) { animation-delay: 0.4s; }
+.work-grid-item:nth-child(1) {
+	animation-delay: 0.1s;
+}
+.work-grid-item:nth-child(2) {
+	animation-delay: 0.2s;
+}
+.work-grid-item:nth-child(3) {
+	animation-delay: 0.3s;
+}
+.work-grid-item:nth-child(4) {
+	animation-delay: 0.4s;
+}
 
 @keyframes slideUp {
 	from {
@@ -484,23 +523,23 @@ button, a, .work-item {
 		width: 24px;
 		height: 20px;
 	}
-	
+
 	.hamburger span {
 		height: 2px;
 	}
-	
+
 	.hamburger span:nth-child(2) {
 		top: 8px;
 	}
-	
+
 	.hamburger span:nth-child(3) {
 		top: 16px;
 	}
-	
+
 	.hamburger.active span:nth-child(1) {
 		top: 8px;
 	}
-	
+
 	.hamburger.active span:nth-child(3) {
 		top: 8px;
 	}
@@ -515,7 +554,9 @@ a:focus {
 
 /* Smooth page transitions */
 .page-transition {
-	transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+	transition:
+		opacity 0.3s ease-in-out,
+		transform 0.3s ease-in-out;
 }
 
 .page-transition.loading {
