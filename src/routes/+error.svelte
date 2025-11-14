@@ -65,7 +65,9 @@
 		text-decoration: none;
 		border-radius: 50px;
 		font-weight: 600;
-		transition: transform 0.2s, box-shadow 0.2s;
+		transition:
+			transform 0.2s,
+			box-shadow 0.2s;
 	}
 
 	.back-home:hover {
