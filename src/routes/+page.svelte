@@ -2,16 +2,16 @@
 	import { onMount } from 'svelte';
 
 	let canvas: HTMLCanvasElement;
-	let scene: any, camera: any, renderer: any, particles: any;
+	let scene: unknown, camera: unknown, renderer: unknown, particles: unknown;
 	let currentFilter = $state('all');
 	let isLoading = $state(true);
 	let isModalOpen = $state(false);
-	let modalContent = $state<any>(null);
+	let modalContent = $state<string | null>(null);
 	let modalType = $state<'image' | 'video' | null>(null);
 	let mobileMenuOpen = $state(false);
 	let mouse = $state({ x: 0, y: 0 });
 
-	let THREE: any;
+	let THREE: typeof import('three');
 
 	const techStack = [
 		'devicon-c-original',
@@ -330,8 +330,7 @@
 			institution: 'PT Sumber Alfaria Trijaya Tbk (Alfamart)',
 			date: '2025 - Present',
 			role: 'Supply and Distribution Dev Intern',
-			achievement:
-				'Migrated legacy systems to modern web applications, improving efficiency by 10%'
+			achievement: 'Migrated legacy systems to modern web applications, improving efficiency by 10%'
 		},
 		{
 			institution: 'Satya Wacana Christian University',
@@ -532,7 +531,7 @@
 		});
 
 		// Section animations
-		window.gsap.utils.toArray('.section').forEach((section: any) => {
+		window.gsap.utils.toArray('.section').forEach((section: Element) => {
 			window.gsap.from(section.querySelectorAll('.animate-in'), {
 				y: 80,
 				opacity: 0,
@@ -547,7 +546,7 @@
 		});
 	}
 
-	function openModal(content: any, type: 'image' | 'video') {
+	function openModal(content: string, type: 'image' | 'video') {
 		modalContent = content;
 		modalType = type;
 		isModalOpen = true;
@@ -625,11 +624,12 @@
 			if (e.key === 'Escape') closeModal();
 		}}
 	>
-		<div 
-			class="relative max-h-full w-full max-w-4xl" 
+		<div
+			class="relative max-h-full w-full max-w-4xl"
 			onclick={(e) => e.stopPropagation()}
 			onkeydown={(e) => e.stopPropagation()}
-			role="presentation">
+			role="presentation"
+		>
 			<button
 				class="absolute -top-12 right-0 text-2xl text-white transition-colors hover:text-[#0736fe]"
 				onclick={closeModal}
@@ -685,7 +685,11 @@
 			</div>
 
 			<!-- Mobile Menu Button -->
-			<button onclick={toggleMobileMenu} class="relative z-50 p-2 md:hidden" aria-label="Toggle menu">
+			<button
+				onclick={toggleMobileMenu}
+				class="relative z-50 p-2 md:hidden"
+				aria-label="Toggle menu"
+			>
 				<div class="hamburger {mobileMenuOpen ? 'active' : ''}">
 					<span></span>
 					<span></span>
@@ -781,10 +785,10 @@
 		<div class="animate-in relative mb-32 overflow-hidden">
 			<div class="marquee-container">
 				<div class="marquee-track">
-					{#each techStack as tech}
+					{#each techStack as tech (tech + '-1')}
 						<i class="{tech} tech-icon"></i>
 					{/each}
-					{#each techStack as tech}
+					{#each techStack as tech (tech + '-2')}
 						<i class="{tech} tech-icon"></i>
 					{/each}
 				</div>
@@ -795,7 +799,7 @@
 		<div class="animate-in">
 			<h3 class="mb-16 text-4xl font-light">career journey</h3>
 			<div class="space-y-12">
-				{#each career as item}
+				{#each career as item (item.institution + item.period)}
 					<div
 						class="border-b border-gray-200 pb-12 transition-colors duration-300 hover:border-[#0736fe] dark:border-gray-800"
 					>
@@ -821,7 +825,7 @@
 
 		<!-- Filter Buttons -->
 		<div class="animate-in mb-16 flex flex-wrap gap-4">
-			{#each ['all', 'apps', 'photo', 'videos'] as filter}
+			{#each ['all', 'apps', 'photo', 'videos'] as filter (filter)}
 				<button
 					onclick={() => (currentFilter = filter)}
 					class="custom-button border border-current px-6 py-2 transition-all {currentFilter ===
@@ -836,7 +840,7 @@
 
 		<!-- Work Grid -->
 		<div class="animate-in space-y-24">
-			{#each filteredWorks as work, index}
+			{#each filteredWorks as work, index (work.title)}
 				<div
 					class="work-item group {index % 2 === 0
 						? 'md:flex-row'
