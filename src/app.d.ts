@@ -8,6 +8,12 @@ declare global {
 		// interface PageState {}
 		// interface Platform {}
 	}
+
+	interface Window {
+		THREE: any;
+		gsap: any;
+		ScrollTrigger: any;
+	}
 }
 
 export {};
