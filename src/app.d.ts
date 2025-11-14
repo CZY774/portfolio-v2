@@ -10,13 +10,12 @@ declare global {
 	}
 
 	interface Window {
-		THREE: typeof import('three');
-		gsap: {
-			registerPlugin: (plugin: unknown) => void;
-			to: (target: unknown, vars: unknown) => void;
-			timeline: () => unknown;
-		};
-		ScrollTrigger: unknown;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		THREE: any;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		gsap: any;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		ScrollTrigger: any;
 	}
 }
 
