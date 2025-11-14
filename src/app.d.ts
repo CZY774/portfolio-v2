@@ -10,9 +10,13 @@ declare global {
 	}
 
 	interface Window {
-		THREE: any;
-		gsap: any;
-		ScrollTrigger: any;
+		THREE: typeof import('three');
+		gsap: {
+			registerPlugin: (plugin: unknown) => void;
+			to: (target: unknown, vars: unknown) => void;
+			timeline: () => unknown;
+		};
+		ScrollTrigger: unknown;
 	}
 }
 
