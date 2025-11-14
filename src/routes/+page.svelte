@@ -637,25 +637,27 @@
 				onclick={closeModal}
 				aria-label="Close modal">✕</button
 			>
-			{#if modalType === 'image'}
-				<img
-					src={modalContent.image}
-					alt={modalContent.title}
-					class="h-auto max-h-[80vh] w-full object-contain"
-				/>
-			{:else if modalType === 'video'}
-				<iframe
-					src={modalContent.url}
-					class="aspect-video w-full"
-					title={modalContent.title}
-					frameborder="0"
-					allowfullscreen
-				></iframe>
+			{#if modalContent}
+				{#if modalType === 'image'}
+					<img
+						src={modalContent.image}
+						alt={modalContent.title}
+						class="h-auto max-h-[80vh] w-full object-contain"
+					/>
+				{:else if modalType === 'video'}
+					<iframe
+						src={modalContent.url}
+						class="aspect-video w-full"
+						title={modalContent.title}
+						frameborder="0"
+						allowfullscreen
+					></iframe>
+				{/if}
+				<div class="mt-4 text-center text-white">
+					<h3 class="text-xl font-medium">{modalContent.title}</h3>
+					<p class="text-gray-300">{modalContent.desc}</p>
+				</div>
 			{/if}
-			<div class="mt-4 text-center text-white">
-				<h3 class="text-xl font-medium">{modalContent.title}</h3>
-				<p class="text-gray-300">{modalContent.desc}</p>
-			</div>
 		</div>
 	</div>
 {/if}
