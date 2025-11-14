@@ -1,17 +1,28 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
+	type WorkItem = {
+		type: string;
+		title: string;
+		desc: string;
+		image?: string;
+		link?: string;
+		url?: string;
+	};
+
 	let canvas: HTMLCanvasElement;
-	let scene: unknown, camera: unknown, renderer: unknown, particles: unknown;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	let scene: any, camera: any, renderer: any, particles: any;
 	let currentFilter = $state('all');
 	let isLoading = $state(true);
 	let isModalOpen = $state(false);
-	let modalContent = $state<string | null>(null);
+	let modalContent = $state<WorkItem | null>(null);
 	let modalType = $state<'image' | 'video' | null>(null);
 	let mobileMenuOpen = $state(false);
 	let mouse = $state({ x: 0, y: 0 });
 
-	let THREE: typeof import('three');
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	let THREE: any;
 
 	const techStack = [
 		'devicon-c-original',
@@ -78,16 +89,6 @@
 		'devicon-grpc-plain',
 		'devicon-uwsgi-plain'
 	];
-
-	// Define proper types for works
-	type WorkItem = {
-		type: string;
-		title: string;
-		desc: string;
-		image?: string;
-		link?: string;
-		url?: string;
-	};
 
 	type Works = {
 		apps: WorkItem[];
@@ -531,7 +532,8 @@
 		});
 
 		// Section animations
-		window.gsap.utils.toArray('.section').forEach((section: Element) => {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		window.gsap.utils.toArray('.section').forEach((section: any) => {
 			window.gsap.from(section.querySelectorAll('.animate-in'), {
 				y: 80,
 				opacity: 0,
@@ -546,7 +548,7 @@
 		});
 	}
 
-	function openModal(content: string, type: 'image' | 'video') {
+	function openModal(content: WorkItem, type: 'image' | 'video') {
 		modalContent = content;
 		modalType = type;
 		isModalOpen = true;
@@ -799,7 +801,7 @@
 		<div class="animate-in">
 			<h3 class="mb-16 text-4xl font-light">career journey</h3>
 			<div class="space-y-12">
-				{#each career as item (item.institution + item.period)}
+				{#each career as item (item.institution + item.date)}
 					<div
 						class="border-b border-gray-200 pb-12 transition-colors duration-300 hover:border-[#0736fe] dark:border-gray-800"
 					>
