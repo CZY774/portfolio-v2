@@ -41,6 +41,13 @@ This portfolio embraces **typography as the hero** with a minimalist approach:
 - 🔄 **Infinite marquee** - Tech stack showcase
 - 📑 **Work filtering** - Apps, Photos, Videos categories
 - ♿ **Accessibility focused** - Proper contrast and focus states
+- 🍪 **Cookie consent** - GDPR-compliant analytics consent banner
+
+### Security
+
+- 🔒 **Content Security Policy** - XSS protection via CSP headers
+- 🛡️ **Security headers** - X-Frame-Options, X-Content-Type-Options, Referrer-Policy
+- 🔐 **Permissions policy** - Restricts unnecessary browser features
 
 ## 🏗️ Project Structure
 
@@ -48,10 +55,12 @@ This portfolio embraces **typography as the hero** with a minimalist approach:
 src/
 ├── routes/
 │   ├── +layout.svelte    # Global layout with theme detection
-│   └── +page.svelte      # Main portfolio page
+│   ├── +page.svelte      # Main portfolio page
+│   └── +error.svelte     # Custom error page
 ├── lib/
 │   └── assets/
 │       └── favicon.svg
+├── hooks.server.ts       # Security headers
 ├── app.css               # Global styles with Tailwind
 ├── app.html              # HTML template
 └── app.d.ts              # Type definitions
@@ -155,6 +164,32 @@ The static build works on any hosting platform:
 ### 4. Footer Section
 
 - **Simple attribution** and contact information
+
+## 🔒 Security Features
+
+### Content Security Policy (CSP)
+
+Configured in `svelte.config.js` to prevent XSS attacks:
+- Restricts script sources to self and trusted CDNs (GSAP, Three.js)
+- Controls style sources and inline styles
+- Allows YouTube and Figma embeds for portfolio content
+- Blocks unauthorized resource loading
+
+### HTTP Security Headers
+
+Implemented in `hooks.server.ts`:
+- **X-Frame-Options**: Prevents clickjacking attacks
+- **X-Content-Type-Options**: Prevents MIME type sniffing
+- **Referrer-Policy**: Controls referrer information leakage
+- **Permissions-Policy**: Disables unnecessary browser features (geolocation, microphone, camera)
+
+### Cookie Consent
+
+GDPR-compliant cookie consent banner:
+- Appears on first visit
+- Stores user preference in localStorage
+- Required for Vercel Analytics tracking
+- Accept/Decline options with clear messaging
 
 ## 🎨 Customization
 
