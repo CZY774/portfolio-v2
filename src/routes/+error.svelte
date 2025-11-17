@@ -3,9 +3,9 @@
 	import { onMount } from 'svelte';
 
 	let canvas: HTMLCanvasElement;
+	let mouse = { x: 0, y: 0 };
 
 	onMount(() => {
-		// Three.js particle background (same as main page)
 		const script = document.createElement('script');
 		script.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
 		script.onload = () => {
@@ -22,31 +22,44 @@
 			renderer.setSize(window.innerWidth, window.innerHeight);
 			renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-			const particlesGeometry = new THREE.BufferGeometry();
-			const particlesCount = 1500;
-			const posArray = new Float32Array(particlesCount * 3);
+			const geometry = new THREE.BufferGeometry();
+			const vertices = [];
+			const colors = [];
 
-			for (let i = 0; i < particlesCount * 3; i++) {
-				posArray[i] = (Math.random() - 0.5) * 1000;
+			for (let i = 0; i < 800; i++) {
+				vertices.push((Math.random() - 0.5) * 2000);
+				vertices.push((Math.random() - 0.5) * 2000);
+				vertices.push((Math.random() - 0.5) * 2000);
+
+				const isDark = document.documentElement.classList.contains('dark');
+				if (isDark) {
+					colors.push(0.6, 0.6, 0.9);
+				} else {
+					colors.push(0.1, 0.2, 0.3);
+				}
 			}
 
-			particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+			geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+			geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
 
-			const particlesMaterial = new THREE.PointsMaterial({
+			const material = new THREE.PointsMaterial({
 				size: 2,
-				color: 0x0736fe,
+				vertexColors: true,
+				opacity: 0.6,
 				transparent: true,
-				opacity: 0.6
+				blending: THREE.AdditiveBlending
 			});
 
-			const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
-			scene.add(particlesMesh);
-			camera.position.z = 400;
+			const particles = new THREE.Points(geometry, material);
+			scene.add(particles);
+			camera.position.z = 1000;
 
 			const animate = () => {
 				requestAnimationFrame(animate);
-				particlesMesh.rotation.x += 0.0005;
-				particlesMesh.rotation.y += 0.0007;
+				particles.rotation.x += 0.0003 + mouse.y * 0.0001;
+				particles.rotation.y += 0.0005 + mouse.x * 0.0001;
+				const scale = 1 + (mouse.x * 0.02 + mouse.y * 0.02) * 0.1;
+				particles.scale.set(scale, scale, scale);
 				renderer.render(scene, camera);
 			};
 
@@ -59,10 +72,15 @@
 			});
 		};
 		document.head.appendChild(script);
+
+		document.addEventListener('mousemove', (e) => {
+			mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+			mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+		});
 	});
 </script>
 
-<canvas bind:this={canvas} class="fixed top-0 left-0 -z-10 h-full w-full"></canvas>
+<canvas bind:this={canvas} class="pointer-events-none fixed inset-0 z-0"></canvas>
 
 <div class="error-container">
 	<div class="error-content">
@@ -79,7 +97,7 @@
 		<p class="error-message">
 			{$page.error?.message || 'an unexpected error occurred'}
 		</p>
-		<a href="/" class="back-home custom-button">return home</a>
+		<a href="/" class="back-home">return home</a>
 	</div>
 </div>
 
@@ -105,10 +123,7 @@
 		font-weight: 300;
 		margin: 0;
 		line-height: 1;
-		background: linear-gradient(135deg, #0736fe 0%, #00c6ff 100%);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-clip: text;
+		color: #0736fe;
 		letter-spacing: -0.02em;
 	}
 
@@ -117,7 +132,6 @@
 		margin: 2rem 0 1rem;
 		font-weight: 300;
 		letter-spacing: -0.01em;
-		color: #0736fe;
 	}
 
 	.error-message {
@@ -136,7 +150,7 @@
 		display: inline-block;
 		padding: 1rem 2.5rem;
 		border: 1px solid currentColor;
-		color: #0736fe;
+		color: inherit;
 		text-decoration: none;
 		font-weight: 300;
 		font-size: 1.125rem;
@@ -178,7 +192,6 @@
 		}
 	}
 
-	/* Custom cursor */
 	:global(*, *::before, *::after) {
 		cursor:
 			url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iNCIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjEiLz4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFjaXR5PSIwLjYiLz4KPC9zdmc+')
@@ -186,9 +199,23 @@
 			auto !important;
 	}
 
+	:global(.dark *, .dark *::before, .dark *::after) {
+		cursor:
+			url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iNCIgZmlsbD0iIzAwMDAwMCIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjEiLz4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFjaXR5PSIwLjYiLz4KPC9zdmc+')
+				16 16,
+			auto !important;
+	}
+
 	:global(button, a, [role='button']) {
 		cursor:
 			url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iNiIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjMDczNmZlIiBzdHJva2Utd2lkdGg9IjIiLz4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzA3MzZmZSIgc3Ryb2tlLXdpZHRoPSIyIi8+Cjwvc3ZnPg==')
+				16 16,
+			pointer !important;
+	}
+
+	:global(.dark button, .dark a, .dark [role='button']) {
+		cursor:
+			url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iNiIgZmlsbD0iIzAwMDAwMCIgc3Ryb2tlPSIjMDczNmZlIiBzdHJva2Utd2lkdGg9IjIiLz4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzA3MzZmZSIgc3Ryb2tlLXdpZHRoPSIyIi8+Cjwvc3ZnPg==')
 				16 16,
 			pointer !important;
 	}
