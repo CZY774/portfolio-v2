@@ -170,6 +170,7 @@ The static build works on any hosting platform:
 ### Content Security Policy (CSP)
 
 Configured in `svelte.config.js` to prevent XSS attacks:
+
 - Restricts script sources to self and trusted CDNs (GSAP, Three.js)
 - Controls style sources and inline styles
 - Allows YouTube and Figma embeds for portfolio content
@@ -178,6 +179,7 @@ Configured in `svelte.config.js` to prevent XSS attacks:
 ### HTTP Security Headers
 
 Implemented in `hooks.server.ts`:
+
 - **X-Frame-Options**: Prevents clickjacking attacks
 - **X-Content-Type-Options**: Prevents MIME type sniffing
 - **Referrer-Policy**: Controls referrer information leakage
@@ -186,6 +188,7 @@ Implemented in `hooks.server.ts`:
 ### Cookie Consent
 
 GDPR-compliant cookie consent banner:
+
 - Appears on first visit
 - Stores user preference in localStorage
 - Required for Vercel Analytics tracking
