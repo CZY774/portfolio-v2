@@ -10,7 +10,12 @@ const config = {
 			mode: 'auto',
 			directives: {
 				'default-src': ['self'],
-				'script-src': ['self', 'unsafe-inline', 'https://cdnjs.cloudflare.com', 'https://cdn.jsdelivr.net'],
+				'script-src': [
+					'self',
+					'unsafe-inline',
+					'https://cdnjs.cloudflare.com',
+					'https://cdn.jsdelivr.net'
+				],
 				'style-src': ['self', 'unsafe-inline', 'https://cdn.jsdelivr.net'],
 				'img-src': ['self', 'data:', 'https:'],
 				'font-src': ['self', 'data:', 'https://fonts.gstatic.com'],
