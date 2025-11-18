@@ -84,13 +84,13 @@
 
 <section class="relative z-10 flex min-h-screen items-center justify-center px-8 py-24">
 	<div class="mx-auto max-w-7xl">
-		<div class="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
+		<div class="grid grid-cols-1 items-center gap-32 lg:grid-cols-2">
 			<div>
-				<h1 class="mb-12 text-7xl font-light leading-none md:text-8xl lg:text-9xl">
+				<h1 class="mb-12 text-9xl leading-none font-light md:text-[12rem] lg:text-[16rem]">
 					<span class="inline-block text-[#0736fe]">{$page.status}</span>
 				</h1>
 				<div>
-					<p class="mb-12 text-2xl font-light leading-relaxed text-gray-600 dark:text-gray-400">
+					<p class="mb-12 text-2xl leading-relaxed font-light text-gray-600 dark:text-gray-400">
 						{#if $page.status === 404}
 							page not found
 						{:else if $page.status >= 500}
@@ -102,14 +102,11 @@
 				</div>
 			</div>
 			<div class="text-right">
-				<p class="mb-12 text-xl font-light text-gray-600 dark:text-gray-400">
+				<p class="mb-12 text-2xl font-light text-gray-600 dark:text-gray-400">
 					{$page.error?.message || 'an unexpected error occurred'}
 				</p>
-				<a
-					href="/"
-					class="inline-block border border-current px-10 py-4 text-lg font-light transition-all hover:border-[#0736fe] hover:bg-[#0736fe] hover:text-white"
-				>
-					return home
+				<a href="/" class="text-lg font-light text-[#0736fe] transition-opacity hover:opacity-70">
+					← return home
 				</a>
 			</div>
 		</div>
