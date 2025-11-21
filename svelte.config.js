@@ -14,12 +14,18 @@ const config = {
 					'self',
 					'unsafe-inline',
 					'https://cdnjs.cloudflare.com',
-					'https://cdn.jsdelivr.net'
+					'https://cdn.jsdelivr.net',
+					'https://va.vercel-scripts.com'
 				],
-				'style-src': ['self', 'unsafe-inline', 'https://cdn.jsdelivr.net'],
+				'style-src': [
+					'self',
+					'unsafe-inline',
+					'https://cdn.jsdelivr.net',
+					'https://fonts.googleapis.com'
+				],
 				'img-src': ['self', 'data:', 'https:'],
-				'font-src': ['self', 'data:', 'https://fonts.gstatic.com'],
-				'connect-src': ['self'],
+				'font-src': ['self', 'data:', 'https://fonts.gstatic.com', 'https://cdn.jsdelivr.net'],
+				'connect-src': ['self', 'https://vitals.vercel-insights.com'],
 				'frame-src': ['https://www.youtube.com', 'https://www.figma.com']
 			}
 		}
