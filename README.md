@@ -36,18 +36,46 @@ This portfolio embraces **typography as the hero** with a minimalist approach:
 
 ### Performance Optimizations
 
+#### Core Web Vitals
+- 📐 **CLS Prevention** - Aspect ratio reservations & space allocation
+- ⏱️ **TTI Measurement** - Time to Interactive tracking with PerformanceObserver
+- 🖼️ **Lazy Loading** - IntersectionObserver-based image loading
+- 🚀 **FCP Optimization** - Inline critical CSS & resource hints
+
+#### Advanced Performance
+- 🎯 **Debounce/Throttle** - Event handler optimization utilities
+- 🎬 **RAF Throttling** - 60fps capped animations with frame skipping
+- 🔄 **Service Worker** - Cache-first PWA strategy
+- 👷 **Web Workers** - Background thread processing
 - ⚡ **Rate Limiter** - 100 req/min per IP protection
-- 🖼️ **Lazy Loading** - Deferred image loading with intersection observer
-- 💀 **Skeleton Loaders** - Smooth content placeholders
 - 🔮 **Prefetch Routes** - Hover & viewport-based preloading
 - 🎨 **Optimistic UI** - Instant feedback with rollback
-- 📐 **CLS Prevention** - Aspect ratio reservations
-- 🎬 **Motion Loading** - Animated loading states
+
+#### Resource Loading
+- 🌐 **DNS-Prefetch** - Early DNS resolution for CDNs
+- 🔗 **Preconnect** - Pre-establish connections
+- 📦 **Preload** - Critical resource prioritization
+- 🎯 **Priority Loading** - Eager vs lazy loading strategies
+- 📊 **Route Priority** - High/medium/low route classification
+
+#### Svelte-Specific
+- 🎭 **Actions** - `clickOutside`, `lazyLoad`, `viewport` directives
+- ✨ **Transitions** - `slideScale`, `blur` custom transitions
+- 🔄 **Built-in Animations** - Svelte's native animation system
+
+#### Code Quality
+- 💀 **Skeleton Loaders** - Smooth content placeholders
 - 🗜️ **Client Compression** - gzip for data transfer
 - 📦 **Chunked Downloads** - Parallel asset loading
 - 🔒 **Code Obfuscation** - Basic string protection
 - ⏱️ **Deferred Work** - requestIdleCallback for non-critical tasks
-- 🚀 **FCP Optimization** - Inline critical CSS
+- 🌳 **Tree Shaking** - Automatic dead code elimination
+- 📦 **Code Splitting** - Route-based automatic chunking
+
+#### Monitoring
+- 📊 **Vercel Analytics** - Real User Monitoring (RUM)
+- ⚡ **Speed Insights** - Core Web Vitals tracking
+- 🎯 **APM Metrics** - Application Performance Monitoring
 
 ### User Experience
 
@@ -77,22 +105,33 @@ src/
 │   ├── components/
 │   │   ├── Skeleton.svelte          # Loading placeholder
 │   │   ├── OptimizedImage.svelte    # Lazy + CLS prevention
-│   │   └── MotionLoader.svelte      # Animated loader
+│   │   ├── MotionLoader.svelte      # Animated loader
+│   │   └── Modal.svelte             # Modal with actions/transitions
+│   ├── actions/
+│   │   └── index.ts                 # Svelte actions (clickOutside, lazyLoad, viewport)
+│   ├── transitions/
+│   │   └── index.ts                 # Custom transitions (slideScale, blur)
 │   ├── stores/
 │   │   └── optimistic.ts            # Optimistic UI store
 │   ├── utils/
+│   │   ├── perf.ts                  # Debounce, throttle, RAF throttling, TTI
 │   │   ├── image.ts                 # Progressive loading
 │   │   ├── defer.ts                 # Deferred execution
 │   │   ├── compress.ts              # Client compression
 │   │   ├── download.ts              # Chunked fetch
 │   │   ├── obfuscate.ts             # String obfuscation
-│   │   └── cls.ts                   # CLS prevention
+│   │   ├── cls.ts                   # CLS prevention
+│   │   ├── worker.ts                # Web Worker utility
+│   │   └── priority.ts              # Resource priority loading
 │   └── assets/
 │       └── favicon.svg
 ├── hooks.server.ts       # Security headers + rate limiter
 ├── app.css               # Global styles with Tailwind
 ├── app.html              # HTML template with inline CSS
 └── app.d.ts              # Type definitions
+static/
+├── sw.js                 # Service Worker (PWA)
+└── worker.js             # Web Worker for background tasks
 ```
 
 ## 🚀 Quick Start
@@ -140,6 +179,95 @@ npm run preview
 
 ## 🎯 Performance Features Usage
 
+### Debounce & Throttle
+
+```typescript
+import { debounce, throttle } from '$lib/utils/perf';
+
+// Debounce - waits for pause in events
+const search = debounce((query: string) => {
+	fetch(`/api?q=${query}`);
+}, 300);
+
+// Throttle - limits execution rate
+const scroll = throttle(() => {
+	console.log('Scrolling...');
+}, 100);
+```
+
+### RAF Throttling
+
+```typescript
+import { RAFThrottle } from '$lib/utils/perf';
+
+const raf = new RAFThrottle(60); // 60fps cap
+raf.run((delta) => {
+	// Your animation code
+	animate(delta);
+});
+
+// Stop when done
+raf.stop();
+```
+
+### Svelte Actions
+
+```svelte
+<script>
+	import { clickOutside, lazyLoad, viewport } from '$lib/actions';
+</script>
+
+<!-- Click outside detection -->
+<div use:clickOutside={() => closeModal()}>Modal content</div>
+
+<!-- Lazy load images -->
+<img use:lazyLoad data-src="/image.jpg" alt="Lazy" />
+
+<!-- Viewport intersection -->
+<div use:viewport={() => console.log('In view!')}>Content</div>
+```
+
+### Custom Transitions
+
+```svelte
+<script>
+	import { slideScale, blur } from '$lib/transitions';
+	let show = $state(false);
+</script>
+
+{#if show}
+	<div transition:slideScale>Smooth entry/exit</div>
+	<div transition:blur={{ amount: 10 }}>Blur effect</div>
+{/if}
+```
+
+### Web Workers
+
+```typescript
+import { createWorker } from '$lib/utils/worker';
+
+const worker = createWorker('/worker.js');
+worker.post('process', { data: 'heavy computation' });
+worker.on((e) => {
+	console.log('Result:', e.data);
+});
+worker.terminate(); // Clean up
+```
+
+### Priority Loading
+
+```typescript
+import { loadPriority } from '$lib/utils/priority';
+
+// Eager load critical images
+loadPriority.eager('/hero-image.jpg');
+
+// Lazy load non-critical
+loadPriority.lazy('/background.jpg', (url) => {
+	img.src = url;
+});
+```
+
 ### Optimized Image Component
 
 ```svelte
@@ -161,8 +289,9 @@ npm run preview
 
 ```svelte
 <script>
-	import { defer } from '$lib/utils/defer';
+	import { defer, deferHeavy } from '$lib/utils/defer';
 	defer(() => console.log('runs when idle'));
+	deferHeavy(() => console.log('runs on powerful devices'));
 </script>
 ```
 
