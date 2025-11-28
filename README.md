@@ -1,6 +1,6 @@
 # Portfolio v2
 
-A modern, typography-focused portfolio website built with SvelteKit, featuring WebGL animations, smooth scrolling, and responsive design.
+A modern, typography-focused portfolio website built with SvelteKit, featuring WebGL animations, smooth scrolling, and advanced performance optimizations.
 
 ## 🎨 Design Philosophy
 
@@ -34,6 +34,21 @@ This portfolio embraces **typography as the hero** with a minimalist approach:
 - 🎯 **Scroll-triggered animations** - Content reveals on scroll
 - 🖼️ **Hover-reveal images** - Typography-first with image overlays
 
+### Performance Optimizations
+
+- ⚡ **Rate Limiter** - 100 req/min per IP protection
+- 🖼️ **Lazy Loading** - Deferred image loading with intersection observer
+- 💀 **Skeleton Loaders** - Smooth content placeholders
+- 🔮 **Prefetch Routes** - Hover & viewport-based preloading
+- 🎨 **Optimistic UI** - Instant feedback with rollback
+- 📐 **CLS Prevention** - Aspect ratio reservations
+- 🎬 **Motion Loading** - Animated loading states
+- 🗜️ **Client Compression** - gzip for data transfer
+- 📦 **Chunked Downloads** - Parallel asset loading
+- 🔒 **Code Obfuscation** - Basic string protection
+- ⏱️ **Deferred Work** - requestIdleCallback for non-critical tasks
+- 🚀 **FCP Optimization** - Inline critical CSS
+
 ### User Experience
 
 - 🧭 **Smooth navigation** - Animated scrolling between sections
@@ -48,21 +63,35 @@ This portfolio embraces **typography as the hero** with a minimalist approach:
 - 🔒 **Content Security Policy** - XSS protection via CSP headers
 - 🛡️ **Security headers** - X-Frame-Options, X-Content-Type-Options, Referrer-Policy
 - 🔐 **Permissions policy** - Restricts unnecessary browser features
+- 🚦 **Rate limiting** - DDoS protection at application level
 
 ## 🏗️ Project Structure
 
 ```
 src/
 ├── routes/
-│   ├── +layout.svelte    # Global layout with theme detection
+│   ├── +layout.svelte    # Global layout with theme & prefetch
 │   ├── +page.svelte      # Main portfolio page
 │   └── +error.svelte     # Custom error page
 ├── lib/
+│   ├── components/
+│   │   ├── Skeleton.svelte          # Loading placeholder
+│   │   ├── OptimizedImage.svelte    # Lazy + CLS prevention
+│   │   └── MotionLoader.svelte      # Animated loader
+│   ├── stores/
+│   │   └── optimistic.ts            # Optimistic UI store
+│   ├── utils/
+│   │   ├── image.ts                 # Progressive loading
+│   │   ├── defer.ts                 # Deferred execution
+│   │   ├── compress.ts              # Client compression
+│   │   ├── download.ts              # Chunked fetch
+│   │   ├── obfuscate.ts             # String obfuscation
+│   │   └── cls.ts                   # CLS prevention
 │   └── assets/
 │       └── favicon.svg
-├── hooks.server.ts       # Security headers
+├── hooks.server.ts       # Security headers + rate limiter
 ├── app.css               # Global styles with Tailwind
-├── app.html              # HTML template
+├── app.html              # HTML template with inline CSS
 └── app.d.ts              # Type definitions
 ```
 
@@ -107,6 +136,50 @@ npm run build
 
 # Preview production build locally
 npm run preview
+```
+
+## 🎯 Performance Features Usage
+
+### Optimized Image Component
+
+```svelte
+<OptimizedImage src="/images/photo.jpg" alt="Description" width={800} height={600} />
+```
+
+### Optimistic UI
+
+```svelte
+<script>
+	import { createOptimistic } from '$lib/stores/optimistic';
+	const count = createOptimistic(0);
+	const action = $count.optimistic((n) => n + 1);
+	// action.rollback() if fails
+</script>
+```
+
+### Deferred Work
+
+```svelte
+<script>
+	import { defer } from '$lib/utils/defer';
+	defer(() => console.log('runs when idle'));
+</script>
+```
+
+### Client Compression
+
+```typescript
+import { compressText, decompressText } from '$lib/utils/compress';
+const blob = await compressText('large text');
+const text = await decompressText(blob);
+```
+
+### Obfuscation
+
+```typescript
+import { obfuscate, protectEmail } from '$lib/utils/obfuscate';
+const hidden = obfuscate('sensitive');
+const email = protectEmail('user@example.com');
 ```
 
 ## 🌐 Deployment
@@ -166,6 +239,15 @@ The static build works on any hosting platform:
 - **Simple attribution** and contact information
 
 ## 🔒 Security Features
+
+### Rate Limiting
+
+In-memory rate limiter (100 requests/minute per IP):
+
+```typescript
+// hooks.server.ts
+const rateLimits = new Map<string, { count: number; reset: number }>();
+```
 
 ### Content Security Policy (CSP)
 
@@ -239,6 +321,10 @@ const career = [...];
 - **Tree shaking** for minimal bundle size
 - **CDN delivery** for external libraries (GSAP, Three.js)
 - **Preload critical resources** (fonts, core styles)
+- **Inline critical CSS** for instant FCP
+- **Aspect ratio** reservations to prevent CLS
+- **requestIdleCallback** for deferred work
+- **Viewport prefetching** for instant navigation
 
 ### Browser Support
 
