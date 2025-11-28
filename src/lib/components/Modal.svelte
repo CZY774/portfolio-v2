@@ -6,8 +6,14 @@
 </script>
 
 {#if open}
-	<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50" transition:slideScale>
-		<div class="bg-white dark:bg-gray-900 rounded-lg p-6 max-w-2xl w-full" use:clickOutside={() => open = false}>
+	<div
+		class="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+		transition:slideScale
+	>
+		<div
+			class="w-full max-w-2xl rounded-lg bg-white p-6 dark:bg-gray-900"
+			use:clickOutside={() => (open = false)}
+		>
 			{@render children?.()}
 		</div>
 	</div>
