@@ -5,8 +5,8 @@
 	import { dev } from '$app/environment';
 	import { injectAnalytics } from '@vercel/analytics/sveltekit';
 	import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
+	import { preloadData } from '$app/navigation';
 
-	// Inject Vercel Analytics and Speed Insights
 	injectAnalytics({ mode: dev ? 'development' : 'production' });
 	injectSpeedInsights();
 
@@ -14,7 +14,6 @@
 	let darkMode = $state(false);
 
 	onMount(() => {
-		// Auto detect system theme
 		const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 		darkMode = mediaQuery.matches;
 
@@ -22,35 +21,47 @@
 			darkMode = e.matches;
 		});
 
-		// Apply theme to document
 		$effect(() => {
-			if (darkMode) {
-				document.documentElement.classList.add('dark');
-			} else {
-				document.documentElement.classList.remove('dark');
-			}
+			document.documentElement.classList.toggle('dark', darkMode);
 		});
+
+		// Prefetch critical routes
+		preloadData('/');
+
+		// Measure TTI
+		import('$lib/utils/perf').then(({ measureTTI }) => measureTTI());
+
+		// Mark interactive
+		performance.mark('interactive');
 	});
 </script>
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
+	<link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+	<link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
+	<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
 	<link
 		href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
 		rel="stylesheet"
 	/>
-
 	<link
-		rel="stylesheet"
-		type="text/css"
+		rel="preload"
+		as="style"
 		href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
 	/>
-
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+	<link
+		rel="stylesheet"
+		href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
+	/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" async></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"
+		async
+	></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" async></script>
 	<title>cornelius yoga - creative developer & designer</title>
 	<meta
 		name="description"
