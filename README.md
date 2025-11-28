@@ -37,12 +37,14 @@ This portfolio embraces **typography as the hero** with a minimalist approach:
 ### Performance Optimizations
 
 #### Core Web Vitals
+
 - 📐 **CLS Prevention** - Aspect ratio reservations & space allocation
 - ⏱️ **TTI Measurement** - Time to Interactive tracking with PerformanceObserver
 - 🖼️ **Lazy Loading** - IntersectionObserver-based image loading
 - 🚀 **FCP Optimization** - Inline critical CSS & resource hints
 
 #### Advanced Performance
+
 - 🎯 **Debounce/Throttle** - Event handler optimization utilities
 - 🎬 **RAF Throttling** - 60fps capped animations with frame skipping
 - 🔄 **Service Worker** - Cache-first PWA strategy
@@ -52,6 +54,7 @@ This portfolio embraces **typography as the hero** with a minimalist approach:
 - 🎨 **Optimistic UI** - Instant feedback with rollback
 
 #### Resource Loading
+
 - 🌐 **DNS-Prefetch** - Early DNS resolution for CDNs
 - 🔗 **Preconnect** - Pre-establish connections
 - 📦 **Preload** - Critical resource prioritization
@@ -59,11 +62,13 @@ This portfolio embraces **typography as the hero** with a minimalist approach:
 - 📊 **Route Priority** - High/medium/low route classification
 
 #### Svelte-Specific
+
 - 🎭 **Actions** - `clickOutside`, `lazyLoad`, `viewport` directives
 - ✨ **Transitions** - `slideScale`, `blur` custom transitions
 - 🔄 **Built-in Animations** - Svelte's native animation system
 
 #### Code Quality
+
 - 💀 **Skeleton Loaders** - Smooth content placeholders
 - 🗜️ **Client Compression** - gzip for data transfer
 - 📦 **Chunked Downloads** - Parallel asset loading
@@ -73,6 +78,7 @@ This portfolio embraces **typography as the hero** with a minimalist approach:
 - 📦 **Code Splitting** - Route-based automatic chunking
 
 #### Monitoring
+
 - 📊 **Vercel Analytics** - Real User Monitoring (RUM)
 - ⚡ **Speed Insights** - Core Web Vitals tracking
 - 🎯 **APM Metrics** - Application Performance Monitoring
