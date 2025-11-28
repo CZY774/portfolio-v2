@@ -1,7 +1,10 @@
 import { cubicOut } from 'svelte/easing';
 import type { TransitionConfig } from 'svelte/transition';
 
-export const slideScale = (node: Element, { duration = 300, delay = 0 } = {}): TransitionConfig => ({
+export const slideScale = (
+	node: Element,
+	{ duration = 300, delay = 0 } = {}
+): TransitionConfig => ({
 	duration,
 	delay,
 	css: (t) => {
