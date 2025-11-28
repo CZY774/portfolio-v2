@@ -510,7 +510,7 @@
 
 	async function animate() {
 		if (!particles || !renderer || !scene || !camera) return;
-		
+
 		if (!rafThrottle) {
 			const { RAFThrottle } = await import('$lib/utils/perf');
 			rafThrottle = new RAFThrottle(60);
