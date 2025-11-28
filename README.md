@@ -36,52 +36,56 @@ This portfolio embraces **typography as the hero** with a minimalist approach:
 
 ### Performance Optimizations
 
+> **Legend**: 🟢 Production Used | 🟡 Capability Showcase | 🔵 Framework Built-in
+
 #### Core Web Vitals
 
-- 📐 **CLS Prevention** - Aspect ratio reservations & space allocation
-- ⏱️ **TTI Measurement** - Time to Interactive tracking with PerformanceObserver
-- 🖼️ **Lazy Loading** - IntersectionObserver-based image loading
-- 🚀 **FCP Optimization** - Inline critical CSS & resource hints
+- 🟢 **CLS Prevention** - Aspect ratio reservations & space allocation
+- 🟢 **TTI Measurement** - Time to Interactive tracking with PerformanceObserver
+- 🟢 **Lazy Loading** - IntersectionObserver-based image loading
+- 🟢 **FCP Optimization** - Inline critical CSS & resource hints
 
 #### Advanced Performance
 
-- 🎯 **Debounce/Throttle** - Event handler optimization utilities
-- 🎬 **RAF Throttling** - 60fps capped animations with frame skipping
-- 🔄 **Service Worker** - Cache-first PWA strategy
-- 👷 **Web Workers** - Background thread processing
-- ⚡ **Rate Limiter** - 100 req/min per IP protection
-- 🔮 **Prefetch Routes** - Hover & viewport-based preloading
-- 🎨 **Optimistic UI** - Instant feedback with rollback
+- 🟢 **Debounce/Throttle** - Event handler optimization (mouse tracking, filters)
+- 🟢 **RAF Throttling** - 60fps capped Three.js animations with frame skipping
+- 🟢 **Service Worker** - Cache-first PWA strategy for images
+- 🟡 **Web Workers** - Background thread processing (capability showcase)
+- 🟢 **Rate Limiter** - 100 req/min per IP protection
+- 🟢 **Prefetch Routes** - Hover & viewport-based preloading
+- 🟡 **Optimistic UI** - Instant feedback with rollback (no mutations yet)
 
 #### Resource Loading
 
-- 🌐 **DNS-Prefetch** - Early DNS resolution for CDNs
-- 🔗 **Preconnect** - Pre-establish connections
-- 📦 **Preload** - Critical resource prioritization
-- 🎯 **Priority Loading** - Eager vs lazy loading strategies
-- 📊 **Route Priority** - High/medium/low route classification
+- 🟢 **DNS-Prefetch** - Early DNS resolution for CDNs (GSAP, Three.js, DevIcons)
+- 🟢 **Preconnect** - Pre-establish connections to fonts/CDN
+- 🟢 **Preload** - Critical resource prioritization
+- 🟢 **Priority Loading** - Eager hero images, lazy below-fold
+- 🟡 **Route Priority** - High/medium/low classification (single route currently)
 
 #### Svelte-Specific
 
-- 🎭 **Actions** - `clickOutside`, `lazyLoad`, `viewport` directives
-- ✨ **Transitions** - `slideScale`, `blur` custom transitions
-- 🔄 **Built-in Animations** - Svelte's native animation system
+- 🟢 **Actions** - `clickOutside` (modals), `lazyLoad`, `viewport` directives
+- 🟢 **Transitions** - `slideScale`, `blur` custom transitions for modals
+- 🔵 **Built-in Animations** - Svelte's native animation system
 
 #### Code Quality
 
-- 💀 **Skeleton Loaders** - Smooth content placeholders
-- 🗜️ **Client Compression** - gzip for data transfer
-- 📦 **Chunked Downloads** - Parallel asset loading
-- 🔒 **Code Obfuscation** - Basic string protection
-- ⏱️ **Deferred Work** - requestIdleCallback for non-critical tasks
-- 🌳 **Tree Shaking** - Automatic dead code elimination
-- 📦 **Code Splitting** - Route-based automatic chunking
+- 🟢 **Skeleton Loaders** - Smooth content placeholders
+- 🟡 **Client Compression** - gzip for data transfer (no large payloads yet)
+- 🟡 **Chunked Downloads** - Parallel asset loading (showcase)
+- 🟡 **Code Obfuscation** - Basic string protection (static site)
+- 🟢 **Deferred Work** - requestIdleCallback for non-critical tasks
+- 🔵 **Tree Shaking** - Automatic dead code elimination (Vite)
+- 🔵 **Code Splitting** - Route-based automatic chunking (SvelteKit)
 
 #### Monitoring
 
-- 📊 **Vercel Analytics** - Real User Monitoring (RUM)
-- ⚡ **Speed Insights** - Core Web Vitals tracking
-- 🎯 **APM Metrics** - Application Performance Monitoring
+- 🟢 **Vercel Analytics** - Real User Monitoring (RUM)
+- 🟢 **Speed Insights** - Core Web Vitals tracking
+- 🟢 **APM Metrics** - Application Performance Monitoring
+
+**Note**: 🟡 Features demonstrate technical capability and architectural knowledge for scalable applications, even if not actively used in current single-page context. All 🟢 features provide measurable production value.
 
 ### User Experience
 
