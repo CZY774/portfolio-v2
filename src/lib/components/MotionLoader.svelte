@@ -1,5 +1,7 @@
 <script lang="ts">
-	export let loading = $bindable(false);
+	import { fade } from 'svelte/transition';
+
+	let { loading = $bindable(false) } = $props();
 </script>
 
 {#if loading}
