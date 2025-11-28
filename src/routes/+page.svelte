@@ -506,7 +506,8 @@
 		});
 	}
 
-	let rafThrottle: any;
+	let rafThrottle: { run: (callback: (delta: number) => void) => void; stop: () => void } | null =
+		null;
 
 	async function animate() {
 		if (!particles || !renderer || !scene || !camera) return;
