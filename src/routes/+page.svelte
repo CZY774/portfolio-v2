@@ -363,7 +363,12 @@
 		return works[currentFilter as keyof Works] || [];
 	});
 
-	onMount(() => {
+	onMount(async () => {
+		// Register service worker
+		if ('serviceWorker' in navigator) {
+			navigator.serviceWorker.register('/sw.js').catch(() => {});
+		}
+
 		// Check cookie consent
 		const consent = localStorage.getItem('cookieConsent');
 		if (consent !== null) {
@@ -384,17 +389,17 @@
 		// Initialize scroll navigation with better implementation
 		initSmoothScrolling();
 
-		// Mouse tracking for interactive background
-		document.addEventListener('mousemove', (e) => {
+		// Mouse tracking with throttle
+		const { throttle } = await import('$lib/utils/perf');
+		const handleMouse = throttle((e: MouseEvent) => {
 			mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
 			mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
-
-			// Update CSS custom properties for background interaction
 			const mouseX = (e.clientX / window.innerWidth) * 100;
 			const mouseY = (e.clientY / window.innerHeight) * 100;
 			document.body.style.setProperty('--mouse-x', `${mouseX}%`);
 			document.body.style.setProperty('--mouse-y', `${mouseY}%`);
-		});
+		}, 16);
+		document.addEventListener('mousemove', handleMouse);
 
 		// Enhanced loading animation
 		setTimeout(() => {
@@ -501,19 +506,23 @@
 		});
 	}
 
-	function animate() {
+	let rafThrottle: any;
+
+	async function animate() {
 		if (!particles || !renderer || !scene || !camera) return;
-		requestAnimationFrame(animate);
-
-		// Enhanced interactive rotation with background distortion effect
-		particles.rotation.x += 0.0003 + mouse.y * 0.0001;
-		particles.rotation.y += 0.0005 + mouse.x * 0.0001;
-
-		// Add subtle scaling based on mouse position for distortion effect
-		const scale = 1 + (mouse.x * 0.02 + mouse.y * 0.02) * 0.1;
-		particles.scale.set(scale, scale, scale);
-
-		renderer.render(scene, camera);
+		
+		if (!rafThrottle) {
+			const { RAFThrottle } = await import('$lib/utils/perf');
+			rafThrottle = new RAFThrottle(60);
+			rafThrottle.run(() => {
+				if (!particles || !renderer || !scene || !camera) return;
+				particles.rotation.x += 0.0003 + mouse.y * 0.0001;
+				particles.rotation.y += 0.0005 + mouse.x * 0.0001;
+				const scale = 1 + (mouse.x * 0.02 + mouse.y * 0.02) * 0.1;
+				particles.scale.set(scale, scale, scale);
+				renderer.render(scene, camera);
+			});
+		}
 	}
 
 	function initGSAP() {
