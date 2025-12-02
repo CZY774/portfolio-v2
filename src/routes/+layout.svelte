@@ -1,6 +1,5 @@
 <script lang="ts">
 	import '../app.css';
-	import favicon from '$lib/assets/favicon.svg';
 	import { onMount } from 'svelte';
 	import { dev } from '$app/environment';
 	import { injectAnalytics } from '@vercel/analytics/sveltekit';
@@ -37,7 +36,7 @@
 </script>
 
 <svelte:head>
-	<link rel="icon" href={favicon} />
+	<link rel="icon" href="/favicon.svg" />
 	<link rel="dns-prefetch" href="https://fonts.googleapis.com" />
 	<link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
 	<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
