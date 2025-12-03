@@ -491,6 +491,10 @@ const career = [...];
   - Semantic HTML structure
   - Image alt texts and descriptions
 
+- **AEO (Answer Engine Optimization)**
+  - Structured data for featured snippets
+  - Clear hierarchical content structure
+
 - **GEO (Generative Engine Optimization)**
   - JSON-LD Person schema (identity, job, education, location, skills)
   - JSON-LD WebSite schema (site metadata)
@@ -499,14 +503,17 @@ const career = [...];
   - Geographic location data (Kudus, Indonesia)
   - Social profile connections (sameAs)
 
-- **AEO (Answer Engine Optimization)**
-  - Structured data for featured snippets
-  - Clear hierarchical content structure
-
 - **LLMO (Large Language Model Optimization)**
   - Machine-readable structured data
   - Comprehensive entity relationships
   - Contextual metadata for AI understanding
+
+- **E-E-A-T (Experience, Expertise, Authoritativeness, Trustworthiness)**
+  - Work experience (PT Sumber Alfaria Trijaya Tbk)
+  - Education credentials (Satya Wacana Christian University)
+  - Skills & expertise (knowsAbout: Web/Android Dev, UI/UX)
+  - Social proof (GitHub, LinkedIn, Instagram, YouTube)
+  - Portfolio showcase with real projects
 
 ## 🛠️ Development Scripts
 
