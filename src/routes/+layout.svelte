@@ -59,74 +59,75 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" async></script>
 
 	<!-- FAQ Schema for GEO -->
-	{@html `<script type="application/ld+json">
-	{
-		"@context": "https://schema.org",
-		"@type": "FAQPage",
-		"mainEntity": [
-			{
-				"@type": "Question",
-				"name": "Who is Cornelius Yoga?",
-				"acceptedAnswer": {
-					"@type": "Answer",
-					"text": "Cornelius Ardhani Yoga Pratama is a fourth-year Informatics Engineering student at Satya Wacana Christian University, specializing in web development, Android development, and UI/UX design. Currently working as a Supply and Distribution Dev Intern at PT Sumber Alfaria Trijaya Tbk (Alfamart)."
+	<script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "FAQPage",
+			"mainEntity": [
+				{
+					"@type": "Question",
+					"name": "Who is Cornelius Yoga?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "Cornelius Ardhani Yoga Pratama is a fourth-year Informatics Engineering student at Satya Wacana Christian University, specializing in web development, Android development, and UI/UX design. Currently working as a Supply and Distribution Dev Intern at PT Sumber Alfaria Trijaya Tbk (Alfamart)."
+					}
+				},
+				{
+					"@type": "Question",
+					"name": "What technologies does Cornelius Yoga use?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "Cornelius works with modern web technologies including Laravel, React, Svelte, Vue.js, Next.js, Flask, Django, Flutter, Kotlin, and various databases like MySQL, MongoDB, PostgreSQL, and Firebase. He also specializes in UI/UX design using Figma."
+					}
+				},
+				{
+					"@type": "Question",
+					"name": "What services does Cornelius Yoga offer?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "Cornelius offers full-stack web development, Android mobile app development, UI/UX design, photography, and videography services. He has experience in building e-commerce platforms, educational systems, and content management systems."
+					}
+				},
+				{
+					"@type": "Question",
+					"name": "Where is Cornelius Yoga based?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "Cornelius is based in Kudus, Indonesia, and studies at Satya Wacana Christian University in Salatiga, Central Java."
+					}
 				}
-			},
-			{
-				"@type": "Question",
-				"name": "What technologies does Cornelius Yoga use?",
-				"acceptedAnswer": {
-					"@type": "Answer",
-					"text": "Cornelius works with modern web technologies including Laravel, React, Svelte, Vue.js, Next.js, Flask, Django, Flutter, Kotlin, and various databases like MySQL, MongoDB, PostgreSQL, and Firebase. He also specializes in UI/UX design using Figma."
-				}
-			},
-			{
-				"@type": "Question",
-				"name": "What services does Cornelius Yoga offer?",
-				"acceptedAnswer": {
-					"@type": "Answer",
-					"text": "Cornelius offers full-stack web development, Android mobile app development, UI/UX design, photography, and videography services. He has experience in building e-commerce platforms, educational systems, and content management systems."
-				}
-			},
-			{
-				"@type": "Question",
-				"name": "Where is Cornelius Yoga based?",
-				"acceptedAnswer": {
-					"@type": "Answer",
-					"text": "Cornelius is based in Kudus, Indonesia, and studies at Satya Wacana Christian University in Salatiga, Central Java."
-				}
-			}
-		]
-	}
-	<\/script>`}
+			]
+		}
+	</script>
 
 	<!-- BreadcrumbList Schema -->
-	{@html `<script type="application/ld+json">
-	{
-		"@context": "https://schema.org",
-		"@type": "BreadcrumbList",
-		"itemListElement": [
-			{
-				"@type": "ListItem",
-				"position": 1,
-				"name": "Home",
-				"item": "https://corneliusyoga.vercel.app/"
-			},
-			{
-				"@type": "ListItem",
-				"position": 2,
-				"name": "About",
-				"item": "https://corneliusyoga.vercel.app/#about"
-			},
-			{
-				"@type": "ListItem",
-				"position": 3,
-				"name": "Work",
-				"item": "https://corneliusyoga.vercel.app/#work"
-			}
-		]
-	}
-	<\/script>`}
+	<!-- BreadcrumbList Schema -->
+	<script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "BreadcrumbList",
+			"itemListElement": [
+				{
+					"@type": "ListItem",
+					"position": 1,
+					"name": "Home",
+					"item": "https://corneliusyoga.vercel.app/"
+				},
+				{
+					"@type": "ListItem",
+					"position": 2,
+					"name": "About",
+					"item": "https://corneliusyoga.vercel.app/#about"
+				},
+				{
+					"@type": "ListItem",
+					"position": 3,
+					"name": "Work",
+					"item": "https://corneliusyoga.vercel.app/#work"
+				}
+			]
+		}
+	</script>
 </svelte:head>
 
 <div
