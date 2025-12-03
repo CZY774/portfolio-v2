@@ -480,13 +480,33 @@ const career = [...];
 - **Reduced motion** respect
 - **Focus management** for navigation
 
-### SEO Optimizations
+### SEO & AI Optimization
 
-- **Server-side rendering** via SvelteKit
-- **Meta tags** configuration
-- **Semantic markup** structure
-- **Clean URLs** with proper routing
-- **Image alt texts** and descriptions
+- **SEO (Search Engine Optimization)**
+  - Meta tags (title, description, keywords)
+  - Open Graph & Twitter Cards for social sharing
+  - robots.txt & sitemap.xml
+  - Google Search Console verification
+  - Server-side rendering via SvelteKit
+  - Semantic HTML structure
+  - Image alt texts and descriptions
+
+- **GEO (Generative Engine Optimization)**
+  - JSON-LD Person schema (identity, job, education, location, skills)
+  - JSON-LD WebSite schema (site metadata)
+  - JSON-LD ItemList schema (portfolio projects)
+  - Rich entity relationships for AI comprehension
+  - Geographic location data (Kudus, Indonesia)
+  - Social profile connections (sameAs)
+
+- **AEO (Answer Engine Optimization)**
+  - Structured data for featured snippets
+  - Clear hierarchical content structure
+
+- **LLMO (Large Language Model Optimization)**
+  - Machine-readable structured data
+  - Comprehensive entity relationships
+  - Contextual metadata for AI understanding
 
 ## 🛠️ Development Scripts
 
