@@ -136,94 +136,10 @@
 			},
 			{
 				type: 'app',
-				title: 'CZmoneY',
-				desc: 'Personal finance management application built in SvelteKit and Supabase.',
-				link: 'https://czmoney.vercel.app/',
-				image: '/images/website-16.png'
-			},
-			{
-				type: 'app',
-				title: 'People & Goods',
-				desc: 'A mobile app that showcases user and product data fetched from DummyJSON API using Retrofit, GSON, and showcased with Jetpack Compose.',
-				link: 'https://github.com/CZY774/TugasTigaPemrogramanMobile-672022204',
-				image: '/images/mobile-2.png'
-			},
-			{
-				type: 'app',
-				title: 'Siasat Wannabe',
-				desc: 'A mobile application for lecture management built with Jetpack Compose and Firebase Firestore.',
-				link: 'https://github.com/CZY774/TASPemrogramanMobile',
-				image: '/images/mobile-3.png'
-			},
-			{
-				type: 'app',
-				title: 'Wordle',
-				desc: 'A modern, accessible, and beautiful Wordle clone built with Vue 3, Vite, TypeScript, and Tailwind CSS.',
-				link: 'https://github.com/CZY774/wordle-vue',
-				image: '/images/website-10.png'
-			},
-			{
-				type: 'app',
-				title: 'Habit Tracker',
-				desc: 'Track, visualize, and improve your daily habits with a sleek, accessible, and responsive web app built using SvelteKit, TypeScript, and Tailwind CSS.',
-				link: 'https://github.com/CZY774/habit-tracker-sveltekit',
-				image: '/images/website-11.png'
-			},
-			{
-				type: 'app',
-				title: 'Mood Tracker App',
-				desc: 'A cross-platform mobile application for tracking moods and viewing statistics. Built with React-Native, Expo, and SQLite.',
-				link: 'https://github.com/CZY774/mood-dairy-app-expocli',
-				image: '/images/mobile-1.png'
-			},
-			{
-				type: 'app',
-				title: 'Job Tracker Dashboard',
-				desc: 'A modern job application tracking dashboard built with Next.js, ShadCN UI, Prisma, and PostgreSQL.',
-				link: 'https://github.com/CZY774/job-tracker-nextjs',
-				image: '/images/website-14.png'
-			},
-			{
-				type: 'app',
-				title: 'URL Shortener',
-				desc: 'A URL shortening application built with Express.js, MongoDB, and Tailwind CSS v4.',
-				link: 'https://github.com/CZY774/url-shortener-expressjs',
-				image: '/images/website-15.png'
-			},
-			{
-				type: 'app',
-				title: 'Personal Portfolio Website 1st gen',
-				desc: 'A personal portfolio website showcasing skills, projects, and experiences. Built with TypeScript and Tailwind CSS.',
-				link: 'https://github.com/CZY774/Portfolio',
-				image: '/images/website-13.png'
-			},
-			{
-				type: 'app',
-				title: 'Bubble Laundry',
-				desc: 'Self-service laundry website built with Bootstrap',
-				link: 'https://czy774.github.io/bubble_laundry/',
-				image: '/images/website-3.png'
-			},
-			{
-				type: 'app',
 				title: 'Muncul River Tubing',
 				desc: 'Business website built with Laravel & Bootstrap',
 				link: 'https://munculrivertubing.com',
 				image: '/images/website-1.png'
-			},
-			{
-				type: 'app',
-				title: 'Point of Sale',
-				desc: 'Implementing struct and file handling with C++',
-				link: 'https://github.com/CZY774/learn-cpp/blob/a678cc23e28c124a1a726b96893a884758426f00/tts.cpp',
-				image: '/images/website-4.png'
-			},
-			{
-				type: 'app',
-				title: 'Clothes Shopping App',
-				desc: 'Clothes shopping app built with C that implements struct, file handling, sorting, and searching algorithms.',
-				link: 'https://github.com/CZY774/C-program/blob/main/tugas-rancang.c',
-				image: '/images/website-5.png'
 			}
 		],
 		photo: [
@@ -613,6 +529,102 @@
 		content="Creative developer & designer crafting digital experiences that blend aesthetic beauty with functional innovation."
 	/>
 	<meta name="twitter:image" content="https://corneliusyoga.vercel.app/website-12.png" />
+
+	<!-- JSON-LD Structured Data for GEO -->
+	{@html `<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "Person",
+		"name": "Cornelius Ardhani Yoga Pratama",
+		"alternateName": "Cornelius Yoga",
+		"url": "https://corneliusyoga.vercel.app",
+		"image": "https://corneliusyoga.vercel.app/website-12.png",
+		"jobTitle": "Software Developer & Designer",
+		"worksFor": {
+			"@type": "Organization",
+			"name": "PT Sumber Alfaria Trijaya Tbk"
+		},
+		"alumniOf": {
+			"@type": "EducationalOrganization",
+			"name": "Satya Wacana Christian University"
+		},
+		"address": {
+			"@type": "PostalAddress",
+			"addressLocality": "Kudus",
+			"addressCountry": "Indonesia"
+		},
+		"sameAs": [
+			"https://instagram.com/corneliusyoga",
+			"https://github.com/CZY774",
+			"https://www.linkedin.com/in/cornelius-yoga-783b6a291/",
+			"https://youtube.com/@CZY774"
+		],
+		"knowsAbout": ["Web Development", "Android Development", "UI/UX Design", "Full Stack Development", "Laravel", "React", "Svelte", "Flutter"],
+		"description": "Fourth-year Informatics Engineering student specializing in web and mobile development, UI/UX design, and digital content creation"
+	}
+	<\/script>`}
+
+	{@html `<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "WebSite",
+		"name": "Cornelius Yoga Portfolio",
+		"url": "https://corneliusyoga.vercel.app",
+		"description": "Creative developer & designer portfolio showcasing web applications, photography, and videography work",
+		"author": {
+			"@type": "Person",
+			"name": "Cornelius Ardhani Yoga Pratama"
+		},
+		"inLanguage": "en-US"
+	}
+	<\/script>`}
+
+	{@html `<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "ItemList",
+		"name": "Portfolio Projects",
+		"itemListElement": [
+			{
+				"@type": "CreativeWork",
+				"position": 1,
+				"name": "EduVerse by Belum Ada Ide",
+				"description": "UI/UX winner for a desktop based educational platform for junior high school students",
+				"url": "https://www.figma.com/proto/iADoy42ojxwFJrOPRwKbAi/EduVerse-by-Belum-Ada-Ide",
+				"creator": {
+					"@type": "Person",
+					"name": "Cornelius Yoga"
+				}
+			},
+			{
+				"@type": "SoftwareApplication",
+				"position": 2,
+				"name": "Maison Étoile by K-Mentality",
+				"description": "8-hour livecode winner: Laravel-based e-restaurant with ordering, menu management, and RBAC",
+				"url": "https://github.com/RafflesSupit/Next-Gen-K-MENTALITY/",
+				"applicationCategory": "WebApplication",
+				"operatingSystem": "Web",
+				"creator": {
+					"@type": "Person",
+					"name": "Cornelius Yoga"
+				}
+			},
+			{
+				"@type": "SoftwareApplication",
+				"position": 3,
+				"name": "CornelVHub",
+				"description": "VMS platform built with Flask, MongoDB, Redis, deployed on GCP",
+				"url": "https://yoga-672022204-service-975615093796.asia-southeast2.run.app/",
+				"applicationCategory": "WebApplication",
+				"operatingSystem": "Web",
+				"creator": {
+					"@type": "Person",
+					"name": "Cornelius Yoga"
+				}
+			}
+		]
+	}
+	<\/script>`}
 </svelte:head>
 
 <!-- Enhanced Loader -->
