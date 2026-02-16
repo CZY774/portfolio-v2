@@ -6,15 +6,28 @@
 	<div class="container mx-auto max-w-7xl">
 		<h2 class="animate-in mb-24 text-6xl font-light md:text-8xl">about me</h2>
 
-		<div class="animate-in relative mb-32 overflow-hidden">
-			<div class="marquee-container">
-				<div class="marquee-track">
-					{#each techStack as tech (tech + '-1')}
-						<i class="{tech} tech-icon"></i>
-					{/each}
-					{#each techStack as tech (tech + '-2')}
-						<i class="{tech} tech-icon"></i>
-					{/each}
+		<div class="animate-in mb-32 grid grid-cols-1 items-center gap-16 lg:grid-cols-5">
+			<div class="lg:col-span-3">
+				<p class="text-xl font-light leading-relaxed text-gray-600 dark:text-gray-400">
+					I am an Informatics Engineering student with a strong passion for solving real-world
+					problems through code, currently maintaining a 3.92 GPA while working as an IT Development
+					Intern at Alfamart. My journey isn't just about writing syntax; it's about building
+					systems that work.
+				</p>
+			</div>
+			<div class="relative overflow-hidden lg:col-span-2">
+				<div
+					class="pointer-events-none absolute inset-y-0 left-0 z-10 w-32 bg-gradient-to-r from-white dark:from-gray-950"
+				></div>
+				<div class="marquee-container">
+					<div class="marquee-track">
+						{#each techStack as tech (tech + '-1')}
+							<i class="{tech} tech-icon"></i>
+						{/each}
+						{#each techStack as tech (tech + '-2')}
+							<i class="{tech} tech-icon"></i>
+						{/each}
+					</div>
 				</div>
 			</div>
 		</div>
