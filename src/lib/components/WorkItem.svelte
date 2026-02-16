@@ -30,7 +30,7 @@
 			{#if work.image}
 				<img
 					src={work.image}
-					alt={work.title}
+					alt="{work.title} - Cornelius Yoga Web Developer Kudus"
 					class="h-full w-full object-cover opacity-0 transition-opacity duration-700 group-hover:opacity-100"
 					loading="lazy"
 					onerror={(e) => {
