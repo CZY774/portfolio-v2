@@ -13,29 +13,23 @@
 	}
 </script>
 
-<nav class="fixed top-0 right-0 left-0 z-40 bg-white/90 backdrop-blur-sm dark:bg-gray-950/90">
+<nav class="fixed left-0 right-0 top-0 z-40 bg-white/90 backdrop-blur-sm dark:bg-gray-950/90">
 	<div class="container mx-auto px-8 py-6">
 		<div class="flex items-center justify-between">
-			<button
-				onclick={() => navigate('landing')}
-				class="text-lg font-medium transition-colors hover:text-[#0736fe]"
-			>
+			<button onclick={() => navigate('landing')} class="link-hover text-lg font-medium">
 				czy
 			</button>
 
 			<div class="hidden space-x-8 md:flex">
-				<button onclick={() => navigate('about')} class="transition-colors hover:text-[#0736fe]"
-					>about</button
-				>
-				<button onclick={() => navigate('work')} class="transition-colors hover:text-[#0736fe]"
-					>work</button
-				>
+				<button onclick={() => navigate('about')} class="link-hover">about</button>
+				<button onclick={() => navigate('work')} class="link-hover">work</button>
 			</div>
 
 			<button
 				onclick={toggleMobileMenu}
 				class="relative z-50 p-2 md:hidden"
-				aria-label="Toggle menu"
+				aria-label="Toggle navigation menu"
+				aria-expanded={mobileMenuOpen}
 			>
 				<div class="hamburger {mobileMenuOpen ? 'active' : ''}">
 					<span></span>
@@ -48,23 +42,20 @@
 
 	{#if mobileMenuOpen}
 		<div
-			class="mobile-menu fixed top-0 left-0 flex h-screen w-full items-center justify-center bg-white/95 backdrop-blur-md dark:bg-gray-950/95"
+			class="mobile-menu fixed left-0 top-0 flex h-screen w-full items-center justify-center bg-white/95 backdrop-blur-md dark:bg-gray-950/95"
 		>
 			<div class="space-y-8 text-center">
 				<button
 					onclick={() => navigate('landing')}
-					class="block transform text-4xl font-light transition-colors hover:scale-105 hover:text-[#0736fe]"
-					>home</button
+					class="link-hover block transform text-4xl font-light hover:scale-105">home</button
 				>
 				<button
 					onclick={() => navigate('about')}
-					class="block transform text-4xl font-light transition-colors hover:scale-105 hover:text-[#0736fe]"
-					>about</button
+					class="link-hover block transform text-4xl font-light hover:scale-105">about</button
 				>
 				<button
 					onclick={() => navigate('work')}
-					class="block transform text-4xl font-light transition-colors hover:scale-105 hover:text-[#0736fe]"
-					>work</button
+					class="link-hover block transform text-4xl font-light hover:scale-105">work</button
 				>
 			</div>
 		</div>
