@@ -135,7 +135,7 @@
 >
 	<a
 		href="#landing"
-		class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-[#0736fe] focus:px-4 focus:py-2 focus:text-white focus:outline-none"
+		class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:rounded focus:bg-[#0736fe] focus:px-4 focus:py-2 focus:text-white focus:outline-none"
 	>
 		Skip to main content
 	</a>
