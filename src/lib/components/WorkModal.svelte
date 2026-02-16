@@ -9,8 +9,8 @@
 		type = $bindable<'image' | 'video' | null>(null)
 	} = $props();
 
-	let modalElement: HTMLDivElement;
-	let closeButton: HTMLButtonElement;
+	let modalElement = $state<HTMLDivElement>();
+	let closeButton = $state<HTMLButtonElement>();
 
 	function close() {
 		isOpen = false;
