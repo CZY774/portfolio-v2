@@ -29,6 +29,9 @@ const config = {
 				'frame-src': ['https://www.youtube.com', 'https://www.figma.com']
 			}
 		}
+	},
+	vitePlugin: {
+		inspector: false
 	}
 };
 
