@@ -139,16 +139,6 @@
 			pointer !important;
 	}
 
-	:global(.custom-button) {
-		outline: none !important;
-		box-shadow: none !important;
-	}
-
-	:global(.custom-button:active) {
-		transform: none !important;
-		box-shadow: none !important;
-	}
-
 	:global(::-webkit-scrollbar) {
 		display: none;
 	}
