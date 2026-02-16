@@ -30,9 +30,9 @@
 			{#each [{ key: 'all', label: 'all' }, { key: 'apps', label: 'apps' }, { key: 'photo', label: 'personal creative work' }, { key: 'videos', label: 'videos' }] as filter (filter.key)}
 				<button
 					onclick={() => handleFilterChange(filter.key)}
-					class="px-6 py-2 transition-all {currentFilter === filter.key
-						? 'border-2 border-[#0736fe]'
-						: 'border border-current hover:border-[#0736fe] hover:text-[#0736fe]'}"
+					class="px-6 py-2 transition-colors {currentFilter === filter.key
+						? 'text-[#0736fe]'
+						: 'hover:text-[#0736fe]'}"
 					aria-pressed={currentFilter === filter.key}
 					aria-label="Filter by {filter.label}"
 				>
