@@ -13,7 +13,7 @@
 	}
 </script>
 
-<nav class="fixed left-0 right-0 top-0 z-40 bg-white/90 backdrop-blur-sm dark:bg-gray-950/90">
+<nav class="fixed top-0 right-0 left-0 z-40 bg-white/90 backdrop-blur-sm dark:bg-gray-950/90">
 	<div class="container mx-auto px-8 py-6">
 		<div class="flex items-center justify-between">
 			<button onclick={() => navigate('landing')} class="link-hover text-lg font-medium">
@@ -42,7 +42,7 @@
 
 	{#if mobileMenuOpen}
 		<div
-			class="mobile-menu fixed left-0 top-0 flex h-screen w-full items-center justify-center bg-white/95 backdrop-blur-md dark:bg-gray-950/95"
+			class="mobile-menu fixed top-0 left-0 flex h-screen w-full items-center justify-center bg-white/95 backdrop-blur-md dark:bg-gray-950/95"
 		>
 			<div class="space-y-8 text-center">
 				<button
