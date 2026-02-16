@@ -30,23 +30,6 @@
 			navigator.serviceWorker.register('/sw.js').catch(() => {});
 		}
 
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		const THREE = (window as any).THREE;
-		if (THREE && canvas) {
-			try {
-				const threeScene = initThreeJS(canvas, THREE);
-				if (threeScene) {
-					scene = threeScene.scene;
-					camera = threeScene.camera;
-					renderer = threeScene.renderer;
-					particles = threeScene.particles;
-					animate();
-				}
-			} catch {
-				console.warn('WebGL not supported, falling back to static background');
-			}
-		}
-
 		initGSAP();
 		initSmoothScrolling();
 
@@ -63,6 +46,33 @@
 		setTimeout(() => {
 			isLoading = false;
 		}, 3000);
+
+		// Lazy load Three.js after page is interactive (skip if reduced motion)
+		const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+		if (!prefersReducedMotion) {
+			requestIdleCallback(
+				() => {
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any
+					const THREE = (window as any).THREE;
+					if (THREE && canvas) {
+						try {
+							const threeScene = initThreeJS(canvas, THREE);
+							if (threeScene) {
+								scene = threeScene.scene;
+								camera = threeScene.camera;
+								renderer = threeScene.renderer;
+								particles = threeScene.particles;
+								animate();
+							}
+						} catch {
+							console.warn('WebGL not supported, falling back to static background');
+						}
+					}
+				},
+				{ timeout: 2000 }
+			);
+		}
 	});
 
 	let rafThrottle: { run: (callback: (delta: number) => void) => void; stop: () => void } | null =
