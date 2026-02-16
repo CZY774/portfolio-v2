@@ -15,7 +15,7 @@
 				</h1>
 				<div class="hero-desc">
 					<p class="mb-12 text-2xl leading-relaxed font-light text-gray-600 dark:text-gray-400">
-						a fourth-year informatics engineering student<br />
+						a fourth-year informatics engineering student at fti uksw<br />
 						based in kudus, indonesia
 					</p>
 				</div>
