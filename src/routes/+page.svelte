@@ -1,312 +1,50 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { throttle, RAFThrottle } from '$lib/utils/perf';
+	import { initGSAP, initSmoothScrolling } from '$lib/utils/animations';
+	import { initThreeJS } from '$lib/utils/threejs';
+	import type { WorkItem } from '$lib/data/portfolio';
+	import SEO from '$lib/components/SEO.svelte';
+	import Loader from '$lib/components/Loader.svelte';
+	import Navigation from '$lib/components/Navigation.svelte';
+	import WebGLBackground from '$lib/components/WebGLBackground.svelte';
+	import WorkModal from '$lib/components/WorkModal.svelte';
+	import LandingSection from '$lib/components/sections/LandingSection.svelte';
+	import AboutSection from '$lib/components/sections/AboutSection.svelte';
+	import WorkSection from '$lib/components/sections/WorkSection.svelte';
+	import FooterSection from '$lib/components/sections/FooterSection.svelte';
 
-	type WorkItem = {
-		type: string;
-		title: string;
-		desc: string;
-		image?: string;
-		link?: string;
-		url?: string;
-	};
-
-	let canvas: HTMLCanvasElement;
+	let canvas = $state<HTMLCanvasElement>();
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	let scene: any, camera: any, renderer: any, particles: any;
-	let currentFilter = $state('all');
 	let isLoading = $state(true);
 	let isModalOpen = $state(false);
 	let modalContent = $state<WorkItem | null>(null);
 	let modalType = $state<'image' | 'video' | null>(null);
 	let mobileMenuOpen = $state(false);
 	let mouse = $state({ x: 0, y: 0 });
-	let cookieConsent = $state<boolean | null>(null);
-
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	let THREE: any;
-
-	const techStack = [
-		'devicon-c-original',
-		'devicon-cplusplus-plain',
-		'devicon-html5-plain',
-		'devicon-css3-plain',
-		'devicon-javascript-plain',
-		'devicon-python-plain',
-		'devicon-r-plain',
-		'devicon-php-plain',
-		'devicon-java-plain',
-		'devicon-kotlin-plain',
-		'devicon-typescript-plain',
-		'devicon-csharp-plain',
-		'devicon-bootstrap-plain',
-		'devicon-laravel-plain',
-		'devicon-flask-plain',
-		'devicon-tailwindcss-plain',
-		'devicon-feathersjs-original',
-		'devicon-jetpackcompose-plain',
-		'devicon-spring-plain',
-		'devicon-opengl-plain',
-		'devicon-dotnetcore-plain',
-		'devicon-react-plain',
-		'devicon-axios-plain',
-		'devicon-alpinejs-plain',
-		'devicon-vuejs-plain',
-		'devicon-ktor-plain',
-		'devicon-svelte-plain',
-		'devicon-chartjs-plain',
-		'devicon-expo-plain',
-		'devicon-nextjs-plain',
-		'devicon-prisma-plain',
-		'devicon-express-original',
-		'devicon-flutter-plain',
-		'devicon-threejs-original',
-		'devicon-nodejs-plain',
-		'devicon-socketio-original',
-		'devicon-fastapi-plain',
-		'devicon-django-plain',
-		'devicon-djangorest-plain',
-		'devicon-materialui-plain',
-		'devicon-dart-plain',
-		'devicon-rust-plain',
-		'devicon-go-plain',
-		'devicon-zig-plain',
-		'devicon-jquery-plain',
-		'devicon-sqlite-plain',
-		'devicon-mysql-plain',
-		'devicon-oracle-plain',
-		'devicon-mongodb-plain',
-		'devicon-redis-plain',
-		'devicon-postgresql-plain',
-		'devicon-firebase-plain',
-		'devicon-cassandra-plain',
-		'devicon-supabase-plain',
-		'devicon-googlecloud-plain',
-		'devicon-docker-plain',
-		'devicon-gradle-plain',
-		'devicon-vitejs-plain',
-		'devicon-vercel-original',
-		'devicon-graphql-plain',
-		'devicon-grafana-plain',
-		'devicon-grpc-plain',
-		'devicon-uwsgi-plain'
-	];
-
-	type Works = {
-		apps: WorkItem[];
-		photo: WorkItem[];
-		videos: WorkItem[];
-	};
-
-	const works: Works = {
-		apps: [
-			{
-				type: 'app',
-				title: 'EduVerse by Belum Ada Ide',
-				desc: 'UI/UX winner for a desktop based educational platform for junior high school students',
-				link: 'https://www.figma.com/proto/iADoy42ojxwFJrOPRwKbAi/EduVerse-by-Belum-Ada-Ide?page-id=0%3A1&node-id=15-404&p=f&viewport=22%2C1366%2C0.04&t=pA0UioQrdVVisDYT-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=26%3A472',
-				image: '/images/website-7.png'
-			},
-			{
-				type: 'app',
-				title: 'Maison Étoile by K-Mentality',
-				desc: '8-hour livecode winner: Laravel-based e-restaurant with ordering, menu management, and RBAC for 3 roles',
-				link: 'https://github.com/RafflesSupit/Next-Gen-K-MENTALITY/',
-				image: '/images/website-9.png'
-			},
-			{
-				type: 'app',
-				title: 'Personal Portfolio Prototype',
-				desc: 'A prototype design for a personal portfolio website, showcasing skills and projects',
-				link: 'https://www.figma.com/proto/sfsRHIHF9RIqKK28RfIbLB/Prototype-Portfolio?page-id=58%3A110&node-id=58-260&p=f&viewport=714%2C-1868%2C0.65&t=T1XFOcaTmdvAG88S-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=58%3A260',
-				image: '/images/website-8.png'
-			},
-			{
-				type: 'app',
-				title: 'CornelVHub',
-				desc: 'VMS platform built with Flask, MongoDB, Redis, & deployed on GCP',
-				link: 'https://yoga-672022204-service-975615093796.asia-southeast2.run.app/',
-				image: '/images/website-2.png'
-			},
-			{
-				type: 'app',
-				title: 'Supermarket & Warehouse Management System',
-				desc: 'A system built in Java using NetBeans IDE and MySQL, featuring OOP principles and real-time time tracking.',
-				link: 'https://github.com/CZY774/gudang-supermarket-java-netbeans',
-				image: '/images/website-6.png'
-			},
-			{
-				type: 'app',
-				title: 'Muncul River Tubing',
-				desc: 'Business website built with Laravel & Bootstrap',
-				link: 'https://munculrivertubing.com',
-				image: '/images/website-1.png'
-			}
-		],
-		photo: [
-			{
-				type: 'photo',
-				title: 'Shutter Bliss',
-				desc: 'Photography series exploring campus life at dusk',
-				image: '/images/photo-1.jpg'
-			},
-			{
-				type: 'photo',
-				title: 'Street Snapshot',
-				desc: 'Candid moments captured in urban settings',
-				image: '/images/photo-2.jpg'
-			},
-			{
-				type: 'photo',
-				title: 'Blue Sky, Blue Sea',
-				desc: 'A serene landscape capturing the essence of beach',
-				image: '/images/photo-5.jpg'
-			}
-		],
-		videos: [
-			{
-				type: 'video',
-				title: 'SMASA MMXXII Last Ceremony',
-				desc: 'Senior High School 1 Kudus Batch 2022 Last Ceremony',
-				url: 'https://www.youtube.com/embed/TXQzKo2j-ok',
-				image: '/images/video-1.jpg'
-			},
-			{
-				type: 'video',
-				title: 'Kita Satu Rumah',
-				desc: 'Youth Leadership Camp 2022 Shortmovie',
-				url: 'https://www.youtube.com/embed/qjXdFmMGn84',
-				image: '/images/video-2.jpg'
-			},
-			{
-				type: 'video',
-				title: 'Company Visit 2024 Aftermovie',
-				desc: 'Informatics Engineering goes to Jakarta',
-				url: 'https://www.youtube.com/embed/BAlP_WjAJGc',
-				image: '/images/video-4.jpg'
-			},
-			{
-				type: 'video',
-				title: 'FIT Competition 2023 Aftermovie',
-				desc: '12 hours live coding competition recap',
-				url: 'https://www.youtube.com/embed/28RYBWVHs1I',
-				image: '/images/video-6.png'
-			},
-			{
-				type: 'video',
-				title: 'Youthful Enthusiasm in Pandemic',
-				desc: 'Smasa Euforia 2021 Aftermovie',
-				url: 'https://www.youtube.com/embed/Iqdgfxyt6Nw',
-				image: '/images/video-5.jpg'
-			},
-			{
-				type: 'video',
-				title: 'Berbalik',
-				desc: 'Metanoia Youth 43rd Anniversary 2020 Shortmovie',
-				url: 'https://www.youtube.com/embed/PKvTvR8fGYA',
-				image: '/images/video-3.jpg'
-			},
-			{
-				type: 'video',
-				title: 'Please Him',
-				desc: 'Metanoia Youth 42nd Anniversary 2019 Shortmovie',
-				url: 'https://www.youtube.com/embed/PcezxGYzLS8',
-				image: '/images/video-7.jpg'
-			},
-			{
-				type: 'video',
-				title: 'Step Up',
-				desc: 'Metanoia Youth 45th Anniversary 2022 Shortmovie',
-				url: 'https://www.youtube.com/embed/8gnwVo94eoo',
-				image: '/images/video-8.jpg'
-			},
-			{
-				type: 'video',
-				title: 'Step Up Aftermovie',
-				desc: 'Metanoia Youth 45th Anniversary 2022 Aftermovie',
-				url: 'https://www.youtube.com/embed/sADc8-UGbxo',
-				image: '/images/video-11.jpg'
-			},
-			{
-				type: 'video',
-				title: 'Recall',
-				desc: 'Youth Leadership Camp 2019 Shortmovie',
-				url: 'https://www.youtube.com/embed/LmP06VfOcHo',
-				image: '/images/video-9.jpg'
-			},
-			{
-				type: 'video',
-				title: 'School From Home',
-				desc: 'Won the 2nd Place in High School shortmovie competition',
-				url: 'https://www.youtube.com/embed/67zLTv-aCM8',
-				image: '/images/video-10.png'
-			}
-		]
-	};
-
-	const career = [
-		{
-			institution: 'PT Sumber Alfaria Trijaya Tbk (Alfamart)',
-			date: '2025 - Present',
-			role: 'Supply and Distribution Dev Intern',
-			achievement: 'Migrated legacy systems to modern web applications, improving efficiency by 10%'
-		},
-		{
-			institution: 'Satya Wacana Christian University',
-			date: '2022 - Present',
-			role: 'Committee Chairman, Steering Committee, Teaching Assistant',
-			achievement:
-				'Led 50+ team members in international events and increased its registrants by 254%'
-		},
-		{
-			institution: 'Metanoia Youth Commission GKMI Kudus',
-			date: '2017 - 2022',
-			role: 'Committee Chairman & Media Production Head',
-			achievement: 'Produced 5+ shortmovies, 3 aftermovies, reached 1000+ views'
-		},
-		{
-			institution: 'Senior High School 1 Kudus',
-			date: '2020 - 2022',
-			role: 'Head of Section 9 OSIS: ICT & Media Production Head',
-			achievement: 'Managed 3 social media platforms with 8K+ followers'
-		}
-	];
-
-	// Fix the type issue with filteredWorks
-	let filteredWorks = $derived.by(() => {
-		if (currentFilter === 'all') {
-			return [...works.apps, ...works.photo, ...works.videos];
-		}
-		return works[currentFilter as keyof Works] || [];
-	});
 
 	onMount(async () => {
-		// Register service worker
 		if ('serviceWorker' in navigator) {
 			navigator.serviceWorker.register('/sw.js').catch(() => {});
 		}
 
-		// Check cookie consent
-		const consent = localStorage.getItem('cookieConsent');
-		if (consent !== null) {
-			cookieConsent = consent === 'true';
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		const THREE = (window as any).THREE;
+		if (THREE && canvas) {
+			const threeScene = initThreeJS(canvas, THREE);
+			if (threeScene) {
+				scene = threeScene.scene;
+				camera = threeScene.camera;
+				renderer = threeScene.renderer;
+				particles = threeScene.particles;
+				animate();
+			}
 		}
 
-		// Get THREE from global scope
-		THREE = window.THREE;
-
-		// Initialize Three.js scene after THREE is available
-		if (THREE) {
-			initThreeJS();
-		}
-
-		// Initialize GSAP animations
 		initGSAP();
-
-		// Initialize scroll navigation with better implementation
 		initSmoothScrolling();
 
-		// Mouse tracking with throttle
-		const { throttle } = await import('$lib/utils/perf');
 		const handleMouse = throttle((e: MouseEvent) => {
 			mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
 			mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
@@ -317,110 +55,10 @@
 		}, 16);
 		document.addEventListener('mousemove', handleMouse);
 
-		// Enhanced loading animation
 		setTimeout(() => {
 			isLoading = false;
 		}, 3000);
 	});
-
-	function scrollToSection(sectionId: string) {
-		const element = document.getElementById(sectionId);
-		if (element) {
-			const headerOffset = 80;
-			const elementPosition = element.getBoundingClientRect().top;
-			const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-			window.scrollTo({
-				top: offsetPosition,
-				behavior: 'smooth'
-			});
-		}
-		// Close mobile menu if open
-		mobileMenuOpen = false;
-	}
-
-	function toggleMobileMenu() {
-		mobileMenuOpen = !mobileMenuOpen;
-	}
-
-	function initSmoothScrolling() {
-		// Enhanced smooth scrolling implementation
-		document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-			anchor.addEventListener('click', function (this: HTMLAnchorElement, e: Event) {
-				e.preventDefault();
-				const targetId = this.getAttribute('href')?.substring(1);
-				if (targetId) {
-					scrollToSection(targetId);
-				}
-			});
-		});
-
-		// Handle URL hash on load
-		if (window.location.hash) {
-			const targetId = window.location.hash.substring(1);
-			setTimeout(() => scrollToSection(targetId), 100);
-		}
-	}
-
-	function initThreeJS() {
-		if (!THREE || !canvas) return;
-
-		scene = new THREE.Scene();
-		camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-		renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-		renderer.setSize(window.innerWidth, window.innerHeight);
-		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-		// Create particles with better colors
-		const geometry = new THREE.BufferGeometry();
-		const vertices = [];
-		const colors = [];
-
-		for (let i = 0; i < 800; i++) {
-			vertices.push((Math.random() - 0.5) * 2000);
-			vertices.push((Math.random() - 0.5) * 2000);
-			vertices.push((Math.random() - 0.5) * 2000);
-
-			// Dynamic colors based on theme or better contrast
-			const isDark = document.documentElement.classList.contains('dark');
-			if (isDark) {
-				// Dark mode - lighter particles
-				colors.push(0.6); // R
-				colors.push(0.6); // G
-				colors.push(0.9); // B - blue tint
-			} else {
-				// Light mode - darker particles for visibility
-				colors.push(0.1); // R - darker
-				colors.push(0.2); // G - darker
-				colors.push(0.3); // B - visible blue
-			}
-		}
-
-		geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
-		geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
-
-		const material = new THREE.PointsMaterial({
-			size: 2,
-			vertexColors: true,
-			opacity: 0.6, // Increased from 0.3 to 0.6
-			transparent: true,
-			blending: THREE.AdditiveBlending
-		});
-		particles = new THREE.Points(geometry, material);
-		scene.add(particles);
-
-		camera.position.z = 1000;
-
-		animate();
-
-		// Handle resize
-		window.addEventListener('resize', () => {
-			camera.aspect = window.innerWidth / window.innerHeight;
-			camera.updateProjectionMatrix();
-			renderer.setSize(window.innerWidth, window.innerHeight);
-			renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-		});
-	}
 
 	let rafThrottle: { run: (callback: (delta: number) => void) => void; stop: () => void } | null =
 		null;
@@ -429,7 +67,6 @@
 		if (!particles || !renderer || !scene || !camera) return;
 
 		if (!rafThrottle) {
-			const { RAFThrottle } = await import('$lib/utils/perf');
 			rafThrottle = new RAFThrottle(60);
 			rafThrottle.run(() => {
 				if (!particles || !renderer || !scene || !camera) return;
@@ -442,761 +79,32 @@
 		}
 	}
 
-	function initGSAP() {
-		if (!window.gsap || !window.ScrollTrigger) return;
-
-		window.gsap.registerPlugin(window.ScrollTrigger);
-
-		// Landing animations with stagger
-		window.gsap.from('.hero-title .word', {
-			duration: 1.2,
-			y: 120,
-			opacity: 0,
-			stagger: 0.15,
-			ease: 'power3.out',
-			delay: 3.2
-		});
-
-		window.gsap.from('.hero-desc', {
-			duration: 1,
-			y: 60,
-			opacity: 0,
-			delay: 3.8
-		});
-
-		// Section animations
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		window.gsap.utils.toArray('.section').forEach((section: any) => {
-			window.gsap.from(section.querySelectorAll('.animate-in'), {
-				y: 80,
-				opacity: 0,
-				duration: 1,
-				stagger: 0.1,
-				ease: 'power3.out',
-				scrollTrigger: {
-					trigger: section,
-					start: 'top 80%'
-				}
-			});
-		});
-	}
-
 	function openModal(content: WorkItem, type: 'image' | 'video') {
 		modalContent = content;
 		modalType = type;
 		isModalOpen = true;
 	}
-
-	function closeModal() {
-		isModalOpen = false;
-		modalContent = null;
-		modalType = null;
-	}
-
-	function acceptCookies() {
-		localStorage.setItem('cookieConsent', 'true');
-		cookieConsent = true;
-	}
-
-	function declineCookies() {
-		localStorage.setItem('cookieConsent', 'false');
-		cookieConsent = false;
-	}
 </script>
 
-<svelte:head>
-	<title>cornelius yoga - creative developer & designer</title>
-	<meta
-		name="description"
-		content="Creative developer & designer crafting digital experiences that blend aesthetic beauty with functional innovation. Based in Kudus, Indonesia."
-	/>
-	<meta
-		name="keywords"
-		content="cornelius yoga, web developer, android developer, ui/ux designer, frontend developer, fullstack developer, kudus, salatiga, semarang, tangerang, jakarta, universitas kristen satya wacana, uksw, fti, fakultas teknologi informasi, scwu, satya wacana christian university, indonesia"
-	/>
-	<meta property="og:title" content="Corneliuze Yoga — Portfolio" />
-	<meta
-		property="og:description"
-		content="Creative developer & designer crafting digital experiences that blend aesthetic beauty with functional innovation."
-	/>
-	<meta property="og:type" content="website" />
-	<meta property="og:url" content="https://corneliusyoga.vercel.app/" />
-	<meta property="og:image" content="https://corneliusyoga.vercel.app/website-12.png" />
-	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:title" content="Corneliuze Yoga — Portfolio" />
-	<meta
-		name="twitter:description"
-		content="Creative developer & designer crafting digital experiences that blend aesthetic beauty with functional innovation."
-	/>
-	<meta name="twitter:image" content="https://corneliusyoga.vercel.app/website-12.png" />
+<SEO />
 
-	<!-- JSON-LD Structured Data for GEO -->
-	<script type="application/ld+json">
-		{
-			"@context": "https://schema.org",
-			"@type": "Person",
-			"name": "Cornelius Ardhani Yoga Pratama",
-			"alternateName": "Cornelius Yoga",
-			"url": "https://corneliusyoga.vercel.app",
-			"image": "https://corneliusyoga.vercel.app/website-12.png",
-			"jobTitle": "Software Developer & Designer",
-			"worksFor": {
-				"@type": "Organization",
-				"name": "PT Sumber Alfaria Trijaya Tbk"
-			},
-			"alumniOf": {
-				"@type": "EducationalOrganization",
-				"name": "Satya Wacana Christian University"
-			},
-			"address": {
-				"@type": "PostalAddress",
-				"addressLocality": "Kudus",
-				"addressCountry": "Indonesia"
-			},
-			"sameAs": [
-				"https://instagram.com/corneliusyoga",
-				"https://github.com/CZY774",
-				"https://www.linkedin.com/in/cornelius-yoga-783b6a291/",
-				"https://youtube.com/@CZY774"
-			],
-			"knowsAbout": [
-				"Web Development",
-				"Android Development",
-				"UI/UX Design",
-				"Full Stack Development",
-				"Laravel",
-				"React",
-				"Svelte",
-				"Flutter"
-			],
-			"description": "Fourth-year Informatics Engineering student specializing in web and mobile development, UI/UX design, and digital content creation"
-		}
-	</script>
+<Loader bind:isLoading />
 
-	<!-- WebSite Schema -->
-	<script type="application/ld+json">
-		{
-			"@context": "https://schema.org",
-			"@type": "WebSite",
-			"name": "Cornelius Yoga Portfolio",
-			"url": "https://corneliusyoga.vercel.app",
-			"description": "Creative developer & designer portfolio showcasing web applications, photography, and videography work",
-			"author": {
-				"@type": "Person",
-				"name": "Cornelius Ardhani Yoga Pratama"
-			},
-			"inLanguage": "en-US"
-		}
-	</script>
+<WorkModal bind:isOpen={isModalOpen} bind:content={modalContent} bind:type={modalType} />
 
-	<!-- ItemList Schema -->
-	<script type="application/ld+json">
-		{
-			"@context": "https://schema.org",
-			"@type": "ItemList",
-			"name": "Portfolio Projects",
-			"itemListElement": [
-				{
-					"@type": "CreativeWork",
-					"position": 1,
-					"name": "EduVerse by Belum Ada Ide",
-					"description": "UI/UX winner for a desktop based educational platform for junior high school students",
-					"url": "https://www.figma.com/proto/iADoy42ojxwFJrOPRwKbAi/EduVerse-by-Belum-Ada-Ide",
-					"creator": {
-						"@type": "Person",
-						"name": "Cornelius Yoga"
-					}
-				},
-				{
-					"@type": "SoftwareApplication",
-					"position": 2,
-					"name": "Maison Étoile by K-Mentality",
-					"description": "8-hour livecode winner: Laravel-based e-restaurant with ordering, menu management, and RBAC",
-					"url": "https://github.com/RafflesSupit/Next-Gen-K-MENTALITY/",
-					"applicationCategory": "WebApplication",
-					"operatingSystem": "Web",
-					"creator": {
-						"@type": "Person",
-						"name": "Cornelius Yoga"
-					}
-				},
-				{
-					"@type": "SoftwareApplication",
-					"position": 3,
-					"name": "CornelVHub",
-					"description": "VMS platform built with Flask, MongoDB, Redis, deployed on GCP",
-					"url": "https://yoga-672022204-service-975615093796.asia-southeast2.run.app/",
-					"applicationCategory": "WebApplication",
-					"operatingSystem": "Web",
-					"creator": {
-						"@type": "Person",
-						"name": "Cornelius Yoga"
-					}
-				}
-			]
-		}
-	</script>
-</svelte:head>
+<WebGLBackground bind:canvas />
 
-<!-- Enhanced Loader -->
-{#if isLoading}
-	<div class="fixed inset-0 z-50 flex items-center justify-center bg-white dark:bg-gray-950">
-		<div class="text-center">
-			<!-- Animated Logo -->
-			<div class="mb-12">
-				<div class="mb-4 text-6xl font-light">
-					<span class="animate-fade-in-up inline-block" style="animation-delay: 0.2s;">c</span>
-					<span class="animate-fade-in-up inline-block" style="animation-delay: 0.4s;">z</span>
-					<span class="animate-fade-in-up inline-block" style="animation-delay: 0.6s;">y</span>
-				</div>
-				<!-- Progress Bar -->
-				<div class="mx-auto h-0.5 w-32 overflow-hidden bg-gray-200 dark:bg-gray-800">
-					<div class="animate-loading-bar h-full bg-[#0736fe]"></div>
-				</div>
-			</div>
-			<p
-				class="animate-fade-in text-lg font-light tracking-wider opacity-0"
-				style="animation-delay: 1s;"
-			>
-				loading portfolio
-			</p>
-		</div>
-	</div>
-{/if}
+<Navigation bind:mobileMenuOpen />
 
-<!-- Modal -->
-{#if isModalOpen}
-	<div
-		class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-8"
-		onclick={closeModal}
-		role="dialog"
-		aria-modal="true"
-		tabindex="-1"
-		onkeydown={(e) => {
-			if (e.key === 'Escape') closeModal();
-		}}
-	>
-		<div
-			class="relative max-h-full w-full max-w-4xl"
-			onclick={(e) => e.stopPropagation()}
-			onkeydown={(e) => e.stopPropagation()}
-			role="presentation"
-		>
-			<button
-				class="absolute -top-12 right-0 text-2xl text-white transition-colors hover:text-[#0736fe]"
-				onclick={closeModal}
-				aria-label="Close modal">✕</button
-			>
-			{#if modalContent}
-				{#if modalType === 'image'}
-					<img
-						src={modalContent.image}
-						alt={modalContent.title}
-						class="h-auto max-h-[80vh] w-full object-contain"
-					/>
-				{:else if modalType === 'video'}
-					<iframe
-						src={modalContent.url}
-						class="aspect-video w-full"
-						title={modalContent.title}
-						frameborder="0"
-						allowfullscreen
-					></iframe>
-				{/if}
-				<div class="mt-4 text-center text-white">
-					<h3 class="text-xl font-medium">{modalContent.title}</h3>
-					<p class="text-gray-300">{modalContent.desc}</p>
-				</div>
-			{/if}
-		</div>
-	</div>
-{/if}
+<LandingSection />
 
-<!-- WebGL Background -->
-<canvas bind:this={canvas} class="pointer-events-none fixed inset-0 z-0"></canvas>
+<AboutSection />
 
-<!-- Navigation -->
-<nav class="fixed top-0 right-0 left-0 z-40 bg-white/90 backdrop-blur-sm dark:bg-gray-950/90">
-	<div class="container mx-auto px-8 py-6">
-		<div class="flex items-center justify-between">
-			<button
-				onclick={() => scrollToSection('landing')}
-				class="text-lg font-medium transition-colors hover:text-[#0736fe]"
-			>
-				czy
-			</button>
+<WorkSection {openModal} />
 
-			<!-- Desktop Navigation -->
-			<div class="hidden space-x-8 md:flex">
-				<button
-					onclick={() => scrollToSection('about')}
-					class="transition-colors hover:text-[#0736fe]">about</button
-				>
-				<button
-					onclick={() => scrollToSection('work')}
-					class="transition-colors hover:text-[#0736fe]">work</button
-				>
-			</div>
-
-			<!-- Mobile Menu Button -->
-			<button
-				onclick={toggleMobileMenu}
-				class="relative z-50 p-2 md:hidden"
-				aria-label="Toggle menu"
-			>
-				<div class="hamburger {mobileMenuOpen ? 'active' : ''}">
-					<span></span>
-					<span></span>
-					<span></span>
-				</div>
-			</button>
-		</div>
-	</div>
-
-	<!-- Enhanced Mobile Menu -->
-	{#if mobileMenuOpen}
-		<div
-			class="mobile-menu fixed top-0 left-0 flex h-screen w-full items-center justify-center bg-white/95 backdrop-blur-md dark:bg-gray-950/95"
-		>
-			<div class="space-y-8 text-center">
-				<button
-					onclick={() => scrollToSection('landing')}
-					class="block transform text-4xl font-light transition-colors hover:scale-105 hover:text-[#0736fe]"
-					>home</button
-				>
-				<button
-					onclick={() => scrollToSection('about')}
-					class="block transform text-4xl font-light transition-colors hover:scale-105 hover:text-[#0736fe]"
-					>about</button
-				>
-				<button
-					onclick={() => scrollToSection('work')}
-					class="block transform text-4xl font-light transition-colors hover:scale-105 hover:text-[#0736fe]"
-					>work</button
-				>
-			</div>
-		</div>
-	{/if}
-</nav>
-
-<!-- Landing Section -->
-<section
-	id="landing"
-	class="section relative z-10 flex min-h-screen items-center justify-center px-8 py-24"
->
-	<div class="mx-auto max-w-7xl">
-		<div class="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
-			<div>
-				<h1 class="hero-title mb-12 text-7xl leading-none font-light md:text-8xl lg:text-9xl">
-					<span class="word inline-block">cornelius</span>
-					<span class="word inline-block text-[#0736fe]">yoga</span>
-				</h1>
-				<div class="hero-desc">
-					<p class="mb-12 text-2xl leading-relaxed font-light text-gray-600 dark:text-gray-400">
-						a fourth-year informatics engineering student<br />
-						based in kudus, indonesia
-					</p>
-				</div>
-			</div>
-			<div class="hero-desc text-right">
-				<div class="mb-12">
-					<div class="mb-8 flex justify-end space-x-6">
-						<a
-							href="https://instagram.com/corneliusyoga"
-							class="transition-colors hover:text-[#0736fe]">ig</a
-						>
-						<a href="https://github.com/CZY774" class="transition-colors hover:text-[#0736fe]"
-							>github</a
-						>
-						<a
-							href="https://www.linkedin.com/in/cornelius-yoga-783b6a291/"
-							class="transition-colors hover:text-[#0736fe]">linkedin</a
-						>
-						<a href="https://youtube.com/@CZY774" class="transition-colors hover:text-[#0736fe]"
-							>youtube</a
-						>
-					</div>
-				</div>
-				<div class="flex justify-end">
-					<button
-						onclick={() => scrollToSection('work')}
-						class="custom-button border border-current px-8 py-3 transition-all hover:border-[#0736fe] hover:bg-[#0736fe] hover:text-[#0736fe]"
-					>
-						view work
-					</button>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-
-<!-- About Section -->
-<section id="about" class="section relative z-10 px-8 py-32">
-	<div class="container mx-auto max-w-7xl">
-		<h2 class="animate-in mb-24 text-6xl font-light md:text-8xl">about me</h2>
-
-		<!-- Tech Stack Marquee -->
-		<div class="animate-in relative mb-32 overflow-hidden">
-			<div class="marquee-container">
-				<div class="marquee-track">
-					{#each techStack as tech (tech + '-1')}
-						<i class="{tech} tech-icon"></i>
-					{/each}
-					{#each techStack as tech (tech + '-2')}
-						<i class="{tech} tech-icon"></i>
-					{/each}
-				</div>
-			</div>
-		</div>
-
-		<!-- Career Summary -->
-		<div class="animate-in">
-			<h3 class="mb-16 text-4xl font-light">career journey</h3>
-			<div class="space-y-12">
-				{#each career as item (item.institution + item.date)}
-					<div
-						class="border-b border-gray-200 pb-12 transition-colors duration-300 hover:border-[#0736fe] dark:border-gray-800"
-					>
-						<div class="mb-4 flex flex-col justify-between md:flex-row md:items-center">
-							<h4 class="text-2xl font-medium transition-colors duration-300 hover:text-[#0736fe]">
-								{item.institution}
-							</h4>
-							<span class="text-gray-600 dark:text-gray-400">{item.date}</span>
-						</div>
-						<p class="mb-4 text-xl text-[#0736fe]">{item.role}</p>
-						<p class="text-lg text-gray-600 dark:text-gray-400">{item.achievement}</p>
-					</div>
-				{/each}
-			</div>
-		</div>
-	</div>
-</section>
-
-<!-- Work Section -->
-<section id="work" class="section relative z-10 px-8 py-32">
-	<div class="container mx-auto max-w-7xl">
-		<h2 class="animate-in mb-24 text-6xl font-light md:text-8xl">selected work</h2>
-
-		<!-- Filter Buttons -->
-		<div class="animate-in mb-16 flex flex-wrap gap-4">
-			{#each ['all', 'apps', 'photo', 'videos'] as filter (filter)}
-				<button
-					onclick={() => (currentFilter = filter)}
-					class="custom-button border border-current px-6 py-2 transition-all {currentFilter ===
-					filter
-						? 'border-[#0736fe] bg-[#0736fe] dark:text-white'
-						: 'hover:border-[#0736fe] hover:text-[#0736fe]'}"
-				>
-					{filter}
-				</button>
-			{/each}
-		</div>
-
-		<!-- Work Grid -->
-		<div class="animate-in space-y-24">
-			{#each filteredWorks as work, index (work.title)}
-				<div
-					class="work-item group {index % 2 === 0
-						? 'md:flex-row'
-						: 'md:flex-row-reverse'} flex flex-col items-center gap-16 md:flex"
-				>
-					<!-- Image Container -->
-					<div class="w-full md:w-1/2">
-						<div
-							class="group relative aspect-[4/3] cursor-pointer overflow-hidden bg-gradient-to-br from-[#0736fe]/20 to-[#0736fe]/40 transition-all duration-700 hover:from-[#0736fe]/10 hover:to-[#0736fe]/20"
-						>
-							<!-- Default overlay with number -->
-							<div
-								class="absolute inset-0 flex items-center justify-center bg-[#0736fe]/60 transition-all duration-700 group-hover:bg-[#0736fe]/20"
-							>
-								<span
-									class="text-8xl font-light text-white/40 transition-all duration-700 group-hover:text-white/20"
-								>
-									{String(index + 1).padStart(2, '0')}
-								</span>
-							</div>
-
-							<!-- Actual image that appears on hover -->
-							{#if work.image}
-								<img
-									src={work.image}
-									alt={work.title}
-									class="h-full w-full object-cover opacity-0 transition-opacity duration-700 group-hover:opacity-100"
-									loading="lazy"
-									onerror={(e) => {
-										const target = e.target as HTMLImageElement;
-										target.src =
-											'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iIzA3MzZmZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIyNCIgZmlsbD0iI2ZmZmZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIE5vdCBGb3VuZDwvdGV4dD48L3N2Zz4=';
-									}}
-								/>
-							{/if}
-						</div>
-					</div>
-
-					<!-- Content -->
-					<div class="w-full space-y-6 md:w-1/2 {index % 2 === 0 ? 'md:pl-8' : 'md:pr-8'}">
-						<div class="space-y-2">
-							<span class="text-sm font-medium tracking-wider text-[#0736fe]">{work.type}</span>
-							<h3
-								class="text-4xl leading-tight font-light transition-colors duration-300 hover:text-[#0736fe]"
-							>
-								{work.title}
-							</h3>
-						</div>
-
-						<p class="text-xl leading-relaxed text-gray-600 dark:text-gray-400">{work.desc}</p>
-
-						<div class="pt-4">
-							{#if work.type === 'app' && work.link}
-								<a
-									href={work.link}
-									target="_blank"
-									rel="noopener noreferrer"
-									class="custom-button group inline-flex items-center space-x-2 text-[#0736fe] hover:underline"
-								>
-									<span class="text-lg">view project</span>
-									<svg
-										class="h-5 w-5 transition-transform group-hover:translate-x-1"
-										fill="none"
-										stroke="currentColor"
-										viewBox="0 0 24 24"
-									>
-										<path
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											stroke-width="2"
-											d="M17 8l4 4m0 0l-4 4m4-4H3"
-										></path>
-									</svg>
-								</a>
-							{:else if work.type === 'photo'}
-								<button
-									onclick={() => openModal(work, 'image')}
-									class="custom-button group inline-flex items-center space-x-2 text-[#0736fe] hover:underline"
-								>
-									<span class="text-lg">look closer</span>
-									<svg
-										class="h-5 w-5 transition-transform group-hover:scale-110"
-										fill="none"
-										stroke="currentColor"
-										viewBox="0 0 24 24"
-									>
-										<path
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											stroke-width="2"
-											d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-										></path>
-									</svg>
-								</button>
-							{:else if work.type === 'video' && work.url}
-								<button
-									onclick={() => openModal(work, 'video')}
-									class="custom-button group inline-flex items-center space-x-2 text-[#0736fe] hover:underline"
-								>
-									<span class="text-lg">play video</span>
-									<svg
-										class="h-5 w-5 transition-transform group-hover:scale-110"
-										fill="none"
-										stroke="currentColor"
-										viewBox="0 0 24 24"
-									>
-										<path
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											stroke-width="2"
-											d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1.01M15 10h1.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-										></path>
-									</svg>
-								</button>
-							{/if}
-						</div>
-					</div>
-				</div>
-			{/each}
-		</div>
-	</div>
-</section>
-
-<!-- Footer - Layout inspired by landing section -->
-<footer id="footer" class="section relative z-10 bg-black px-8 py-32 text-white">
-	<div class="container mx-auto max-w-7xl">
-		<div class="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
-			<div>
-				<p class="mb-1 text-lg font-light tracking-wider text-gray-500">vibecoded by</p>
-				<h2 class="text-7xl leading-none font-light md:text-8xl lg:text-9xl">
-					<span class="block text-white/90">cornelius</span>
-					<span class="block text-white/90">ardhani</span>
-					<span class="block text-[#0736fe]">yoga</span>
-					<span class="block text-white/90">pratama</span>
-				</h2>
-			</div>
-			<div class="text-right">
-				<div class="space-y-8">
-					<p class="text-xl leading-relaxed font-light text-gray-400">
-						idk how many coffee<br />
-						i've been drinking,<br />
-						<span class="text-[#0736fe]">good design needs time</span>
-					</p>
-					<div class="text-sm font-light text-gray-600">kudus, indonesia — 2025</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</footer>
-
-<!-- Cookie Consent Banner -->
-{#if cookieConsent === null}
-	<div class="cookie-banner">
-		<div class="cookie-content">
-			<p class="cookie-text">
-				we use analytics to improve your experience. by accepting, you consent to vercel analytics.
-			</p>
-			<div class="cookie-buttons">
-				<button onclick={acceptCookies} class="cookie-btn accept">accept</button>
-				<button onclick={declineCookies} class="cookie-btn decline">decline</button>
-			</div>
-		</div>
-	</div>
-{/if}
+<FooterSection />
 
 <style>
-	/* Cookie Banner */
-	.cookie-banner {
-		position: fixed;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		z-index: 100;
-		background: rgba(255, 255, 255, 0.95);
-		backdrop-filter: blur(12px);
-		border-top: 1px solid rgba(7, 54, 254, 0.1);
-		padding: 1.5rem;
-		animation: slideUp 0.4s ease-out;
-	}
-
-	:global(.dark) .cookie-banner {
-		background: rgba(0, 0, 0, 0.95);
-		border-top: 1px solid rgba(7, 54, 254, 0.3);
-	}
-
-	.cookie-content {
-		max-width: 1200px;
-		margin: 0 auto;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 2rem;
-		flex-wrap: wrap;
-	}
-
-	.cookie-text {
-		font-size: 0.95rem;
-		font-weight: 300;
-		color: #666;
-		margin: 0;
-		flex: 1;
-		min-width: 250px;
-	}
-
-	:global(.dark) .cookie-text {
-		color: #999;
-	}
-
-	.cookie-buttons {
-		display: flex;
-		gap: 1rem;
-	}
-
-	.cookie-btn {
-		padding: 0.75rem 2rem;
-		font-size: 0.95rem;
-		font-weight: 300;
-		border: 1px solid currentColor;
-		background: transparent;
-		transition: all 0.3s ease;
-		position: relative;
-		overflow: hidden;
-	}
-
-	.cookie-btn::before {
-		content: '';
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 0;
-		height: 100%;
-		transition: width 0.3s ease;
-		z-index: -1;
-	}
-
-	.cookie-btn.accept {
-		color: #0736fe;
-		border-color: #0736fe;
-	}
-
-	.cookie-btn.accept::before {
-		background: #0736fe;
-	}
-
-	.cookie-btn.accept:hover::before {
-		width: 100%;
-	}
-
-	.cookie-btn.accept:hover {
-		color: white;
-	}
-
-	.cookie-btn.decline {
-		color: #666;
-		border-color: #666;
-	}
-
-	:global(.dark) .cookie-btn.decline {
-		color: #999;
-		border-color: #999;
-	}
-
-	.cookie-btn.decline::before {
-		background: #666;
-	}
-
-	.cookie-btn.decline:hover::before {
-		width: 100%;
-	}
-
-	.cookie-btn.decline:hover {
-		color: white;
-	}
-
-	@keyframes slideUp {
-		from {
-			transform: translateY(100%);
-			opacity: 0;
-		}
-		to {
-			transform: translateY(0);
-			opacity: 1;
-		}
-	}
-
-	@media (max-width: 640px) {
-		.cookie-content {
-			flex-direction: column;
-			text-align: center;
-		}
-
-		.cookie-buttons {
-			width: 100%;
-			flex-direction: column;
-		}
-
-		.cookie-btn {
-			width: 100%;
-		}
-	}
-
-	/* Enhanced cursor styles with better visibility */
 	:global(*, *::before, *::after) {
 		cursor:
 			url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iNCIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjEiLz4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFjaXR5PSIwLjYiLz4KPC9zdmc+')
@@ -1204,7 +112,6 @@
 			auto !important;
 	}
 
-	/* Dark mode cursor */
 	:global(.dark *, .dark *::before, .dark *::after) {
 		cursor:
 			url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iNCIgZmlsbD0iIzAwMDAwMCIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjEiLz4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFjaXR5PSIwLjYiLz4KPC9zdmc+')
@@ -1212,7 +119,6 @@
 			auto !important;
 	}
 
-	/* Hover cursor for interactive elements */
 	:global(button, a, [role='button'], input, textarea, select) {
 		cursor:
 			url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iNiIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjMDczNmZlIiBzdHJva2Utd2lkdGg9IjIiLz4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzA3MzZmZSIgc3Ryb2tlLXdpZHRoPSIyIi8+Cjwvc3ZnPg==')
@@ -1220,7 +126,6 @@
 			pointer !important;
 	}
 
-	/* Dark mode hover cursor */
 	:global(.dark button, .dark a, .dark [role='button'], .dark input, .dark textarea, .dark select) {
 		cursor:
 			url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iNiIgZmlsbD0iIzAwMDAwMCIgc3Ryb2tlPSIjMDczNmZlIiBzdHJva2Utd2lkdGg9IjIiLz4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzA3MzZmZSIgc3Ryb2tlLXdpZHRoPSIyIi8+Cjwvc3ZnPg==')
@@ -1228,24 +133,16 @@
 			pointer !important;
 	}
 
-	/* Remove button pulse effects */
 	:global(.custom-button) {
 		outline: none !important;
 		box-shadow: none !important;
 	}
-
-	/* :global(.custom-button:focus) {
-		outline: 2px solid #0736fe !important;
-		outline-offset: 2px !important;
-		box-shadow: none !important;
-	} */
 
 	:global(.custom-button:active) {
 		transform: none !important;
 		box-shadow: none !important;
 	}
 
-	/* Hide scrollbar */
 	:global(::-webkit-scrollbar) {
 		display: none;
 	}
@@ -1254,130 +151,6 @@
 		scrollbar-width: none;
 	}
 
-	/* Enhanced loading animations */
-	@keyframes fade-in-up {
-		from {
-			opacity: 0;
-			transform: translateY(30px);
-		}
-		to {
-			opacity: 1;
-			transform: translateY(0);
-		}
-	}
-
-	@keyframes loading-bar {
-		0% {
-			width: 0%;
-		}
-		50% {
-			width: 70%;
-		}
-		100% {
-			width: 100%;
-		}
-	}
-
-	@keyframes fade-in {
-		from {
-			opacity: 0;
-		}
-		to {
-			opacity: 1;
-		}
-	}
-
-	.animate-fade-in-up {
-		animation: fade-in-up 0.8s ease-out forwards;
-		opacity: 0;
-	}
-
-	.animate-loading-bar {
-		animation: loading-bar 2.5s ease-in-out forwards;
-		width: 0%;
-	}
-
-	.animate-fade-in {
-		animation: fade-in 0.6s ease-out forwards;
-		opacity: 0;
-	}
-
-	/* Hamburger Menu Animation */
-	.hamburger {
-		width: 24px;
-		height: 20px;
-		position: relative;
-		transform: rotate(0deg);
-		transition: 0.3s ease-in-out;
-		cursor: pointer;
-	}
-
-	.hamburger span {
-		display: block;
-		position: absolute;
-		height: 2px;
-		width: 100%;
-		background: currentColor;
-		border-radius: 1px;
-		opacity: 1;
-		left: 0;
-		transform: rotate(0deg);
-		transition: 0.3s ease-in-out;
-	}
-
-	.hamburger span:nth-child(1) {
-		top: 0px;
-	}
-
-	.hamburger span:nth-child(2) {
-		top: 9px;
-	}
-
-	.hamburger span:nth-child(3) {
-		top: 18px;
-	}
-
-	.hamburger.active span:nth-child(1) {
-		top: 9px;
-		transform: rotate(135deg);
-	}
-
-	.hamburger.active span:nth-child(2) {
-		opacity: 0;
-		left: -60px;
-	}
-
-	.hamburger.active span:nth-child(3) {
-		top: 9px;
-		transform: rotate(-135deg);
-	}
-
-	/* Enhanced Mobile Menu Animation */
-	.mobile-menu {
-		animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-		backdrop-filter: blur(12px);
-		-webkit-backdrop-filter: blur(12px);
-	}
-
-	@keyframes slideIn {
-		from {
-			opacity: 0;
-			transform: scale(0.95) translateY(-10px);
-		}
-		to {
-			opacity: 1;
-			transform: scale(1) translateY(0);
-		}
-	}
-
-	/* Outline text effect for footer */
-	.outline-text-white {
-		-webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
-		-webkit-text-fill-color: transparent;
-		color: transparent;
-	}
-
-	/* Enhanced background interaction */
 	:global(body) {
 		transition: background 0.1s ease;
 		--mouse-x: 50%;
@@ -1399,89 +172,4 @@
 			transparent 40%
 		);
 	}
-
-	/* Work item hover effects */
-	.work-item {
-		transition:
-			transform 0.3s ease,
-			filter 0.3s ease;
-	}
-
-	.work-item:hover {
-		transform: translateY(-5px);
-		filter: brightness(1.05);
-	}
-
-	/* Better mobile responsiveness */
-	@media (max-width: 640px) {
-		.hamburger {
-			width: 20px;
-			height: 16px;
-		}
-
-		.hamburger span {
-			height: 2px;
-		}
-
-		.hamburger span:nth-child(2) {
-			top: 7px;
-		}
-
-		.hamburger span:nth-child(3) {
-			top: 14px;
-		}
-
-		.hamburger.active span:nth-child(1) {
-			top: 7px;
-		}
-
-		.hamburger.active span:nth-child(3) {
-			top: 7px;
-		}
-	}
-
-	/* Reduced motion support */
-	@media (prefers-reduced-motion: reduce) {
-		*,
-		*::before,
-		*::after {
-			animation-duration: 0.01ms !important;
-			animation-iteration-count: 1 !important;
-			transition-duration: 0.01ms !important;
-			scroll-behavior: auto !important;
-		}
-
-		.track {
-			animation: none;
-		}
-
-		canvas {
-			display: none !important;
-		}
-	}
-
-	/* Print styles */
-	@media print {
-		* {
-			background: transparent !important;
-			color: black !important;
-			text-shadow: none !important;
-			filter: none !important;
-		}
-
-		canvas,
-		.mobile-menu {
-			display: none !important;
-		}
-
-		.fixed {
-			position: static !important;
-		}
-	}
-
-	/* Enhanced focus states for accessibility */
-	/* :global(button:focus, a:focus) {
-		outline: 2px solid #0736fe !important;
-		outline-offset: 4px !important;
-	} */
 </style>
