@@ -133,5 +133,25 @@
 <div
 	class="min-h-screen bg-white text-black transition-colors duration-300 dark:bg-gray-950 dark:text-white"
 >
+	<a
+		href="#landing"
+		class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-[#0736fe] focus:px-4 focus:py-2 focus:text-white focus:outline-none"
+	>
+		Skip to main content
+	</a>
 	{@render children?.()}
 </div>
+
+<style>
+	.sr-only {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border-width: 0;
+	}
+</style>
