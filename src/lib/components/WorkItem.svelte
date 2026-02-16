@@ -28,16 +28,12 @@
 			</div>
 
 			{#if work.image}
-				<img
+				<enhanced:img
 					src={work.image}
 					alt="{work.title} - Cornelius Yoga Web Developer Kudus"
 					class="h-full w-full object-cover opacity-0 transition-opacity duration-700 group-hover:opacity-100"
+					sizes="(min-width: 768px) 50vw, 100vw"
 					loading="lazy"
-					onerror={(e) => {
-						const target = e.target as HTMLImageElement;
-						target.src =
-							'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iIzA3MzZmZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIyNCIgZmlsbD0iI2ZmZmZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIE5vdCBGb3VuZDwvdGV4dD48L3N2Zz4=';
-					}}
 				/>
 			{/if}
 		</div>
