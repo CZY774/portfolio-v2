@@ -2,7 +2,7 @@
 	<title>Cornelius Yoga - Web Developer & UI/UX Designer Kudus | FTI UKSW</title>
 	<meta
 		name="description"
-		content="Cornelius Ardhani Yoga Pratama - Fullstack Developer & IT Dev Intern at Alfamart. 3.92 GPA FTI UKSW student, Teaching Assistant in 8 CS courses. Specializing in Laravel, Svelte, Kotlin, Android development, and UI/UX design. Based in Kudus, Indonesia."
+		content="Cornelius Ardhani Yoga Pratama - Fullstack Developer & IT Dev Intern at Alfamart. 3.92 GPA FTI UKSW student, Teaching Assistant in 8 CS courses. Specializing in Python, Laravel, Svelte, Kotlin, Android development, and UI/UX design. Based in Kudus, Indonesia."
 	/>
 	<meta
 		name="keywords"
