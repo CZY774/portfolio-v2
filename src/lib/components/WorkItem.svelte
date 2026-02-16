@@ -47,7 +47,7 @@
 		<div class="space-y-2">
 			<span class="text-sm font-medium tracking-wider text-[#0736fe]">{work.type}</span>
 			<h3
-				class="text-4xl leading-tight font-light transition-colors duration-300 hover:text-[#0736fe]"
+				class="text-4xl font-light leading-tight transition-colors duration-300 hover:text-[#0736fe]"
 			>
 				{work.title}
 			</h3>
