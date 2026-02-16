@@ -4,6 +4,7 @@
 	import { initGSAP, initSmoothScrolling } from '$lib/utils/animations';
 	import { initThreeJS } from '$lib/utils/threejs';
 	import type { WorkItem } from '$lib/data/portfolio';
+	import { track } from '@vercel/analytics';
 	import SEO from '$lib/components/SEO.svelte';
 	import Loader from '$lib/components/Loader.svelte';
 	import Navigation from '$lib/components/Navigation.svelte';
@@ -32,13 +33,17 @@
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const THREE = (window as any).THREE;
 		if (THREE && canvas) {
-			const threeScene = initThreeJS(canvas, THREE);
-			if (threeScene) {
-				scene = threeScene.scene;
-				camera = threeScene.camera;
-				renderer = threeScene.renderer;
-				particles = threeScene.particles;
-				animate();
+			try {
+				const threeScene = initThreeJS(canvas, THREE);
+				if (threeScene) {
+					scene = threeScene.scene;
+					camera = threeScene.camera;
+					renderer = threeScene.renderer;
+					particles = threeScene.particles;
+					animate();
+				}
+			} catch {
+				console.warn('WebGL not supported, falling back to static background');
 			}
 		}
 
@@ -83,6 +88,7 @@
 		modalContent = content;
 		modalType = type;
 		isModalOpen = true;
+		track('modal_open', { title: content.title, type });
 	}
 </script>
 
