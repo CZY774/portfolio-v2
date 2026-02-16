@@ -47,7 +47,7 @@
 		<div class="space-y-2">
 			<span class="text-sm font-medium tracking-wider text-[#0736fe]">{work.type}</span>
 			<h3
-				class="text-4xl font-light leading-tight transition-colors duration-300 hover:text-[#0736fe]"
+				class="text-4xl leading-tight font-light transition-colors duration-300 hover:text-[#0736fe]"
 			>
 				{work.title}
 			</h3>
@@ -61,7 +61,7 @@
 					href={work.link}
 					target="_blank"
 					rel="noopener noreferrer"
-					class="custom-button group inline-flex items-center space-x-2 text-[#0736fe] hover:underline"
+					class="group inline-flex items-center space-x-2 text-[#0736fe] hover:underline"
 				>
 					<span class="text-lg">view project</span>
 					<svg
@@ -81,7 +81,7 @@
 			{:else if work.type === 'photo'}
 				<button
 					onclick={() => openModal(work, 'image')}
-					class="custom-button group inline-flex items-center space-x-2 text-[#0736fe] hover:underline"
+					class="group inline-flex items-center space-x-2 text-[#0736fe] hover:underline"
 				>
 					<span class="text-lg">look closer</span>
 					<svg
@@ -101,7 +101,7 @@
 			{:else if work.type === 'video' && work.url}
 				<button
 					onclick={() => openModal(work, 'video')}
-					class="custom-button group inline-flex items-center space-x-2 text-[#0736fe] hover:underline"
+					class="group inline-flex items-center space-x-2 text-[#0736fe] hover:underline"
 				>
 					<span class="text-lg">play video</span>
 					<svg
