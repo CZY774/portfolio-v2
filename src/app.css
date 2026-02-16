@@ -21,10 +21,6 @@ body {
 		@apply transition-colors hover:text-[#0736fe];
 	}
 
-	.btn-primary {
-		@apply border border-current px-8 py-3 transition-all hover:border-[#0736fe] hover:bg-[#0736fe] hover:text-white;
-	}
-
 	.section-title {
 		@apply text-6xl font-light md:text-8xl;
 	}
@@ -54,12 +50,12 @@ html {
 		auto !important;
 }
 
-/* Dark mode cursor - much more visible, won't blend with particles */
+/* Dark mode cursor - high contrast white with thick black border */
 .dark *,
 .dark *::before,
 .dark *::after {
 	cursor:
-		url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iNiIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiLz48Y2lyY2xlIGN4PSIxNiIgY3k9IjE2IiByPSIzIiBmaWxsPSIjMDAwMDAwIi8+PC9zdmc+')
+		url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iNiIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjMiLz48L3N2Zz4=')
 			16 16,
 		auto !important;
 }
@@ -197,6 +193,16 @@ input[type='reset'] {
 	-moz-user-select: none !important;
 	-ms-user-select: none !important;
 	user-select: none !important;
+}
+
+/* Focus indicators for accessibility */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+	outline: 2px solid #0736fe !important;
+	outline-offset: 2px !important;
 }
 
 button:active,
