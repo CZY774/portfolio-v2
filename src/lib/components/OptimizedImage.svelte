@@ -34,7 +34,7 @@
 </div>
 
 <style>
-	img {
+	:global(enhanced-img img) {
 		width: 100%;
 		height: auto;
 		display: block;
