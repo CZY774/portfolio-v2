@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { WorkItem } from '$lib/data/portfolio';
+	import { sanitizeHTML, sanitizeURL } from '$lib/utils/security';
 
 	let {
 		isOpen = $bindable(false),
@@ -39,22 +40,24 @@
 			{#if content}
 				{#if type === 'image'}
 					<img
-						src={content.image}
-						alt={content.title}
+						src={sanitizeURL(content.image)}
+						alt={sanitizeHTML(content.title)}
 						class="h-auto max-h-[80vh] w-full object-contain"
 					/>
 				{:else if type === 'video'}
 					<iframe
-						src={content.url}
+						src={sanitizeURL(content.url)}
 						class="aspect-video w-full"
-						title={content.title}
+						title={sanitizeHTML(content.title)}
 						frameborder="0"
+						loading="lazy"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 						allowfullscreen
 					></iframe>
 				{/if}
 				<div class="mt-4 text-center text-white">
-					<h3 class="text-xl font-medium">{content.title}</h3>
-					<p class="text-gray-300">{content.desc}</p>
+					<h3 class="text-xl font-medium">{sanitizeHTML(content.title)}</h3>
+					<p class="text-gray-300">{sanitizeHTML(content.desc)}</p>
 				</div>
 			{/if}
 		</div>
