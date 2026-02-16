@@ -22,7 +22,7 @@ body {
 	}
 
 	.btn-primary {
-		@apply custom-button border border-current px-8 py-3 transition-all hover:border-[#0736fe] hover:bg-[#0736fe] hover:text-white;
+		@apply border border-current px-8 py-3 transition-all hover:border-[#0736fe] hover:bg-[#0736fe] hover:text-white;
 	}
 
 	.section-title {
