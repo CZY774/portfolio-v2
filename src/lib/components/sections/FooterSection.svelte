@@ -3,7 +3,7 @@
 		<div class="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
 			<div>
 				<p class="mb-1 text-lg font-light tracking-wider text-gray-500">vibecoded by</p>
-				<h2 class="text-7xl font-light leading-none md:text-8xl lg:text-9xl">
+				<h2 class="text-7xl leading-none font-light md:text-8xl lg:text-9xl">
 					<span class="block text-white/90">cornelius</span>
 					<span class="block text-white/90">ardhani</span>
 					<span class="block text-[#0736fe]">yoga</span>
@@ -12,7 +12,7 @@
 			</div>
 			<div class="text-right">
 				<div class="space-y-8">
-					<p class="text-xl font-light leading-relaxed text-gray-400">
+					<p class="text-xl leading-relaxed font-light text-gray-400">
 						idk how many coffee<br />
 						i've been drinking,<br />
 						<span class="text-[#0736fe]">good design needs time</span>
