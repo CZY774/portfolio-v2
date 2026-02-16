@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { scrollToSection } from '$lib/utils/animations';
+	import { track } from '@vercel/analytics';
 </script>
 
 <section
@@ -15,8 +16,8 @@
 				</h1>
 				<div class="hero-desc">
 					<p class="mb-12 text-2xl leading-relaxed font-light text-gray-600 dark:text-gray-400">
-						a fourth-year informatics engineering student at fti uksw<br />
-						based in kudus, indonesia
+						fullstack developer | 3.92 gpa<br />
+						it dev intern at alfamart · kudus, indonesia
 					</p>
 				</div>
 			</div>
@@ -25,27 +26,39 @@
 					<div class="mb-8 flex justify-end space-x-6">
 						<a
 							href="https://instagram.com/corneliusyoga"
-							class="transition-colors hover:text-[#0736fe]">ig</a
+							class="link-hover"
+							aria-label="Visit Instagram profile"
+							onclick={() => track?.('social_click', { platform: 'instagram' })}>ig</a
 						>
-						<a href="https://github.com/CZY774" class="transition-colors hover:text-[#0736fe]"
-							>github</a
+						<a
+							href="https://github.com/CZY774"
+							class="link-hover"
+							aria-label="Visit GitHub profile"
+							onclick={() => track?.('social_click', { platform: 'github' })}>github</a
 						>
 						<a
 							href="https://www.linkedin.com/in/cornelius-yoga-783b6a291/"
-							class="transition-colors hover:text-[#0736fe]">linkedin</a
+							class="link-hover"
+							aria-label="Visit LinkedIn profile"
+							onclick={() => track?.('social_click', { platform: 'linkedin' })}>linkedin</a
 						>
-						<a href="https://youtube.com/@CZY774" class="transition-colors hover:text-[#0736fe]"
-							>youtube</a
+						<a
+							href="https://youtube.com/@CZY774"
+							class="link-hover"
+							aria-label="Visit YouTube channel"
+							onclick={() => track?.('social_click', { platform: 'youtube' })}>yt</a
+						>
+						<a
+							href="/cv.pdf"
+							download
+							class="link-hover"
+							aria-label="Download CV"
+							onclick={() => track?.('cv_download')}>cv</a
 						>
 					</div>
 				</div>
-				<div class="flex justify-end">
-					<button
-						onclick={() => scrollToSection('work')}
-						class="custom-button border border-current px-8 py-3 transition-all hover:border-[#0736fe] hover:bg-[#0736fe] hover:text-[#0736fe]"
-					>
-						view work
-					</button>
+				<div class="flex justify-end gap-4">
+					<button onclick={() => scrollToSection('work')} class="btn-primary"> view work </button>
 				</div>
 			</div>
 		</div>
