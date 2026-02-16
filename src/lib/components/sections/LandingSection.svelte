@@ -58,7 +58,7 @@
 					</div>
 				</div>
 				<div class="flex justify-end gap-4">
-					<button onclick={() => scrollToSection('work')} class="btn-primary"> view work </button>
+					<button onclick={() => scrollToSection('work')} class="link-hover"> view work </button>
 				</div>
 			</div>
 		</div>
