@@ -15,6 +15,25 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 }
 
+/* Component Classes - DRY */
+@layer components {
+	.link-hover {
+		@apply transition-colors hover:text-[#0736fe];
+	}
+
+	.btn-primary {
+		@apply custom-button border border-current px-8 py-3 transition-all hover:border-[#0736fe] hover:bg-[#0736fe] hover:text-white;
+	}
+
+	.section-title {
+		@apply text-6xl font-light md:text-8xl;
+	}
+
+	.will-animate {
+		will-change: transform, opacity;
+	}
+}
+
 /* Hide scrollbar completely */
 ::-webkit-scrollbar {
 	display: none;
