@@ -3,12 +3,10 @@
 	import { defer } from '$lib/utils/defer';
 	import Skeleton from './Skeleton.svelte';
 
-	export let src: string;
-	export let alt: string;
-	export let width: number;
-	export let height: number;
+	let { src, alt, width, height }: { src: string; alt: string; width: number; height: number } =
+		$props();
 
-	let loaded = false;
+	let loaded = $state(false);
 	const aspectRatio = `${width}/${height}`;
 
 	onMount(() => {
@@ -24,11 +22,10 @@
 	{#if !loaded}
 		<Skeleton width="100%" height="100%" />
 	{:else}
-		<img
+		<enhanced:img
 			{src}
 			{alt}
-			{width}
-			{height}
+			sizes="(min-width: 1024px) 800px, (min-width: 768px) 600px, 100vw"
 			loading="lazy"
 			decoding="async"
 			style="aspect-ratio: {aspectRatio};"
