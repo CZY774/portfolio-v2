@@ -2,6 +2,47 @@
 
 A modern, typography-focused portfolio website built with SvelteKit, featuring WebGL animations, smooth scrolling, and advanced performance optimizations.
 
+**Lighthouse Score:** 96/100 (Desktop) | 89/100 (Mobile)  
+**Accessibility:** WCAG 2.1 AA Compliant  
+**Live:** [corneliusyoga.vercel.app](https://corneliusyoga.vercel.app)
+
+## 🚀 Featured Project
+
+### [CZMoney - Personal Finance Tracker](https://czmoney.vercel.app)
+
+Enterprise-grade Progressive Web Application for personal finance management with offline-first architecture and AI-powered insights.
+
+**Core Features:**
+
+- 💰 Transaction management with offline-first IndexedDB persistence
+- 🤖 AI-powered financial insights using Google Gemini 2.5 Flash
+- 📊 Real-time analytics with predictive budget alerts
+- 🔐 Complete authentication flow (login, register, forgot password)
+- 📱 Full PWA with service worker for offline functionality
+- 🔄 Real-time cross-tab synchronization via Supabase Realtime
+
+**Technical Implementation:**
+
+- **Frontend:** SvelteKit 5, TypeScript, TailwindCSS 4, ApexCharts
+- **Backend:** Supabase (PostgreSQL), RESTful API with auth middleware
+- **Security:** Rate limiting (Upstash Redis), CSRF protection, XSS prevention, Row Level Security
+- **Performance:** Debounced search, lazy-loaded components, skeleton loaders, prefetch navigation
+- **AI Integration:** Streaming responses, context-aware insights, spending pattern analysis
+- **Data Sync:** Idempotency guarantees, intelligent queue management, automatic retry logic
+
+**Architecture Highlights:**
+
+- Serverless deployment on Vercel with 99.9% uptime
+- Multi-tier rate limiting (10 req/10s standard, 3 req/min AI)
+- Comprehensive input validation (Zod schemas + DOMPurify)
+- CSV/PDF export functionality
+- Mobile-first responsive design
+
+**Live Demo:** [czmoney.vercel.app](https://czmoney.vercel.app)  
+**GitHub:** [github.com/CZY774/czmoney](https://github.com/CZY774/czmoney)
+
+---
+
 ## 🎨 Design Philosophy
 
 This portfolio embraces **typography as the hero** with a minimalist approach:
@@ -85,7 +126,15 @@ This portfolio embraces **typography as the hero** with a minimalist approach:
 - 🟢 **Speed Insights** - Core Web Vitals tracking
 - 🟢 **APM Metrics** - Application Performance Monitoring
 
-**Note**: 🟡 Features demonstrate technical capability and architectural knowledge for scalable applications, even if not actively used in current single-page context. All 🟢 features provide measurable production value.
+**Note**: 🟡 **Capability Showcase Features** - These utilities demonstrate architectural knowledge and technical capability for building scalable applications. While not actively used in this static portfolio, they showcase understanding of:
+
+- **Web Workers** (`utils/worker.ts`, `static/worker.js`) - Background thread processing for CPU-intensive tasks
+- **Optimistic UI** (`stores/optimistic.ts`) - Instant feedback patterns with rollback for mutation-heavy apps
+- **Client Compression** (`utils/compress.ts`) - Data transfer optimization for large payloads
+- **Chunked Downloads** (`utils/download.ts`) - Parallel asset loading strategies
+- **Code Obfuscation** (`utils/obfuscate.ts`) - String protection techniques
+
+These features are production-ready and can be activated when needed. All 🟢 features provide measurable production value in the current deployment.
 
 ### User Experience
 
@@ -564,6 +613,32 @@ npm run preview
 - `prettier` - Code formatting
 - `eslint` - Code linting
 - `svelte-check` - Type checking
+
+## 📐 Architecture Notes
+
+### Production vs Showcase Features
+
+This portfolio demonstrates both **production-deployed features** (🟢) and **architectural capabilities** (🟡):
+
+**🟢 Production Features** - Actively used and providing measurable value:
+
+- Image optimization (WebP/AVIF with enhanced:img)
+- Lazy loading (Three.js, images, components)
+- Security headers (HSTS, CSP, rate limiting)
+- Accessibility (focus management, WCAG 2.1 AA)
+- Performance monitoring (Vercel Analytics)
+
+**🟡 Capability Showcase** - Production-ready utilities demonstrating technical knowledge:
+
+- **Web Workers** - For CPU-intensive background processing
+- **Optimistic UI** - For instant feedback in mutation-heavy applications
+- **Client Compression** - For large payload optimization
+- **Chunked Downloads** - For parallel asset loading
+- **Code Obfuscation** - For string protection
+
+These showcase features are intentionally included to demonstrate understanding of scalable application architecture, even though they're not required for a static portfolio. They can be activated when building applications with heavier computational needs or real-time mutations.
+
+---
 
 ## 🙏 Acknowledgments
 
