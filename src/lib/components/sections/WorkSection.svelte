@@ -27,7 +27,7 @@
 		<h2 class="animate-in section-title mb-24">selected work</h2>
 
 		<div class="animate-in mb-16 flex flex-wrap gap-4">
-			{#each [{ key: 'all', label: 'all' }, { key: 'apps', label: 'apps' }, { key: 'photo', label: 'personal creative work' }, { key: 'videos', label: 'videos' }] as filter (filter.key)}
+			{#each [{ key: 'all', label: 'all' }, { key: 'apps', label: 'apps' }, { key: 'videos', label: 'videos' }] as filter (filter.key)}
 				<button
 					onclick={() => handleFilterChange(filter.key)}
 					class="px-6 py-2 transition-colors {currentFilter === filter.key
