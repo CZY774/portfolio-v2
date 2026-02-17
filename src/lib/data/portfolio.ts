@@ -83,6 +83,13 @@ export const works: Works = {
 	apps: [
 		{
 			type: 'app',
+			title: 'CZMoney - Personal Finance Tracker',
+			desc: 'Production full-stack SvelteKit app with Supabase, rate limiting, forgot password, and AI-powered expense summaries. Live at czmoney.vercel.app',
+			link: 'https://czmoney.vercel.app',
+			image: '/images/website-16.png'
+		},
+		{
+			type: 'app',
 			title: 'EduVerse by Belum Ada Ide',
 			desc: '1st Place UI/UX Winner - Desktop educational platform for junior high school with AI-powered video summarization and geo-location attendance',
 			link: 'https://www.figma.com/proto/iADoy42ojxwFJrOPRwKbAi/EduVerse-by-Belum-Ada-Ide?page-id=0%3A1&node-id=15-404&p=f&viewport=22%2C1366%2C0.04&t=pA0UioQrdVVisDYT-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=26%3A472',
@@ -92,7 +99,7 @@ export const works: Works = {
 			type: 'app',
 			title: 'Maison Étoile by K-Mentality',
 			desc: '1st Place 8-Hour Live Coding Winner - Laravel e-restaurant with RBAC for 3 roles, MySQL database, and Tailwind CSS',
-			link: 'https://github.com/RafflesSupit/Next-Gen-K-MENTALITY/',
+			link: 'https://next-gen-k-mentality.fly.dev/',
 			image: '/images/website-9.png'
 		},
 		{
@@ -110,26 +117,7 @@ export const works: Works = {
 			image: '/images/website-2.png'
 		}
 	],
-	photo: [
-		{
-			type: 'photo',
-			title: 'Shutter Bliss',
-			desc: 'Photography series exploring campus life at dusk',
-			image: '/images/photo-1.jpg'
-		},
-		{
-			type: 'photo',
-			title: 'Street Snapshot',
-			desc: 'Candid moments captured in urban settings',
-			image: '/images/photo-2.jpg'
-		},
-		{
-			type: 'photo',
-			title: 'Blue Sky, Blue Sea',
-			desc: 'A serene landscape capturing the essence of beach',
-			image: '/images/photo-5.jpg'
-		}
-	],
+	photo: [],
 	videos: [
 		{
 			type: 'video',
