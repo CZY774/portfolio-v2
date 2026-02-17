@@ -90,6 +90,13 @@ export const works: Works = {
 		},
 		{
 			type: 'app',
+			title: 'TanyaBuah - AI Fruit Recognition',
+			desc: 'Educational Android app with MobileNetV2 for elementary students. HKI registered (No. 001138316) by Ministry of Law, Indonesia',
+			link: 'https://github.com/CZY774/TTU',
+			image: '/images/TanyaBuah.png'
+		},
+		{
+			type: 'app',
 			title: 'EduVerse by Belum Ada Ide',
 			desc: '1st Place UI/UX Winner - Desktop educational platform for junior high school with AI-powered video summarization and geo-location attendance',
 			link: 'https://www.figma.com/proto/iADoy42ojxwFJrOPRwKbAi/EduVerse-by-Belum-Ada-Ide?page-id=0%3A1&node-id=15-404&p=f&viewport=22%2C1366%2C0.04&t=pA0UioQrdVVisDYT-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=26%3A472',
