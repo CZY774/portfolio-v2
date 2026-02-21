@@ -14,7 +14,7 @@ export function initGSAP() {
 		opacity: 0,
 		stagger: 0.15,
 		ease: 'power3.out',
-		delay: 3.2
+		delay: 0.4
 	});
 
 	gsap.from('.hero-desc', {
