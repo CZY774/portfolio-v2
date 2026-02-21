@@ -45,7 +45,7 @@
 
 		setTimeout(() => {
 			isLoading = false;
-		}, 3000);
+		}, 300);
 
 		// Lazy load Three.js after page is interactive (skip if reduced motion)
 		const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
