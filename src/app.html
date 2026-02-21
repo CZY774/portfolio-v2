@@ -18,7 +18,14 @@
 			rel="preload"
 			href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap"
 			as="style"
+			onload="this.onload=null;this.rel='stylesheet'"
 		/>
+		<noscript>
+			<link
+				href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap"
+				rel="stylesheet"
+			/>
+		</noscript>
 		<link
 			rel="preload"
 			href="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"
@@ -33,15 +40,16 @@
 		/>
 
 		<!-- Load Fonts -->
-		<link
-			href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap"
-			rel="stylesheet"
-		/>
+		<!-- Removed: Now loaded via preload above -->
 
 		<style>
 			body {
 				margin: 0;
-				font-family: system-ui;
+				font-family:
+					Inter,
+					system-ui,
+					-apple-system,
+					sans-serif;
 				opacity: 0;
 				animation: fadeIn 0.3s forwards;
 			}
