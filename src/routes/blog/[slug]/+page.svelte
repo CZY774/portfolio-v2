@@ -1,6 +1,8 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
 	import SEO from '$lib/components/SEO.svelte';
+	import WebGLBackground from '$lib/components/WebGLBackground.svelte';
 
 	let { data }: { data: PageData } = $props();
 	const { post } = data;
@@ -12,18 +14,69 @@
 
 	// Placeholder image URL
 	const heroImage = `https://placehold.co/800x400/0736fe/white?text=${encodeURIComponent(post.title.split(':')[0])}`;
+
+	onMount(() => {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		const gsap = (window as any).gsap;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		const ScrollTrigger = (window as any).ScrollTrigger;
+
+		if (!gsap || !ScrollTrigger) return;
+
+		gsap.registerPlugin(ScrollTrigger);
+
+		// Hero title animation
+		gsap.from('.post-title', {
+			duration: 1.2,
+			y: 120,
+			opacity: 0,
+			ease: 'power3.out',
+			delay: 0.2
+		});
+
+		gsap.from('.post-meta', {
+			duration: 1,
+			y: 40,
+			opacity: 0,
+			ease: 'power3.out',
+			delay: 0.5
+		});
+
+		gsap.from('.post-hero-image', {
+			duration: 1,
+			y: 60,
+			opacity: 0,
+			ease: 'power3.out',
+			delay: 0.7
+		});
+
+		// Content sections animation
+		gsap.from('.prose > *', {
+			scrollTrigger: {
+				trigger: '.prose',
+				start: 'top 80%'
+			},
+			duration: 0.8,
+			y: 40,
+			opacity: 0,
+			stagger: 0.1,
+			ease: 'power3.out'
+		});
+	});
 </script>
 
 <SEO />
+
+<WebGLBackground />
 
 <article class="min-h-screen bg-white dark:bg-gray-950">
 	<div class="mx-auto max-w-4xl px-6 py-32 md:px-12">
 		<!-- Header -->
 		<header class="mb-16">
-			<h1 class="mb-6 text-6xl font-bold tracking-tight lowercase md:text-8xl">
+			<h1 class="post-title mb-6 text-6xl font-bold tracking-tight lowercase md:text-8xl">
 				{post.title}
 			</h1>
-			<div class="flex items-center gap-3 text-sm text-gray-500 dark:text-gray-500">
+			<div class="post-meta flex items-center gap-3 text-sm text-gray-500 dark:text-gray-500">
 				<time datetime={post.date}>{formatDate(post.date)}</time>
 				<span>·</span>
 				<span>cornelius yoga</span>
@@ -33,7 +86,7 @@
 		</header>
 
 		<!-- Hero Image -->
-		<div class="mb-16">
+		<div class="post-hero-image mb-16">
 			<img
 				src={heroImage}
 				alt={post.title}
