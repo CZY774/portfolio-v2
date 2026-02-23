@@ -23,6 +23,7 @@
 			<div class="hidden space-x-8 md:flex">
 				<button onclick={() => navigate('about')} class="link-hover">about</button>
 				<button onclick={() => navigate('work')} class="link-hover">work</button>
+				<button onclick={() => (window.location.href = '/blog')} class="link-hover">blog</button>
 			</div>
 
 			<button
@@ -56,6 +57,10 @@
 				<button
 					onclick={() => navigate('work')}
 					class="link-hover block transform text-4xl font-light hover:scale-105">work</button
+				>
+				<button
+					onclick={() => (window.location.href = '/blog')}
+					class="link-hover block transform text-4xl font-light hover:scale-105">blog</button
 				>
 			</div>
 		</div>
