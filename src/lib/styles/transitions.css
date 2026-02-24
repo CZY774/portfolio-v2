@@ -1,0 +1,58 @@
+/* View Transitions API - Roll up effect */
+::view-transition-old(root),
+::view-transition-new(root) {
+	background: white;
+	mix-blend-mode: normal;
+}
+
+.dark::view-transition-old(root),
+.dark::view-transition-new(root) {
+	background: rgb(3 7 18);
+}
+
+/* Hide default backdrop */
+::view-transition-group(root) {
+	animation-duration: 0.4s;
+}
+
+::view-transition-image-pair(root) {
+	isolation: auto;
+}
+
+::view-transition-old(root) {
+	animation: slide-up 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+::view-transition-new(root) {
+	animation: slide-down 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slide-up {
+	from {
+		transform: translateY(0);
+		opacity: 1;
+	}
+	to {
+		transform: translateY(-100%);
+		opacity: 0;
+	}
+}
+
+@keyframes slide-down {
+	from {
+		transform: translateY(100%);
+		opacity: 0;
+	}
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+/* Reduce motion support */
+@media (prefers-reduced-motion: reduce) {
+	::view-transition-old(root),
+	::view-transition-new(root) {
+		animation: none;
+	}
+}
