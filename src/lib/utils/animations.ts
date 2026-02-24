@@ -14,14 +14,14 @@ export function initGSAP() {
 		opacity: 0,
 		stagger: 0.15,
 		ease: 'power3.out',
-		delay: 0.4
+		delay: 0.2
 	});
 
 	gsap.from('.hero-desc', {
 		duration: 1,
 		y: 60,
 		opacity: 0,
-		delay: 3.8
+		delay: 0.6
 	});
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
