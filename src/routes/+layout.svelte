@@ -5,6 +5,7 @@
 	import { injectAnalytics } from '@vercel/analytics/sveltekit';
 	import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
 	import { preloadData } from '$app/navigation';
+	import { setupPageTransitions } from '$lib/utils/page-transitions';
 
 	injectAnalytics({ mode: dev ? 'development' : 'production' });
 	injectSpeedInsights();
@@ -24,6 +25,7 @@
 			document.documentElement.classList.toggle('dark', darkMode);
 		});
 
+		setupPageTransitions();
 		preloadData('/');
 		import('$lib/utils/perf').then(({ measureTTI }) => measureTTI());
 		performance.mark('interactive');
