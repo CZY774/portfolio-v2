@@ -17,6 +17,25 @@
 						i've been drinking,<br />
 						<span class="text-[#0736fe]">good design needs time</span>
 					</p>
+					<a
+						href="/blog"
+						class="group inline-flex items-center gap-2 text-lg text-gray-400 transition-colors hover:text-[#0736fe]"
+					>
+						read my blog
+						<svg
+							class="h-5 w-5 transition-transform group-hover:translate-x-1"
+							fill="none"
+							stroke="currentColor"
+							viewBox="0 0 24 24"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M17 8l4 4m0 0l-4 4m4-4H3"
+							></path>
+						</svg>
+					</a>
 					<div class="text-sm font-light text-gray-600">kudus, indonesia — 2025</div>
 				</div>
 			</div>
