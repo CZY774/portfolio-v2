@@ -482,20 +482,20 @@ function increment() &#123;
 						bundle is 40% smaller than equivalent react apps
 					</li>
 					<li>
-						<strong>built-in transitions</strong> - no framer-motion or react-spring needed. native
-						transition directives handle 90% of animation needs
+						<strong>built-in transitions</strong> - no framer-motion or react-spring needed. native transition
+						directives handle 90% of animation needs
 					</li>
 					<li>
 						<strong>scoped styles by default</strong> - no css-in-js libraries. styles are scoped to
 						components automatically
 					</li>
 					<li>
-						<strong>typescript integration</strong> - first-class support with automatic type
-						generation for load functions and form actions
+						<strong>typescript integration</strong> - first-class support with automatic type generation
+						for load functions and form actions
 					</li>
 					<li>
-						<strong>progressive enhancement</strong> - forms work without javascript. critical for
-						accessibility and resilience
+						<strong>progressive enhancement</strong> - forms work without javascript. critical for accessibility
+						and resilience
 					</li>
 				</ul>
 
@@ -595,8 +595,8 @@ function increment() &#123;
 						<strong>inference speed</strong> - 500ms per frame on mid-range android devices
 					</li>
 					<li>
-						<strong>accuracy trade-off</strong> - 96.28% validation accuracy, only 2-3% lower than
-						heavier models
+						<strong>accuracy trade-off</strong> - 96.28% validation accuracy, only 2-3% lower than heavier
+						models
 					</li>
 					<li>
 						<strong>tensorflow lite support</strong> - first-class optimization for mobile deployment
@@ -612,11 +612,47 @@ function increment() &#123;
 					accuracy trade-off was worth the 5x speed improvement and 7x size reduction.
 				</p>
 
+				<h2>system architecture overview</h2>
+
+				<p>
+					the complete pipeline from dataset to android deployment involves multiple stages, each
+					with specific optimization decisions. the architecture prioritizes mobile constraints at
+					every stage—from dataset augmentation strategies to quantization for deployment. each
+					decision trades theoretical accuracy for practical usability on resource-constrained
+					devices.
+				</p>
+
+				<p>
+					the data pipeline begins with 126k images split 80/20 for training and validation.
+					training data flows through imagedatagenerator with rotation, shift, zoom, and brightness
+					augmentation, while validation data receives only normalization to [-1, 1] range. both
+					streams feed into the mobilenetv2 base model with frozen imagenet weights, followed by
+					global average pooling, batch normalization, and two dense layers (512 and 256 neurons)
+					with dropout regularization before the final 21-class softmax output.
+				</p>
+
+				<p>
+					training employs adam optimizer with gradient clipping and multiple callbacks—early
+					stopping, learning rate reduction, model checkpointing, and tensorboard logging. after
+					initial training converges at 27 epochs, fine-tuning unfreezes the last 30 mobilenetv2
+					layers with reduced learning rate for additional refinement. the resulting 14mb keras
+					model undergoes int8 quantization using a representative dataset, compressing to 3.5mb
+					(75% reduction) while maintaining 96.28% validation accuracy.
+				</p>
+
+				<p>
+					deployment to android integrates the tflite model with camerax for real-time capture,
+					preprocessing (resize + normalize), and inference running at ~500ms per frame. predictions
+					exceeding 70% confidence threshold trigger ui display via jetpack compose, completing the
+					end-to-end pipeline from raw camera input to educational content delivery.
+				</p>
+
 				<h2>dataset engineering</h2>
 
 				<p>
-					model performance starts with data quality. i curated a dataset of 126,219 images across 21
-					fruit classes—apples, bananas, mangoes, dragon fruit, and 17 others common in indonesia.
+					model performance starts with data quality. i curated a dataset of 126,219 images across
+					21 fruit classes—apples, bananas, mangoes, dragon fruit, and 17 others common in
+					indonesia.
 				</p>
 
 				<p>
@@ -642,8 +678,8 @@ function increment() &#123;
 						range
 					</li>
 					<li>
-						<strong>class weighting</strong> - applied inverse frequency weighting to prevent model
-						bias toward overrepresented classes
+						<strong>class weighting</strong> - applied inverse frequency weighting to prevent model bias
+						toward overrepresented classes
 					</li>
 				</ul>
 
@@ -680,8 +716,7 @@ function increment() &#123;
 
 				<ul>
 					<li>
-						<strong>jetpack compose</strong> - modern declarative ui for building child-friendly
-						interfaces
+						<strong>jetpack compose</strong> - modern declarative ui for building child-friendly interfaces
 					</li>
 					<li>
 						<strong>camerax</strong> - consistent camera api across android versions and manufacturers
@@ -704,17 +739,17 @@ function increment() &#123;
 				<h2>real-world validation</h2>
 
 				<p>
-					lab accuracy means nothing if the app fails in actual use. i conducted field testing at two
-					retail locations—midifresh alfa tower and aeon mall alam sutera—to validate performance
-					under real lighting conditions and fruit variations.
+					lab accuracy means nothing if the app fails in actual use. i conducted field testing at
+					two retail locations—midifresh alfa tower and aeon mall alam sutera—to validate
+					performance under real lighting conditions and fruit variations.
 				</p>
 
 				<p>results from 16 fruit types tested:</p>
 
 				<ul>
 					<li>
-						<strong>perfect detection (100%)</strong> - banana, pear, pineapple, melon, salak.
-						distinctive textures and shapes
+						<strong>perfect detection (100%)</strong> - banana, pear, pineapple, melon, salak. distinctive
+						textures and shapes
 					</li>
 					<li>
 						<strong>high confidence (95-99%)</strong> - orange (97%), strawberry (98%), durian (98%),
@@ -754,8 +789,7 @@ function increment() &#123;
 						entire screen
 					</li>
 					<li>
-						<strong>instant feedback</strong> - detection results appear within 500ms to maintain
-						engagement
+						<strong>instant feedback</strong> - detection results appear within 500ms to maintain engagement
 					</li>
 					<li>
 						<strong>large fonts (18sp+)</strong> - readable without squinting on small screens
@@ -764,22 +798,21 @@ function increment() &#123;
 						<strong>high contrast colors</strong> - bright, saturated colors that appeal to children
 					</li>
 					<li>
-						<strong>auto-hide modals</strong> - result cards disappear after 3 seconds to prevent
-						confusion
+						<strong>auto-hide modals</strong> - result cards disappear after 3 seconds to prevent confusion
 					</li>
 					<li>
-						<strong>fun facts</strong> - "apples float in water because they contain air!" keeps
-						learning playful
+						<strong>fun facts</strong> - "apples float in water because they contain air!" keeps learning
+						playful
 					</li>
 				</ul>
 
 				<p>
-					user acceptance testing with 14 second-grade students at sd kristen 04 eben haezer salatiga
-					validated these decisions. 100% found the app enjoyable, 92.8% found it easy to use, and
-					100% said they learned fruit names and benefits. more importantly, observing children use
-					the app revealed unexpected behaviors—they got excited when detecting manggis (mangosteen)
-					after learning it's called "queen of fruits," and associated pineapple texture with
-					spongebob squarepants.
+					user acceptance testing with 14 second-grade students at sd kristen 04 eben haezer
+					salatiga validated these decisions. 100% found the app enjoyable, 92.8% found it easy to
+					use, and 100% said they learned fruit names and benefits. more importantly, observing
+					children use the app revealed unexpected behaviors—they got excited when detecting manggis
+					(mangosteen) after learning it's called "queen of fruits," and associated pineapple
+					texture with spongebob squarepants.
 				</p>
 
 				<h2>intellectual property protection</h2>
@@ -799,22 +832,22 @@ function increment() &#123;
 				<h2>lessons learned</h2>
 
 				<p>
-					building production ml systems for mobile devices requires different thinking than academic
-					research or web applications. here's what mattered most:
+					building production ml systems for mobile devices requires different thinking than
+					academic research or web applications. here's what mattered most:
 				</p>
 
 				<ul>
 					<li>
-						<strong>constraints drive architecture</strong> - mobilenetv2 wasn't the most accurate
-						model, but it was the right model for the constraints
+						<strong>constraints drive architecture</strong> - mobilenetv2 wasn't the most accurate model,
+						but it was the right model for the constraints
 					</li>
 					<li>
 						<strong>quantization is non-negotiable</strong> - 75% size reduction with minimal accuracy
 						loss makes deployment feasible
 					</li>
 					<li>
-						<strong>field testing reveals truth</strong> - lab accuracy doesn't predict real-world
-						performance under varied lighting and viewpoints
+						<strong>field testing reveals truth</strong> - lab accuracy doesn't predict real-world performance
+						under varied lighting and viewpoints
 					</li>
 					<li>
 						<strong>ux matters as much as accuracy</strong> - 96% accuracy means nothing if children
@@ -838,8 +871,8 @@ function increment() &#123;
 
 				<p>
 					the technical foundation is solid. the model generalizes well, the app runs smoothly, and
-					users find it valuable. these improvements would push it from "functional educational tool"
-					to "production-ready commercial product."
+					users find it valuable. these improvements would push it from "functional educational
+					tool" to "production-ready commercial product."
 				</p>
 
 				<h2>why this matters</h2>
