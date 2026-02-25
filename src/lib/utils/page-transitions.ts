@@ -21,9 +21,10 @@ export function setupPageTransitions() {
 		if (!gsap) return;
 
 		return new Promise((resolve) => {
-			// Set body background to match current theme
+			// Force body background immediately
 			const bgColor = isDark ? 'rgb(3, 7, 18)' : 'white';
 			document.body.style.backgroundColor = bgColor;
+			document.documentElement.style.backgroundColor = bgColor;
 
 			// Animate out
 			gsap.to('body', {
@@ -35,8 +36,12 @@ export function setupPageTransitions() {
 					resolve();
 					await navigation.complete;
 
-					// Wait a bit for new page to render
-					await new Promise((r) => setTimeout(r, 50));
+					// Wait longer for home page assets
+					await new Promise((r) => setTimeout(r, 100));
+
+					// Ensure background persists
+					document.body.style.backgroundColor = bgColor;
+					document.documentElement.style.backgroundColor = bgColor;
 
 					// Animate in
 					gsap.fromTo(
