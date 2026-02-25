@@ -1,10 +1,16 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { getAllPosts } from '$lib/data/blog';
+	import { initThreeJS } from '$lib/utils/threejs';
+	import { RAFThrottle } from '$lib/utils/perf';
 	import SEO from '$lib/components/SEO.svelte';
 	import WebGLBackground from '$lib/components/WebGLBackground.svelte';
 
 	const posts = getAllPosts();
+	let canvas = $state<HTMLCanvasElement>();
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	let scene: any, camera: any, renderer: any, particles: any;
+	let mouse = $state({ x: 0, y: 0 });
 
 	function formatDate(dateString: string) {
 		const date = new Date(dateString);
@@ -50,15 +56,83 @@
 			stagger: 0.2,
 			ease: 'power3.out'
 		});
+
+		// Three.js initialization
+		const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+		if (!prefersReducedMotion) {
+			requestIdleCallback(
+				() => {
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any
+					const THREE = (window as any).THREE;
+					if (THREE && canvas) {
+						try {
+							const threeScene = initThreeJS(canvas, THREE);
+							if (threeScene) {
+								scene = threeScene.scene;
+								camera = threeScene.camera;
+								renderer = threeScene.renderer;
+								particles = threeScene.particles;
+								animate();
+							}
+						} catch {
+							console.warn('WebGL not supported');
+						}
+					}
+				},
+				{ timeout: 2000 }
+			);
+		}
 	});
+
+	let rafThrottle: { run: (callback: (delta: number) => void) => void; stop: () => void } | null =
+		null;
+
+	function animate() {
+		if (!particles || !renderer || !scene || !camera) return;
+
+		if (!rafThrottle) {
+			rafThrottle = new RAFThrottle(60);
+			rafThrottle.run(() => {
+				if (!particles || !renderer || !scene || !camera) return;
+				particles.rotation.x += 0.0003 + mouse.y * 0.0001;
+				particles.rotation.y += 0.0005 + mouse.x * 0.0001;
+				const scale = 1 + (mouse.x * 0.02 + mouse.y * 0.02) * 0.1;
+				particles.scale.set(scale, scale, scale);
+				renderer.render(scene, camera);
+			});
+		}
+	}
 </script>
 
 <SEO />
 
-<WebGLBackground />
+<WebGLBackground bind:canvas />
 
 <div class="min-h-screen bg-white dark:bg-gray-950">
 	<div class="mx-auto max-w-5xl px-6 py-32 md:px-12">
+		<!-- Back to Home -->
+		<a
+			href="/"
+			class="mb-12 inline-flex items-center gap-2 text-gray-600 transition-colors hover:text-[#0736fe] dark:text-gray-400"
+		>
+			<svg
+				class="h-5 w-5"
+				fill="none"
+				stroke="currentColor"
+				viewBox="0 0 24 24"
+				xmlns="http://www.w3.org/2000/svg"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="2"
+					d="M7 16l-4-4m0 0l4-4m-4 4h18"
+				></path>
+			</svg>
+			back to home
+		</a>
+
 		<!-- Header -->
 		<div class="mb-24">
 			<h1 class="blog-title mb-6 text-7xl font-bold tracking-tight lowercase md:text-9xl">blog</h1>
