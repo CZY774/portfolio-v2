@@ -5,6 +5,7 @@
 	import { RAFThrottle } from '$lib/utils/perf';
 	import SEO from '$lib/components/SEO.svelte';
 	import WebGLBackground from '$lib/components/WebGLBackground.svelte';
+	import ImageModal from '$lib/components/ImageModal.svelte';
 
 	let { data }: { data: PageData } = $props();
 	const { post } = data;
@@ -12,6 +13,16 @@
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	let scene: any, camera: any, renderer: any, particles: any;
 	let mouse = $state({ x: 0, y: 0 });
+
+	let modalOpen = $state(false);
+	let modalSrc = $state('');
+	let modalAlt = $state('');
+
+	function openImageModal(src: string, alt: string) {
+		modalSrc = src;
+		modalAlt = alt;
+		modalOpen = true;
+	}
 
 	function formatDate(dateString: string) {
 		const date = new Date(dateString);
@@ -239,6 +250,51 @@
 						validation, xss protection
 					</li>
 				</ul>
+
+				<h2>system architecture</h2>
+				<p>
+					the architecture follows a layered approach with clear separation between client state,
+					application logic, and external services. the client layer handles ui rendering and
+					offline persistence, while the application layer manages synchronization and real-time
+					updates. api routes provide a security boundary with authentication and rate limiting
+					before reaching external services.
+				</p>
+
+				<div class="my-12 overflow-x-auto">
+					<button
+						onclick={() =>
+							openImageModal('/diagrams/czmoney-architecture.svg', 'CZMoney System Architecture')}
+						class="group mx-auto block cursor-zoom-in transition-all hover:scale-[1.01]"
+					>
+						<img
+							src="/diagrams/czmoney-architecture.svg"
+							alt="CZMoney System Architecture"
+							class="mx-auto max-w-full rounded-lg bg-white p-8 shadow-lg transition-shadow group-hover:shadow-xl dark:border dark:border-gray-800"
+						/>
+					</button>
+				</div>
+
+				<h2>offline-first data flow</h2>
+				<p>
+					when users create transactions offline, the system immediately saves to indexeddb and
+					updates the ui optimistically. once connectivity returns, the sync service processes the
+					queue with idempotency guarantees to prevent duplicates. supabase realtime broadcasts
+					changes across all connected clients, ensuring consistency without manual refreshes.
+				</p>
+
+				<div class="my-12 overflow-x-auto">
+					<button
+						onclick={() =>
+							openImageModal('/diagrams/czmoney-dataflow.svg', 'CZMoney Offline-First Data Flow')}
+						class="group mx-auto block cursor-zoom-in transition-all hover:scale-[1.01]"
+					>
+						<img
+							src="/diagrams/czmoney-dataflow.svg"
+							alt="CZMoney Offline-First Data Flow"
+							class="mx-auto max-w-full rounded-lg bg-white p-8 shadow-lg transition-shadow group-hover:shadow-xl dark:border dark:border-gray-800"
+						/>
+					</button>
+				</div>
 
 				<h2>the technical journey</h2>
 				<p>
@@ -622,6 +678,23 @@ function increment() &#123;
 					devices.
 				</p>
 
+				<div class="my-12 overflow-x-auto">
+					<button
+						onclick={() =>
+							openImageModal(
+								'/diagrams/tanyabuah-pipeline.svg',
+								'TanyaBuah ML Pipeline Architecture'
+							)}
+						class="group mx-auto block cursor-zoom-in transition-all hover:scale-[1.01]"
+					>
+						<img
+							src="/diagrams/tanyabuah-pipeline.svg"
+							alt="TanyaBuah ML Pipeline Architecture"
+							class="mx-auto max-w-full rounded-lg bg-white p-8 shadow-lg transition-shadow group-hover:shadow-xl dark:border dark:border-gray-800"
+						/>
+					</button>
+				</div>
+
 				<p>
 					the data pipeline begins with 126k images split 80/20 for training and validation.
 					training data flows through imagedatagenerator with rotation, shift, zoom, and brightness
@@ -916,6 +989,10 @@ function increment() &#123;
 		</div>
 	</div>
 </article>
+
+<ImageModal bind:open={modalOpen} src={modalSrc} alt={modalAlt} />
+
+<ImageModal bind:open={modalOpen} src={modalSrc} alt={modalAlt} />
 
 <style>
 	.prose {
