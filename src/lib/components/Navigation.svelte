@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { scrollToSection } from '$lib/utils/animations';
+	import { clickOutside } from '$lib/actions';
 
 	let { mobileMenuOpen = $bindable(false) } = $props();
 
@@ -11,6 +12,23 @@
 		scrollToSection(section);
 		mobileMenuOpen = false;
 	}
+
+	function handleKeydown(e: KeyboardEvent) {
+		if (e.key === 'Escape' && mobileMenuOpen) {
+			mobileMenuOpen = false;
+		}
+	}
+
+	$effect(() => {
+		if (mobileMenuOpen) {
+			document.body.style.overflow = 'hidden';
+			document.addEventListener('keydown', handleKeydown);
+			return () => {
+				document.body.style.overflow = '';
+				document.removeEventListener('keydown', handleKeydown);
+			};
+		}
+	});
 </script>
 
 <nav class="fixed top-0 right-0 left-0 z-40 bg-white/90 backdrop-blur-sm dark:bg-gray-950/90">
@@ -45,7 +63,7 @@
 		<div
 			class="mobile-menu fixed top-0 left-0 flex h-screen w-full items-center justify-center bg-white/95 backdrop-blur-md dark:bg-gray-950/95"
 		>
-			<div class="space-y-8 text-center">
+			<div class="space-y-8 text-center" use:clickOutside={() => (mobileMenuOpen = false)}>
 				<button
 					onclick={() => navigate('landing')}
 					class="link-hover block transform text-4xl font-light hover:scale-105">home</button
