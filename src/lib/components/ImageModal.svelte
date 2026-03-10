@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { clickOutside } from '$lib/actions';
 	import { blur } from '$lib/transitions';
 
 	let { open = $bindable(false), src = '', alt = '' } = $props();
@@ -60,16 +59,12 @@
 
 	$effect(() => {
 		if (open) {
-			// Prevent body scroll when modal is open
 			document.body.style.overflow = 'hidden';
-
 			document.addEventListener('keydown', handleKeydown);
 			document.addEventListener('mousemove', handleMouseMove);
 			document.addEventListener('mouseup', handleMouseUp);
 			return () => {
-				// Restore body scroll when modal closes
 				document.body.style.overflow = '';
-
 				document.removeEventListener('keydown', handleKeydown);
 				document.removeEventListener('mousemove', handleMouseMove);
 				document.removeEventListener('mouseup', handleMouseUp);
@@ -79,40 +74,39 @@
 </script>
 
 {#if open}
-	<div
-		class="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm"
-		transition:blur={{ amount: 5 }}
-		use:clickOutside={() => {
-			open = false;
-			resetZoom();
-		}}
-	>
+	<div class="fixed inset-0 z-50 bg-black/95" transition:blur={{ amount: 5 }}>
 		<!-- Close button -->
-		<button
-			onclick={() => {
-				open = false;
-				resetZoom();
-			}}
-			class="absolute top-6 right-6 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/5 text-white backdrop-blur-md transition-all hover:scale-110 hover:bg-white/10"
-			aria-label="Close modal"
-		>
-			<svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					stroke-width="2"
-					d="M6 18L18 6M6 6l12 12"
-				></path>
-			</svg>
-		</button>
+		<div class="absolute top-6 right-6 z-50 rounded-full bg-black/50 p-2">
+			<button
+				onclick={(e) => {
+					e.stopPropagation();
+					open = false;
+					resetZoom();
+				}}
+				class="flex h-8 w-8 items-center justify-center text-white transition-opacity hover:opacity-70"
+				aria-label="Close modal"
+			>
+				<svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="2"
+						d="M6 18L18 6M6 6l12 12"
+					></path>
+				</svg>
+			</button>
+		</div>
 
 		<!-- Zoom controls -->
 		<div
-			class="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1 rounded-full bg-white/5 p-1 backdrop-blur-md"
+			class="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 items-center gap-2 rounded-full bg-black/50 px-3 py-2"
 		>
 			<button
-				onclick={zoomOut}
-				class="flex h-10 w-10 items-center justify-center rounded-full text-white transition-all hover:bg-white/10"
+				onclick={(e) => {
+					e.stopPropagation();
+					zoomOut();
+				}}
+				class="flex h-8 w-8 items-center justify-center text-white transition-opacity hover:opacity-70"
 				aria-label="Zoom out"
 			>
 				<svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -121,16 +115,22 @@
 			</button>
 
 			<button
-				onclick={resetZoom}
-				class="min-w-[60px] rounded-full px-4 py-2 text-sm font-medium text-white transition-all hover:bg-white/10"
+				onclick={(e) => {
+					e.stopPropagation();
+					resetZoom();
+				}}
+				class="min-w-[50px] px-2 text-sm font-light text-white transition-opacity hover:opacity-70"
 				aria-label="Reset zoom"
 			>
 				{Math.round(scale * 100)}%
 			</button>
 
 			<button
-				onclick={zoomIn}
-				class="flex h-10 w-10 items-center justify-center rounded-full text-white transition-all hover:bg-white/10"
+				onclick={(e) => {
+					e.stopPropagation();
+					zoomIn();
+				}}
+				class="flex h-8 w-8 items-center justify-center text-white transition-opacity hover:opacity-70"
 				aria-label="Zoom in"
 			>
 				<svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -140,8 +140,19 @@
 			</button>
 		</div>
 
-		<!-- Image container -->
-		<div class="flex h-full w-full items-center justify-center p-4">
+		<!-- Image container - click to close -->
+		<!-- svelte-ignore a11y_click_events_have_key_events -->
+		<div
+			class="flex h-full w-full items-center justify-center p-4"
+			role="button"
+			tabindex="0"
+			onclick={(e) => {
+				if (e.target === e.currentTarget) {
+					open = false;
+					resetZoom();
+				}
+			}}
+		>
 			<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 			<img
 				{src}
