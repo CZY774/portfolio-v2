@@ -269,7 +269,7 @@
 						<img
 							src="/diagrams/czmoney-architecture.svg"
 							alt="CZMoney System Architecture"
-							class="mx-auto max-w-full rounded-lg bg-white p-8 shadow-lg transition-shadow group-hover:shadow-xl dark:border dark:border-gray-800"
+							class="mx-auto h-auto w-full rounded-lg bg-white p-8 shadow-lg transition-shadow group-hover:shadow-xl dark:border dark:border-gray-800"
 						/>
 					</button>
 				</div>
@@ -291,7 +291,7 @@
 						<img
 							src="/diagrams/czmoney-dataflow.svg"
 							alt="CZMoney Offline-First Data Flow"
-							class="mx-auto max-w-full rounded-lg bg-white p-8 shadow-lg transition-shadow group-hover:shadow-xl dark:border dark:border-gray-800"
+							class="mx-auto h-auto w-full rounded-lg bg-white p-8 shadow-lg transition-shadow group-hover:shadow-xl dark:border dark:border-gray-800"
 						/>
 					</button>
 				</div>
@@ -690,7 +690,7 @@ function increment() &#123;
 						<img
 							src="/diagrams/tanyabuah-pipeline.svg"
 							alt="TanyaBuah ML Pipeline Architecture"
-							class="mx-auto max-w-full rounded-lg bg-white p-8 shadow-lg transition-shadow group-hover:shadow-xl dark:border dark:border-gray-800"
+							class="mx-auto h-auto w-full rounded-lg bg-white p-8 shadow-lg transition-shadow group-hover:shadow-xl dark:border dark:border-gray-800"
 						/>
 					</button>
 				</div>
