@@ -63,7 +63,7 @@
 		>
 			<button
 				bind:this={closeButton}
-				class="absolute right-2 top-2 z-10 text-2xl text-white transition-colors hover:text-[#0736fe] md:-top-12 md:right-0"
+				class="absolute top-2 right-2 z-10 text-2xl text-white transition-colors hover:text-[#0736fe] md:-top-12 md:right-0"
 				onclick={close}
 				aria-label="Close modal">✕</button
 			>
