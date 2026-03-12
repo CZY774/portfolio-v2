@@ -48,7 +48,7 @@
 
 {#if isOpen}
 	<div
-		class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-8"
+		class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-2 md:p-8"
 		onclick={close}
 		role="dialog"
 		aria-modal="true"
@@ -57,13 +57,13 @@
 	>
 		<div
 			bind:this={modalElement}
-			class="relative max-h-full w-full max-w-4xl"
+			class="relative max-h-[calc(100dvh-1rem)] w-full max-w-4xl overflow-y-auto md:max-h-full"
 			onclick={(e) => e.stopPropagation()}
 			role="presentation"
 		>
 			<button
 				bind:this={closeButton}
-				class="absolute -top-12 right-0 text-2xl text-white transition-colors hover:text-[#0736fe]"
+				class="absolute right-2 top-2 z-10 text-2xl text-white transition-colors hover:text-[#0736fe] md:-top-12 md:right-0"
 				onclick={close}
 				aria-label="Close modal">✕</button
 			>
@@ -72,7 +72,7 @@
 					<enhanced:img
 						src={sanitizeURL(content.image)}
 						alt={sanitizeHTML(content.title)}
-						class="h-auto max-h-[80vh] w-full object-contain"
+						class="h-auto max-h-[calc(100dvh-8rem)] w-full object-contain md:max-h-[80vh]"
 						sizes="(min-width: 1024px) 1024px, 100vw"
 					/>
 				{:else if type === 'video'}
