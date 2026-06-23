@@ -30,7 +30,7 @@
 			{#if work.image}
 				<enhanced:img
 					src={work.image}
-					alt="{work.title} - Cornelius Yoga Web Developer Kudus"
+					alt="{work.title} portfolio preview"
 					class="h-full w-full object-cover opacity-0 transition-opacity duration-700 group-hover:opacity-100"
 					sizes="(min-width: 768px) 50vw, 100vw"
 					loading="lazy"
