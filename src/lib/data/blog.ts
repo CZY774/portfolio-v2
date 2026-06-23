@@ -10,9 +10,9 @@ export interface BlogPost {
 export const posts: BlogPost[] = [
 	{
 		slug: 'building-czmoney-offline-first',
-		title: 'building czmoney: from google sheets to production-ready pwa',
+		title: 'building czmoney: from spreadsheet pain to personal finance pwa',
 		description:
-			'how a simple spreadsheet frustration turned into a full-stack progressive web app with offline-first architecture, ai insights, and real-time sync.',
+			'how a spreadsheet frustration became a SvelteKit finance app with offline-first decisions, Supabase-backed data, and AI-assisted summaries.',
 		date: '2026-02-23',
 		readTime: '12 min',
 		published: true
@@ -28,9 +28,9 @@ export const posts: BlogPost[] = [
 	},
 	{
 		slug: 'building-tanyabuah-production-ml',
-		title: 'building production ml for mobile: lessons from educational computer vision',
+		title: 'building mobile fruit recognition for an educational app',
 		description:
-			'deploying a 96% accurate fruit detection model to android. how mobilenetv2, quantization, and user-centered design solved real-world constraints.',
+			'notes on using MobileNetV2 for Android fruit recognition, with emphasis on mobile constraints, learning context, and user-centered design.',
 		date: '2026-02-18',
 		readTime: '10 min',
 		published: true
