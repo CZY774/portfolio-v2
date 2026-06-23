@@ -17,18 +17,23 @@
 		const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 		darkMode = mediaQuery.matches;
 
-		mediaQuery.addEventListener('change', (e) => {
+		const handleColorSchemeChange = (e: MediaQueryListEvent) => {
 			darkMode = e.matches;
-		});
+		};
 
-		$effect(() => {
-			document.documentElement.classList.toggle('dark', darkMode);
-		});
-
+		mediaQuery.addEventListener('change', handleColorSchemeChange);
 		setupPageTransitions();
 		preloadData('/');
 		import('$lib/utils/perf').then(({ measureTTI }) => measureTTI());
 		performance.mark('interactive');
+
+		return () => {
+			mediaQuery.removeEventListener('change', handleColorSchemeChange);
+		};
+	});
+
+	$effect(() => {
+		document.documentElement.classList.toggle('dark', darkMode);
 	});
 </script>
 
@@ -53,7 +58,7 @@
 		rel="stylesheet"
 		href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
 	/>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" async></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" async></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"
 		async
@@ -71,7 +76,7 @@
 					"name": "Who is Cornelius Yoga?",
 					"acceptedAnswer": {
 						"@type": "Answer",
-						"text": "Cornelius Ardhani Yoga Pratama is a fourth-year Informatics Engineering student at Satya Wacana Christian University, specializing in web development, Android development, and UI/UX design. Currently working as a Supply and Distribution Dev Intern at PT Sumber Alfaria Trijaya Tbk (Alfamart)."
+						"text": "Cornelius Ardhani Yoga Pratama is an Informatics Engineering student and IT Development Intern at PT Sumber Alfaria Trijaya Tbk (Alfamart), with portfolio evidence in web development, Android development, teaching assistance, and event leadership."
 					}
 				},
 				{
@@ -79,15 +84,15 @@
 					"name": "What technologies does Cornelius Yoga use?",
 					"acceptedAnswer": {
 						"@type": "Answer",
-						"text": "Cornelius works with modern web technologies including Laravel, React, Svelte, Vue.js, Next.js, Flask, Django, Flutter, Kotlin, and various databases like MySQL, MongoDB, PostgreSQL, and Firebase. He also specializes in UI/UX design using Figma."
+						"text": "His recent portfolio emphasizes SvelteKit, TypeScript, Tailwind CSS, Supabase, PostgreSQL, Redis, Kotlin, Jetpack Compose, MobileNetV2, Laravel, MySQL, Figma, Vercel, and Git."
 					}
 				},
 				{
 					"@type": "Question",
-					"name": "What services does Cornelius Yoga offer?",
+					"name": "What roles is this portfolio positioned for?",
 					"acceptedAnswer": {
 						"@type": "Answer",
-						"text": "Cornelius offers full-stack web development, Android mobile app development, UI/UX design, photography, and videography services. He has experience in building e-commerce platforms, educational systems, and content management systems."
+						"text": "The portfolio is positioned for software and IT development roles, while also presenting management trainee evidence through operations exposure, teaching, committee leadership, and stakeholder coordination."
 					}
 				},
 				{
@@ -102,7 +107,6 @@
 		}
 	</script>
 
-	<!-- BreadcrumbList Schema -->
 	<!-- BreadcrumbList Schema -->
 	<script type="application/ld+json">
 		{
@@ -126,6 +130,12 @@
 					"position": 3,
 					"name": "Work",
 					"item": "https://corneliusyoga.vercel.app/#work"
+				},
+				{
+					"@type": "ListItem",
+					"position": 4,
+					"name": "Career",
+					"item": "https://corneliusyoga.vercel.app/#career"
 				}
 			]
 		}
