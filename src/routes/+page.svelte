@@ -25,7 +25,17 @@
 	let mobileMenuOpen = $state(false);
 	let mouse = $state({ x: 0, y: 0 });
 
-	onMount(async () => {
+	onMount(() => {
+		let idleHandle: number | undefined;
+		const requestIdle: (callback: () => void, options?: { timeout: number }) => number =
+			'requestIdleCallback' in window
+				? (callback, options) => window.requestIdleCallback(callback, options)
+				: (callback) => window.setTimeout(callback, 1);
+		const cancelIdle: (handle: number) => void =
+			'cancelIdleCallback' in window
+				? (handle) => window.cancelIdleCallback(handle)
+				: (handle) => window.clearTimeout(handle);
+
 		if ('serviceWorker' in navigator) {
 			navigator.serviceWorker.register('/sw.js').catch(() => {});
 		}
@@ -51,7 +61,7 @@
 		const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 		if (!prefersReducedMotion) {
-			requestIdleCallback(
+			idleHandle = requestIdle(
 				() => {
 					// eslint-disable-next-line @typescript-eslint/no-explicit-any
 					const THREE = (window as any).THREE;
@@ -73,6 +83,15 @@
 				{ timeout: 2000 }
 			);
 		}
+
+		return () => {
+			document.removeEventListener('mousemove', handleMouse);
+			if (idleHandle !== undefined) {
+				cancelIdle(idleHandle);
+			}
+			rafThrottle?.stop();
+			renderer?.dispose?.();
+		};
 	});
 
 	let rafThrottle: { run: (callback: (delta: number) => void) => void; stop: () => void } | null =
