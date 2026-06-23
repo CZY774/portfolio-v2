@@ -16,14 +16,14 @@
 				</h1>
 				<div class="hero-desc">
 					<p class="mb-12 text-2xl leading-relaxed font-light text-gray-600 dark:text-gray-400">
-						fullstack developer | 3.92 gpa<br />
+						fullstack developer | 3.93 gpa<br />
 						it dev intern at alfamart · kudus, indonesia
 					</p>
 				</div>
 			</div>
 			<div class="hero-desc text-right">
 				<div class="mb-12">
-					<div class="mb-8 flex justify-end space-x-6">
+					<div class="mb-8 flex flex-wrap justify-end gap-x-6 gap-y-3">
 						<a
 							href="https://instagram.com/corneliusyoga"
 							class="link-hover"
@@ -49,11 +49,18 @@
 							onclick={() => track?.('social_click', { platform: 'youtube' })}>yt</a
 						>
 						<a
-							href="/cv.pdf"
+							href="/Cornelius Yoga_IT CV.pdf"
 							download
 							class="link-hover"
-							aria-label="Download CV"
-							onclick={() => track?.('cv_download')}>cv</a
+							aria-label="Download IT CV"
+							onclick={() => track?.('cv_download', { type: 'it' })}>cv it</a
+						>
+						<a
+							href="/Cornelius Yoga_MT CV.pdf"
+							download
+							class="link-hover"
+							aria-label="Download Management Trainee CV"
+							onclick={() => track?.('cv_download', { type: 'management-trainee' })}>cv mt</a
 						>
 					</div>
 				</div>
