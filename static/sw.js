@@ -1,25 +1,55 @@
-const CACHE = 'v1';
-const ASSETS = ['/favicon.svg', '/images/'];
+const CACHE = 'portfolio-v2-v2';
+const PRECACHE_URLS = ['/favicon.svg', '/favicon-192.png', '/favicon-512.png'];
 
-self.addEventListener('install', (e) => {
-	e.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(ASSETS)));
-});
-
-self.addEventListener('fetch', (e) => {
-	if (e.request.method !== 'GET') return;
-	e.respondWith(
-		caches.match(e.request).then((cached) => {
-			const fresh = fetch(e.request).then((res) => {
-				caches.open(CACHE).then((cache) => cache.put(e.request, res.clone()));
-				return res;
-			});
-			return cached || fresh;
-		})
+self.addEventListener('install', (event) => {
+	event.waitUntil(
+		caches
+			.open(CACHE)
+			.then((cache) => cache.addAll(PRECACHE_URLS))
+			.then(() => self.skipWaiting())
 	);
 });
 
-self.addEventListener('activate', (e) => {
-	e.waitUntil(
-		caches.keys().then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))))
+self.addEventListener('activate', (event) => {
+	event.waitUntil(
+		caches
+			.keys()
+			.then((keys) =>
+				Promise.all(keys.filter((key) => key !== CACHE).map((key) => caches.delete(key)))
+			)
+			.then(() => self.clients.claim())
+	);
+});
+
+self.addEventListener('fetch', (event) => {
+	const { request } = event;
+
+	if (request.method !== 'GET') return;
+
+	const url = new URL(request.url);
+	if (url.origin !== self.location.origin) return;
+
+	const isStaticAsset =
+		request.destination === 'image' ||
+		request.destination === 'font' ||
+		url.pathname.startsWith('/images/') ||
+		url.pathname.startsWith('/favicon');
+
+	if (!isStaticAsset) return;
+
+	event.respondWith(
+		caches.match(request).then((cached) => {
+			const fresh = fetch(request)
+				.then((response) => {
+					if (response.ok) {
+						caches.open(CACHE).then((cache) => cache.put(request, response.clone()));
+					}
+
+					return response;
+				})
+				.catch(() => cached || Response.error());
+
+			return cached || fresh;
+		})
 	);
 });
