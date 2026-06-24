@@ -16,8 +16,8 @@
 				</h1>
 				<div class="hero-desc">
 					<p class="mb-12 text-2xl leading-relaxed font-light text-gray-600 dark:text-gray-400">
-						fullstack developer | 3.93 gpa<br />
-						it dev intern at alfamart · kudus, indonesia
+						full-stack developer | informatics engineering graduate<br />
+						it dev intern at alfamart · open to jabodetabek
 					</p>
 				</div>
 			</div>
