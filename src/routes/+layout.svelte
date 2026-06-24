@@ -76,7 +76,7 @@
 					"name": "Who is Cornelius Yoga?",
 					"acceptedAnswer": {
 						"@type": "Answer",
-						"text": "Cornelius Ardhani Yoga Pratama is an Informatics Engineering student and IT Development Intern at PT Sumber Alfaria Trijaya Tbk (Alfamart), with portfolio evidence in web development, Android development, teaching assistance, and event leadership."
+						"text": "Cornelius Ardhani Yoga Pratama is an Informatics Engineering graduate and IT Development Intern at PT Sumber Alfaria Trijaya Tbk (Alfamart), with portfolio evidence in web development, Android development, teaching assistance, and event leadership."
 					}
 				},
 				{
@@ -92,7 +92,7 @@
 					"name": "What roles is this portfolio positioned for?",
 					"acceptedAnswer": {
 						"@type": "Answer",
-						"text": "The portfolio is positioned for software and IT development roles, while also presenting management trainee evidence through operations exposure, teaching, committee leadership, and stakeholder coordination."
+						"text": "The portfolio is positioned for software and IT development roles, while also presenting operations exposure, teaching, committee leadership, and stakeholder coordination."
 					}
 				},
 				{
@@ -100,7 +100,7 @@
 					"name": "Where is Cornelius Yoga based?",
 					"acceptedAnswer": {
 						"@type": "Answer",
-						"text": "Cornelius is based in Kudus, Indonesia, and studies at Satya Wacana Christian University in Salatiga, Central Java."
+						"text": "Cornelius is based in Kudus, Indonesia, graduated from Satya Wacana Christian University in Salatiga, Central Java, and is open to Jabodetabek relocation."
 					}
 				}
 			]
