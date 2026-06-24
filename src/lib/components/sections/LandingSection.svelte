@@ -17,7 +17,7 @@
 				<div class="hero-desc">
 					<p class="mb-12 text-2xl leading-relaxed font-light text-gray-600 dark:text-gray-400">
 						full-stack developer | informatics engineering graduate<br />
-						it dev intern at alfamart · open to jabodetabek
+						it development intern at alfamart
 					</p>
 				</div>
 			</div>
