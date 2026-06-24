@@ -9,6 +9,15 @@ export interface BlogPost {
 
 export const posts: BlogPost[] = [
 	{
+		slug: 'graduating-into-ai-shaped-job-market',
+		title: 'graduating into an ai-shaped job market',
+		description:
+			'a reflection after yudisium on finishing informatics engineering, entering a tougher job market, and positioning myself between software work and digital operations.',
+		date: '2026-06-23',
+		readTime: '7 min',
+		published: true
+	},
+	{
 		slug: 'building-czmoney-offline-first',
 		title: 'building czmoney: from spreadsheet pain to personal finance pwa',
 		description:
@@ -27,7 +36,7 @@ export const posts: BlogPost[] = [
 		published: true
 	},
 	{
-		slug: 'building-tanyabuah-production-ml',
+		slug: 'building-tanyabuah-mobile-ml',
 		title: 'building mobile fruit recognition for an educational app',
 		description:
 			'notes on using MobileNetV2 for Android fruit recognition, with emphasis on mobile constraints, learning context, and user-centered design.',
