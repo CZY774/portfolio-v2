@@ -44,35 +44,35 @@ export const works: Works = {
 		{
 			type: 'app',
 			title: 'CZMoney - Personal Finance Tracker',
-			desc: 'Production full-stack SvelteKit app with Supabase, rate limiting, forgot password, and AI-powered expense summaries. Live at czmoney.vercel.app',
+			desc: 'Live full-stack SvelteKit personal finance app with Supabase, rate limiting, forgot password, and AI-powered expense summaries',
 			link: 'https://czmoney.vercel.app',
 			image: '/images/website-16.png'
 		},
 		{
 			type: 'app',
 			title: 'TanyaBuah - AI Fruit Recognition',
-			desc: 'Educational Android app with MobileNetV2 for elementary students. HKI registered (No. 001138316) by Ministry of Law, Indonesia',
+			desc: 'Educational Android app using MobileNetV2 and TensorFlow Lite for fruit recognition. HKI registered in Indonesia',
 			link: 'https://github.com/CZY774/TTU',
 			image: '/images/TanyaBuah.png'
 		},
 		{
 			type: 'app',
 			title: 'EduVerse by Belum Ada Ide',
-			desc: '1st Place UI/UX Winner - Desktop educational platform for junior high school with AI-powered video summarization and geo-location attendance',
+			desc: '1st Place UI/UX concept for a desktop educational platform with video summarization and geo-location attendance workflows',
 			link: 'https://www.figma.com/proto/iADoy42ojxwFJrOPRwKbAi/EduVerse-by-Belum-Ada-Ide?page-id=0%3A1&node-id=15-404&p=f&viewport=22%2C1366%2C0.04&t=pA0UioQrdVVisDYT-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=26%3A472',
 			image: '/images/website-7.png'
 		},
 		{
 			type: 'app',
 			title: 'Maison Étoile by K-Mentality',
-			desc: '1st Place 8-Hour Live Coding Winner - Laravel e-restaurant with RBAC for 3 roles, MySQL database, and Tailwind CSS',
+			desc: '1st Place 8-Hour Live Coding project: Laravel e-restaurant with role-based access, MySQL, and Tailwind CSS',
 			link: 'https://next-gen-k-mentality.fly.dev/',
 			image: '/images/website-9.png'
 		},
 		{
 			type: 'app',
 			title: 'Muncul River Tubing',
-			desc: 'Production tourism website built with Laravel & MySQL. Deployed on Niagahoster and maintained for 1+ year by local stakeholders',
+			desc: 'Laravel and MySQL tourism information website for a local river-tubing destination, deployed for stakeholder use',
 			link: 'https://munculrivertubing.com',
 			image: '/images/website-1.png'
 		},
@@ -123,21 +123,21 @@ export const career = [
 		date: 'Sep 2025 - Present',
 		role: 'Development Intern - Supply & Distribution',
 		achievement:
-			'Migrated legacy systems to modern web applications, improving maintainability by 10%'
+			'Supported warehouse workflow digitalization across stock opname, picking, and supplier-return systems'
 	},
 	{
 		institution: 'Satya Wacana Christian University',
 		date: 'Aug 2023 - Jul 2025',
 		role: 'Teaching Assistant - 8 Core CS Courses',
 		achievement:
-			'Mentored 100+ students per semester with 85-90% average final grades across Data Structures, Algorithms, Web Programming, and AI'
+			'Mentored 100+ students per semester across Data Structures, Algorithms, Web Programming, Database Systems, and AI'
 	},
 	{
 		institution: 'FIT Competition 2024 & 2025',
 		date: 'Mar 2024 - Aug 2025',
 		role: 'Chairman (2024) & Steering Committee (2025)',
 		achievement:
-			'Led 40+ committee members and 10 technical support staff, organizing international coding competition with 117 teams (including Malaysia & Philippines) and 317 seminar attendees'
+			'Coordinated committee divisions, judges, sponsors, participants, and event execution for seminar and coding competition programs'
 	},
 	{
 		institution: 'HMPTI UKSW',
