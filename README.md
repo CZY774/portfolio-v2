@@ -34,7 +34,7 @@ src/
   lib/
     components/        Reusable UI and interaction components
     data/              Portfolio, career, and blog source data
-    utils/             Performance, image, worker, and browser helpers
+    utils/             Performance, animation, security, and browser helpers
   routes/
     +layout.svelte     Global layout, metadata, analytics, and navigation behavior
     +page.svelte       Main portfolio page
@@ -115,7 +115,6 @@ The intended deployment target is Vercel. Before relying on the live site as pro
 
 ## Known Review Items
 
-- Replace `static/favicon.ico` if it is still a placeholder.
 - Recheck long-form blog post bodies for unsupported numeric claims before using them as hiring material.
 - Run `npm run check`, `npm run lint`, and `npm run build` in a working Node environment before deployment.
 
