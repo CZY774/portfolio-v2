@@ -31,11 +31,13 @@
 
 	// Placeholder image URL - dynamic based on post slug
 	const heroImage =
-		post.slug === 'building-czmoney-offline-first'
-			? `https://placehold.co/1200x600/0736fe/white?text=CZMoney`
-			: post.slug === 'why-sveltekit-my-go-to'
-				? `https://placehold.co/1200x600/0736fe/white?text=SvelteKit`
-				: `https://placehold.co/1200x600/0736fe/white?text=TanyaBuah+ML`;
+		post.slug === 'graduating-into-ai-shaped-job-market'
+			? `https://placehold.co/1200x600/0736fe/white?text=Graduating+Into+AI`
+			: post.slug === 'building-czmoney-offline-first'
+				? `https://placehold.co/1200x600/0736fe/white?text=CZMoney`
+				: post.slug === 'why-sveltekit-my-go-to'
+					? `https://placehold.co/1200x600/0736fe/white?text=SvelteKit`
+					: `https://placehold.co/1200x600/0736fe/white?text=TanyaBuah+ML`;
 
 	onMount(() => {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -188,7 +190,105 @@
 		</div>
 
 		<!-- Content -->
-		{#if post.slug === 'building-czmoney-offline-first'}
+		{#if post.slug === 'graduating-into-ai-shaped-job-market'}
+			<div class="prose prose-lg max-w-none">
+				<p class="lead">
+					on june 17, 2026, i passed yudisium and officially closed one chapter of my informatics
+					engineering journey. the timing feels interesting: i am entering the job market at the
+					same time ai tools are changing how people learn, build, and evaluate software work.
+				</p>
+
+				<h2>graduation feels less like a finish line now</h2>
+				<p>
+					graduating used to sound like a clean transition: finish university, send applications,
+					get the first job, and start from there. the reality feels less linear. by the time i
+					graduated, the baseline for technical work had already moved. code generation is faster,
+					debugging help is more accessible, and writing a basic app is no longer a strong
+					differentiator by itself. that does not make an informatics degree useless. it just means
+					the degree has to be backed by judgment, ownership, and evidence that the work solves a
+					real problem.
+				</p>
+
+				<p>
+					i do not see ai as a shortcut that replaces learning. i see it as pressure to become more
+					precise. if a tool can produce boilerplate, then the valuable part shifts toward
+					understanding requirements, questioning assumptions, reading existing systems, validating
+					output, and explaining trade-offs. those are harder to fake in an interview, and they are
+					also the parts that separate a project demo from work that survives real users.
+				</p>
+
+				<h2>what university actually gave me</h2>
+				<p>
+					my coursework gave me the foundation: data structures, databases, web programming, and the
+					habit of breaking problems down. being a teaching assistant made that foundation more
+					concrete because i had to explain concepts to other students, not just pass my own
+					assignments. explaining something repeatedly is humbling. it exposes whether you really
+					understand the topic or only memorized the happy path.
+				</p>
+
+				<p>
+					student organizations and competitions taught a different lesson. technical skill matters,
+					but people, timing, communication, and follow-up decide whether an event or project
+					actually works. leading FIT Competition 2024 and later supporting related activities made
+					me more aware that execution is rarely clean. there are sponsors, judges, participants,
+					committee divisions, deadlines, and last-minute constraints. that experience matters to me
+					because software work also fails when coordination fails.
+				</p>
+
+				<h2>alfamart changed how i look at software</h2>
+				<p>
+					my internship at Alfamart Supply & Distribution changed my view of software from "build
+					features" to "support operations." warehouse systems are not just screens and buttons.
+					they carry workflows: stock opname, picking, supplier returns, barcode scanning, PDA
+					usage, approval controls, multilingual users, legacy constraints, and transaction
+					accuracy. when a system touches operational work, small details are not cosmetic. they
+					shape whether users can finish their job correctly.
+				</p>
+
+				<p>
+					that experience also made me more careful with claims. it is easy to write broad labels on
+					a portfolio, but real systems force better questions: what is actually deployed, what is
+					still ongoing, what security trade-off exists because of legacy constraints, what was
+					tested, what was only manually verified, and what still needs improvement. i would rather
+					describe the work accurately than overstate it and lose trust when someone asks for
+					details.
+				</p>
+
+				<h2>where ai fits into my job search</h2>
+				<p>
+					ai makes the entry-level market more competitive because basic coding ability is easier to
+					augment. that is the uncomfortable part. but it also clarifies what i should sell: not
+					just "i can code," but "i can understand workflows, build backend logic, work with
+					databases, communicate constraints, and keep improving the system after the first version
+					works." for me, that points toward software roles related to backend engineering, internal
+					tools, full-stack systems, system analysis, and digital operations.
+				</p>
+
+				<p>
+					at the same time, i am not closing the door on management trainee or graduate development
+					programs. my strongest evidence is still technical, but the pattern behind it is broader:
+					i like understanding how systems operate, how people use tools, and how digital work
+					connects to business execution. that is why i treat IT roles as my main track and MT
+					programs as a selective track, especially when the program values operations, digital
+					transformation, analytical thinking, and cross-functional coordination.
+				</p>
+
+				<h2>what i am trying to prove next</h2>
+				<p>
+					the next step is not to pretend i am already a senior engineer or a business leader. i am
+					a fresh graduate with strong project evidence, real internship exposure, and a lot still
+					to learn. what i can offer now is practical: i can learn fast, read systems carefully,
+					translate messy workflows into structured implementation, and be honest about what is
+					done, what is risky, and what should be improved next.
+				</p>
+
+				<p>
+					graduating into an ai-shaped job market is not comfortable, but it is clarifying. the
+					market is asking for more than syntax. it is asking for judgment, communication, and
+					evidence. that is the bar i am trying to meet.
+				</p>
+			</div>
+		{:else if post.slug === 'building-czmoney-offline-first'}
 			<div class="prose prose-lg max-w-none">
 				<p class="lead">
 					back in my first year of college, i started tracking every rupiah i spent in google
@@ -335,22 +435,22 @@ const syncQueue = {
 
 				<h3>2. ai integration without breaking the bank</h3>
 				<p>
-					i wanted ai-powered insights, but as a student, budget was tight. then i discovered
-					google's student program—free gemini 2.5 flash for a year. perfect timing. the api was
-					fast, the streaming responses made the ux feel snappy, and i didn't have to worry about
-					costs piling up. i added rate limiting (3 requests per minute for ai endpoints) to keep
-					things reasonable, but honestly, the free tier was more than enough for my needs.
+					i wanted ai-powered insights, but the project budget was tight. then i discovered google's
+					student program—free gemini 2.5 flash for a year. perfect timing. the api was fast, the
+					streaming responses made the ux feel snappy, and i didn't have to worry about costs piling
+					up. i added rate limiting (3 requests per minute for ai endpoints) to keep things
+					reasonable, but honestly, the free tier was more than enough for my needs.
 				</p>
 
 				<h3>3. security from day one</h3>
 				<p>
-					as a student project, it's tempting to skip security. but i wanted this to be
-					production-ready. i implemented:
+					as a personal project, it's tempting to skip security. i treated the app as a real
+					deployment and implemented:
 				</p>
 
 				<ul>
 					<li>multi-tier rate limiting (10 req/10s standard, 3 req/min for ai)</li>
-					<li>comprehensive input validation with zod schemas</li>
+					<li>input validation with zod schemas</li>
 					<li>xss protection using dompurify</li>
 					<li>row-level security in supabase</li>
 					<li>csrf protection and secure headers</li>
@@ -358,8 +458,8 @@ const syncQueue = {
 
 				<h3>4. performance obsession</h3>
 				<p>
-					i didn't want czmoney to feel like a "student project." so i focused on perceived
-					performance:
+					i didn't want czmoney to feel like a throwaway portfolio project, so i focused on
+					perceived performance:
 				</p>
 
 				<ul>
@@ -380,7 +480,7 @@ const syncQueue = {
 				<h3>start with a real problem</h3>
 				<p>
 					czmoney wasn't built to pad my resume. it solved my actual problem. that kept me motivated
-					through 600+ commits and countless debugging sessions. when you're solving your own pain
+					through repeated iterations and debugging sessions. when you're solving your own pain
 					point, you naturally build something useful.
 				</p>
 
@@ -391,10 +491,10 @@ const syncQueue = {
 					"makan" for the hundredth time. real usage reveals real needs.
 				</p>
 
-				<h3>production-ready means thinking ahead</h3>
+				<h3>deployment discipline means thinking ahead</h3>
 				<p>
 					i could've skipped rate limiting, proper error handling, and security measures. but
-					building it right from the start taught me how production systems actually work. it's the
+					building those parts from the start taught me how deployed systems actually work. it's the
 					difference between a portfolio piece and something you'd actually deploy.
 				</p>
 
@@ -420,7 +520,7 @@ const syncQueue = {
 						<strong>caching:</strong> upstash redis for rate limiting
 					</li>
 					<li>
-						<strong>deployment:</strong> vercel with 99.9% uptime
+						<strong>deployment:</strong> vercel
 					</li>
 					<li>
 						<strong>offline:</strong> indexeddb, service workers, background sync
@@ -451,7 +551,8 @@ const syncQueue = {
 					building czmoney taught me that the best projects come from scratching your own itch. it's
 					not about using the trendiest tech or building something massive. it's about solving a
 					real problem well, iterating based on feedback (even if that feedback is just you using
-					it), and caring enough to make it production-ready.
+					it), and caring enough to handle the operational details that make an app usable after
+					deployment.
 				</p>
 
 				<p>
@@ -530,7 +631,7 @@ function increment() &#123;
 
 				<h2>technical advantages in practice</h2>
 
-				<p>here's what matters in production:</p>
+				<p>here's what matters after deployment:</p>
 
 				<ul>
 					<li>
@@ -588,7 +689,7 @@ function increment() &#123;
 					work.
 				</p>
 
-				<h2>why it matters for production</h2>
+				<h2>why it matters after deployment</h2>
 
 				<p>
 					choosing a framework isn't about popularity or job market trends. it's about what lets you
@@ -602,12 +703,12 @@ function increment() &#123;
 				</p>
 
 				<p>
-					for personal projects and production applications alike, sveltekit has proven to be the
-					most pragmatic choice. not because it's trendy, but because it consistently gets out of
-					the way and lets me focus on solving actual problems.
+					for personal projects and deployed applications alike, sveltekit has proven to be the most
+					pragmatic choice. not because it's trendy, but because it consistently gets out of the way
+					and lets me focus on solving actual problems.
 				</p>
 			</div>
-		{:else if post.slug === 'building-tanyabuah-production-ml'}
+		{:else if post.slug === 'building-tanyabuah-mobile-ml'}
 			<div class="prose prose-lg max-w-none">
 				<p class="lead">
 					deploying machine learning models to mobile devices requires more than just training
@@ -905,8 +1006,8 @@ function increment() &#123;
 				<h2>lessons learned</h2>
 
 				<p>
-					building production ml systems for mobile devices requires different thinking than
-					academic research or web applications. here's what mattered most:
+					building mobile ml systems requires different thinking than academic research or web
+					applications. here's what mattered most:
 				</p>
 
 				<ul>
@@ -945,7 +1046,7 @@ function increment() &#123;
 				<p>
 					the technical foundation is solid. the model generalizes well, the app runs smoothly, and
 					users find it valuable. these improvements would push it from "functional educational
-					tool" to "production-ready commercial product."
+					tool" toward a more polished learning product.
 				</p>
 
 				<h2>why this matters</h2>
