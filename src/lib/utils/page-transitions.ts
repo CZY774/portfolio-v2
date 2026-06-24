@@ -1,12 +1,17 @@
 import { onNavigate } from '$app/navigation';
+import { browser } from '$app/environment';
 
 export function setupPageTransitions() {
+	if (!browser) return;
+
 	onNavigate((navigation) => {
+		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
 		// Check if dark mode
 		const isDark = document.documentElement.classList.contains('dark');
 
-		// Try View Transitions API only in light mode
-		if (document.startViewTransition && !isDark) {
+		// Prefer the native View Transitions API when available.
+		if (document.startViewTransition) {
 			return new Promise((resolve) => {
 				document.startViewTransition(async () => {
 					resolve();
