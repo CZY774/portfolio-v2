@@ -13,6 +13,10 @@
 		mobileMenuOpen = false;
 	}
 
+	function closeMobileMenu() {
+		mobileMenuOpen = false;
+	}
+
 	function handleKeydown(e: KeyboardEvent) {
 		if (e.key === 'Escape' && mobileMenuOpen) {
 			mobileMenuOpen = false;
@@ -41,7 +45,7 @@
 			<div class="hidden space-x-8 md:flex">
 				<button onclick={() => navigate('about')} class="link-hover">about</button>
 				<button onclick={() => navigate('work')} class="link-hover">work</button>
-				<button onclick={() => (window.location.href = '/blog')} class="link-hover">blog</button>
+				<a href="/blog" data-sveltekit-preload-data="hover" class="link-hover">blog</a>
 			</div>
 
 			<button
@@ -76,9 +80,11 @@
 					onclick={() => navigate('work')}
 					class="link-hover block transform text-4xl font-light hover:scale-105">work</button
 				>
-				<button
-					onclick={() => (window.location.href = '/blog')}
-					class="link-hover block transform text-4xl font-light hover:scale-105">blog</button
+				<a
+					href="/blog"
+					data-sveltekit-preload-data="hover"
+					onclick={closeMobileMenu}
+					class="link-hover block transform text-4xl font-light hover:scale-105">blog</a
 				>
 			</div>
 		</div>
