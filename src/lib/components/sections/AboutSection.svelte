@@ -9,10 +9,10 @@
 		<div class="animate-in mb-32 grid grid-cols-1 items-center gap-16 lg:grid-cols-5">
 			<div class="lg:col-span-3">
 				<p class="text-xl leading-relaxed font-light text-gray-600 dark:text-gray-400">
-					I am an Informatics Engineering student with a strong passion for solving real-world
-					problems through code, currently maintaining a 3.93 GPA while working as an IT Development
-					Intern at Alfamart. My journey isn't just about writing syntax; it's about building
-					systems that work.
+					I am an Informatics Engineering graduate with a 3.93 GPA and internship experience
+					building internal warehouse systems for Alfamart Supply & Distribution. My work focuses on
+					backend engineering, operational workflows, and digital products that stay close to real
+					user needs.
 				</p>
 			</div>
 			<div class="relative overflow-hidden lg:col-span-2">
