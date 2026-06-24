@@ -1,9 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /sw.js
 
 Sitemap: https://corneliusyoga.vercel.app/sitemap.xml
-
-# Disallow crawling of service worker and other technical files
-User-agent: *
-Disallow: /sw.js
-Disallow: /worker.js
