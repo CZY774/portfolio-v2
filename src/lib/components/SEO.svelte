@@ -1,32 +1,26 @@
 <svelte:head>
-	<title>Cornelius Yoga - Software Developer & Management Trainee Profile</title>
+	<title>Cornelius Yoga - Software Developer Portfolio</title>
 	<meta
 		name="description"
-		content="Portfolio of Cornelius Ardhani Yoga Pratama, an Informatics Engineering student and IT Development Intern at Alfamart. Focused on software delivery, operational workflows, teaching, and leadership evidence for IT and management trainee roles."
+		content="Portfolio of Cornelius Ardhani Yoga Pratama, an Informatics Engineering graduate and IT Development Intern at Alfamart. Focused on software delivery, operational workflows, teaching, and leadership evidence."
 	/>
 	<meta
 		name="keywords"
-		content="cornelius yoga, cornelius ardhani yoga pratama, software developer indonesia, it development intern alfamart, sveltekit developer, laravel developer, kotlin android developer, management trainee profile, informatics engineering uksw, supply distribution intern"
+		content="cornelius yoga, cornelius ardhani yoga pratama, software developer indonesia, it development intern alfamart, sveltekit developer, laravel developer, kotlin android developer, informatics engineering uksw, supply distribution intern, digital operations portfolio"
 	/>
-	<meta
-		property="og:title"
-		content="Cornelius Yoga - Software Developer & Management Trainee Profile"
-	/>
+	<meta property="og:title" content="Cornelius Yoga - Software Developer Portfolio" />
 	<meta
 		property="og:description"
-		content="Software and management trainee portfolio focused on full-stack projects, Android ML work, operations exposure, teaching, and event leadership."
+		content="Software portfolio focused on full-stack projects, Android ML work, operations exposure, teaching, and event leadership."
 	/>
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="https://corneliusyoga.vercel.app/" />
 	<meta property="og:image" content="https://corneliusyoga.vercel.app/images/website-12.png" />
 	<meta name="twitter:card" content="summary_large_image" />
-	<meta
-		name="twitter:title"
-		content="Cornelius Yoga - Software Developer & Management Trainee Profile"
-	/>
+	<meta name="twitter:title" content="Cornelius Yoga - Software Developer Portfolio" />
 	<meta
 		name="twitter:description"
-		content="Portfolio for IT and management trainee roles, covering software projects, operations exposure, teaching, and leadership evidence."
+		content="Portfolio covering software projects, operations exposure, teaching, and leadership evidence."
 	/>
 	<meta name="twitter:image" content="https://corneliusyoga.vercel.app/images/website-12.png" />
 	<meta name="author" content="Cornelius Ardhani Yoga Pratama" />
@@ -43,7 +37,7 @@
 			"url": "https://corneliusyoga.vercel.app",
 			"image": "https://corneliusyoga.vercel.app/images/website-12.png",
 			"jobTitle": "IT Development Intern",
-			"description": "Informatics Engineering student with portfolio evidence in software delivery, Android machine learning, internal system modernization, teaching assistance, and event leadership.",
+			"description": "Informatics Engineering graduate with portfolio evidence in software delivery, Android machine learning, internal system modernization, teaching assistance, and event leadership.",
 			"worksFor": {
 				"@type": "Organization",
 				"name": "PT Sumber Alfaria Trijaya Tbk",
@@ -92,7 +86,7 @@
 			"@type": "WebSite",
 			"name": "Cornelius Yoga Portfolio",
 			"url": "https://corneliusyoga.vercel.app",
-			"description": "Portfolio website presenting software projects and management trainee evidence for Cornelius Ardhani Yoga Pratama.",
+			"description": "Portfolio website presenting software projects, operations exposure, teaching, and leadership evidence for Cornelius Ardhani Yoga Pratama.",
 			"author": {
 				"@type": "Person",
 				"name": "Cornelius Ardhani Yoga Pratama"
@@ -111,7 +105,7 @@
 					"@type": "SoftwareApplication",
 					"position": 1,
 					"name": "CZMoney",
-					"description": "Personal finance PWA using SvelteKit, Supabase, Redis, and AI-assisted expense summaries.",
+					"description": "Personal finance PWA using SvelteKit, Supabase, Redis-backed rate limiting, and AI-assisted expense summaries.",
 					"url": "https://czmoney.vercel.app",
 					"applicationCategory": "WebApplication"
 				},
