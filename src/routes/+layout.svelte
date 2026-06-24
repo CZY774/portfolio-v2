@@ -102,7 +102,7 @@
 					"name": "Where is Cornelius Yoga based?",
 					"acceptedAnswer": {
 						"@type": "Answer",
-						"text": "Cornelius is based in Kudus, Indonesia, graduated from Satya Wacana Christian University in Salatiga, Central Java, and is open to Jabodetabek relocation."
+						"text": "Cornelius is based in Kudus, Indonesia, and graduated from Satya Wacana Christian University in Salatiga, Central Java."
 					}
 				}
 			]
