@@ -1093,8 +1093,6 @@ function increment() &#123;
 
 <ImageModal bind:open={modalOpen} src={modalSrc} alt={modalAlt} />
 
-<ImageModal bind:open={modalOpen} src={modalSrc} alt={modalAlt} />
-
 <style>
 	.prose {
 		color: rgb(107 114 128);
