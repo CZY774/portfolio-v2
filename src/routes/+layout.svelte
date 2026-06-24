@@ -13,6 +13,8 @@
 	let { children } = $props();
 	let darkMode = $state(false);
 
+	setupPageTransitions();
+
 	onMount(() => {
 		const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 		darkMode = mediaQuery.matches;
@@ -22,8 +24,8 @@
 		};
 
 		mediaQuery.addEventListener('change', handleColorSchemeChange);
-		setupPageTransitions();
-		preloadData('/');
+		void preloadData('/');
+		void preloadData('/blog');
 		import('$lib/utils/perf').then(({ measureTTI }) => measureTTI());
 		performance.mark('interactive');
 
