@@ -4,6 +4,19 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="author" content="Cornelius Ardhani Yoga Pratama" />
+		<script>
+			(() => {
+				try {
+					const dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+					const root = document.documentElement;
+					root.classList.toggle('dark', dark);
+					root.style.backgroundColor = dark ? 'rgb(3, 7, 18)' : 'white';
+					root.style.colorScheme = dark ? 'dark' : 'light';
+				} catch {
+					// Keep the default light background if the preference check is unavailable.
+				}
+			})();
+		</script>
 
 		<!-- DNS Prefetch & Preconnect -->
 		<link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
@@ -27,8 +40,20 @@
 			/>
 		</noscript>
 		<style>
+			:root {
+				background: white;
+				color-scheme: light;
+			}
+			:root.dark {
+				background: rgb(3, 7, 18);
+				color-scheme: dark;
+			}
+			html,
 			body {
 				margin: 0;
+				background: inherit;
+			}
+			body {
 				font-family:
 					Inter,
 					system-ui,
