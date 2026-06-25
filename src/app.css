@@ -3,8 +3,23 @@
 @plugin '@tailwindcss/typography';
 @import './lib/styles/transitions.css';
 
+:root {
+	--page-bg: white;
+	--page-fg: black;
+	background-color: var(--page-bg);
+	color-scheme: light;
+}
+
+:root.dark {
+	--page-bg: rgb(3 7 18);
+	--page-fg: white;
+	background-color: var(--page-bg);
+	color-scheme: dark;
+}
+
 html {
 	scroll-behavior: smooth;
+	background-color: var(--page-bg);
 }
 
 body {
@@ -14,13 +29,8 @@ body {
 	margin: 0;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	background-color: white;
-	transition: background-color 0.3s ease;
-}
-
-body.dark,
-.dark body {
-	background-color: rgb(3 7 18);
+	background-color: var(--page-bg);
+	color: var(--page-fg);
 }
 
 /* Component Classes - DRY */
