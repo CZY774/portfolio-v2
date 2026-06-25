@@ -9,6 +9,10 @@ export function setupPageTransitions() {
 
 		// Check if dark mode
 		const isDark = document.documentElement.classList.contains('dark');
+		const bgColor = isDark ? 'rgb(3, 7, 18)' : 'white';
+
+		document.documentElement.style.backgroundColor = bgColor;
+		document.body.style.backgroundColor = bgColor;
 
 		// Prefer the native View Transitions API when available.
 		if (document.startViewTransition) {
@@ -26,11 +30,6 @@ export function setupPageTransitions() {
 		if (!gsap) return;
 
 		return new Promise((resolve) => {
-			// Force body background immediately
-			const bgColor = isDark ? 'rgb(3, 7, 18)' : 'white';
-			document.body.style.backgroundColor = bgColor;
-			document.documentElement.style.backgroundColor = bgColor;
-
 			// Animate out
 			gsap.to('body', {
 				opacity: 0,
