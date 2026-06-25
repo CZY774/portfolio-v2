@@ -1,7 +1,7 @@
 <script lang="ts">
 	import '../app.css';
 	import { onMount } from 'svelte';
-	import { dev } from '$app/environment';
+	import { browser, dev } from '$app/environment';
 	import { injectAnalytics } from '@vercel/analytics/sveltekit';
 	import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
 	import { preloadData } from '$app/navigation';
@@ -11,7 +11,9 @@
 	injectSpeedInsights();
 
 	let { children } = $props();
-	let darkMode = $state(false);
+	let darkMode = $state(
+		browser ? window.matchMedia('(prefers-color-scheme: dark)').matches : false
+	);
 
 	setupPageTransitions();
 
@@ -36,6 +38,10 @@
 
 	$effect(() => {
 		document.documentElement.classList.toggle('dark', darkMode);
+		const bgColor = darkMode ? 'rgb(3, 7, 18)' : 'white';
+		document.documentElement.style.backgroundColor = bgColor;
+		document.documentElement.style.colorScheme = darkMode ? 'dark' : 'light';
+		document.body.style.backgroundColor = bgColor;
 	});
 </script>
 
@@ -144,9 +150,7 @@
 	</script>
 </svelte:head>
 
-<div
-	class="min-h-screen bg-white text-black transition-colors duration-300 dark:bg-gray-950 dark:text-white"
->
+<div class="min-h-screen text-black dark:text-white" style="background-color: var(--page-bg);">
 	<a
 		href="#landing"
 		class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:rounded focus:bg-[#0736fe] focus:px-4 focus:py-2 focus:text-white focus:outline-none"
