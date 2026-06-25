@@ -1,13 +1,9 @@
 /* View Transitions API - Roll up effect */
+::view-transition-group(root),
 ::view-transition-old(root),
 ::view-transition-new(root) {
-	background: white;
+	background: var(--page-bg);
 	mix-blend-mode: normal;
-}
-
-.dark::view-transition-old(root),
-.dark::view-transition-new(root) {
-	background: rgb(3 7 18);
 }
 
 /* Hide default backdrop */
