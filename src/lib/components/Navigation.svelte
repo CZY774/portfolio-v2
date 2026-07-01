@@ -1,11 +1,15 @@
 <script lang="ts">
 	import { scrollToSection } from '$lib/utils/animations';
-	import { clickOutside } from '$lib/actions';
 
 	let { mobileMenuOpen = $bindable(false) } = $props();
 
-	function toggleMobileMenu() {
-		mobileMenuOpen = !mobileMenuOpen;
+	function handleMobileMenuButtonClick() {
+		if (mobileMenuOpen) {
+			closeMobileMenu();
+			return;
+		}
+
+		mobileMenuOpen = true;
 	}
 
 	function navigate(section: string) {
@@ -25,10 +29,11 @@
 
 	$effect(() => {
 		if (mobileMenuOpen) {
+			const previousOverflow = document.body.style.overflow;
 			document.body.style.overflow = 'hidden';
 			document.addEventListener('keydown', handleKeydown);
 			return () => {
-				document.body.style.overflow = '';
+				document.body.style.overflow = previousOverflow;
 				document.removeEventListener('keydown', handleKeydown);
 			};
 		}
@@ -49,9 +54,9 @@
 			</div>
 
 			<button
-				onclick={toggleMobileMenu}
+				onclick={handleMobileMenuButtonClick}
 				class="relative z-50 p-2 md:hidden"
-				aria-label="Toggle navigation menu"
+				aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
 				aria-expanded={mobileMenuOpen}
 			>
 				<div class="hamburger {mobileMenuOpen ? 'active' : ''}">
@@ -64,10 +69,18 @@
 	</div>
 
 	{#if mobileMenuOpen}
+		<!-- svelte-ignore a11y_no_static_element_interactions -->
+		<!-- svelte-ignore a11y_click_events_have_key_events -->
 		<div
-			class="mobile-menu fixed top-0 left-0 flex h-screen w-full items-center justify-center bg-white/95 backdrop-blur-md dark:bg-gray-950/95"
+			class="mobile-menu fixed top-0 left-0 z-40 flex h-screen w-full items-center justify-center bg-white/95 backdrop-blur-md dark:bg-gray-950/95"
+			onclick={(e) => {
+				if (e.target === e.currentTarget) {
+					closeMobileMenu();
+				}
+			}}
 		>
-			<div class="space-y-8 text-center" use:clickOutside={() => (mobileMenuOpen = false)}>
+			<!-- svelte-ignore a11y_no_static_element_interactions -->
+			<div class="space-y-8 text-center" onclick={(e) => e.stopPropagation()}>
 				<button
 					onclick={() => navigate('landing')}
 					class="link-hover block transform text-4xl font-light hover:scale-105">home</button
