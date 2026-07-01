@@ -1,107 +1,109 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
+	import WebGLBackground from '$lib/components/WebGLBackground.svelte';
+	import { RAFThrottle } from '$lib/utils/perf';
+	import { initThreeJS } from '$lib/utils/threejs';
 
-	let canvas: HTMLCanvasElement;
-	let mouse = { x: 0, y: 0 };
+	let canvas = $state<HTMLCanvasElement>();
+	let mouse = $state({ x: 0, y: 0 });
+
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	let scene: any, camera: any, renderer: any, particles: any;
+	let rafThrottle: { run: (callback: (delta: number) => void) => void; stop: () => void } | null =
+		null;
+	let cleanupThree: (() => void) | null = null;
+
+	function animate() {
+		if (!particles || !renderer || !scene || !camera || rafThrottle) return;
+
+		rafThrottle = new RAFThrottle(60);
+		rafThrottle.run(() => {
+			if (!particles || !renderer || !scene || !camera) return;
+			particles.rotation.x += 0.0003 + mouse.y * 0.0001;
+			particles.rotation.y += 0.0005 + mouse.x * 0.0001;
+			const scale = 1 + (mouse.x * 0.02 + mouse.y * 0.02) * 0.1;
+			particles.scale.set(scale, scale, scale);
+			renderer.render(scene, camera);
+		});
+	}
 
 	onMount(() => {
-		const script = document.createElement('script');
-		script.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
-		script.onload = () => {
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const THREE = (window as any).THREE;
-			const scene = new THREE.Scene();
-			const camera = new THREE.PerspectiveCamera(
-				75,
-				window.innerWidth / window.innerHeight,
-				0.1,
-				1000
-			);
-			const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-			renderer.setSize(window.innerWidth, window.innerHeight);
-			renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+		let disposed = false;
+		let retryHandle: ReturnType<typeof setTimeout> | undefined;
+		const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-			const geometry = new THREE.BufferGeometry();
-			const vertices = [];
-			const colors = [];
-
-			for (let i = 0; i < 800; i++) {
-				vertices.push((Math.random() - 0.5) * 2000);
-				vertices.push((Math.random() - 0.5) * 2000);
-				vertices.push((Math.random() - 0.5) * 2000);
-
-				const isDark = document.documentElement.classList.contains('dark');
-				if (isDark) {
-					colors.push(0.6, 0.6, 0.9);
-				} else {
-					colors.push(0.1, 0.2, 0.3);
-				}
-			}
-
-			geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
-			geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
-
-			const material = new THREE.PointsMaterial({
-				size: 2,
-				vertexColors: true,
-				opacity: 0.6,
-				transparent: true,
-				blending: THREE.AdditiveBlending
-			});
-
-			const particles = new THREE.Points(geometry, material);
-			scene.add(particles);
-			camera.position.z = 1000;
-
-			const animate = () => {
-				requestAnimationFrame(animate);
-				particles.rotation.x += 0.0003 + mouse.y * 0.0001;
-				particles.rotation.y += 0.0005 + mouse.x * 0.0001;
-				const scale = 1 + (mouse.x * 0.02 + mouse.y * 0.02) * 0.1;
-				particles.scale.set(scale, scale, scale);
-				renderer.render(scene, camera);
-			};
-
-			animate();
-
-			window.addEventListener('resize', () => {
-				camera.aspect = window.innerWidth / window.innerHeight;
-				camera.updateProjectionMatrix();
-				renderer.setSize(window.innerWidth, window.innerHeight);
-			});
-		};
-		document.head.appendChild(script);
-
-		document.addEventListener('mousemove', (e) => {
+		const handleMouseMove = (e: MouseEvent) => {
 			mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
 			mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
-		});
+			document.body.style.setProperty('--mouse-x', `${(e.clientX / window.innerWidth) * 100}%`);
+			document.body.style.setProperty('--mouse-y', `${(e.clientY / window.innerHeight) * 100}%`);
+		};
+
+		const initBackground = (attempt = 0) => {
+			if (disposed || prefersReducedMotion || cleanupThree) return;
+
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			const THREE = (window as any).THREE;
+			if (!THREE || !canvas) {
+				if (attempt < 20) {
+					retryHandle = window.setTimeout(() => initBackground(attempt + 1), 100);
+				}
+				return;
+			}
+
+			try {
+				const threeScene = initThreeJS(canvas, THREE);
+				if (threeScene) {
+					scene = threeScene.scene;
+					camera = threeScene.camera;
+					renderer = threeScene.renderer;
+					particles = threeScene.particles;
+					cleanupThree = threeScene.cleanup;
+					animate();
+				}
+			} catch {
+				console.warn('WebGL not supported');
+			}
+		};
+
+		document.addEventListener('mousemove', handleMouseMove);
+		initBackground();
+
+		return () => {
+			disposed = true;
+			document.removeEventListener('mousemove', handleMouseMove);
+			if (retryHandle) window.clearTimeout(retryHandle);
+			rafThrottle?.stop();
+			cleanupThree?.();
+		};
 	});
 </script>
 
-<canvas bind:this={canvas} class="pointer-events-none fixed inset-0 z-0"></canvas>
+<WebGLBackground bind:canvas />
 
 <section class="relative z-10 flex min-h-screen items-center justify-center px-8 py-24">
 	<div class="mx-auto max-w-7xl">
-		<div class="grid grid-cols-1 items-center gap-32 lg:grid-cols-2">
+		<div class="grid grid-cols-1 items-center gap-20 lg:grid-cols-2 lg:gap-32">
 			<div>
-				<h1 class="mb-12 text-9xl leading-none font-light md:text-[12rem] lg:text-[16rem]">
+				<h1
+					class="error-status mb-12 text-9xl leading-none font-light md:text-[12rem] lg:text-[16rem]"
+				>
 					<span class="inline-block text-[#0736fe]">{$page.status}</span>
 				</h1>
-				<div>
-					<p class="mb-12 text-2xl leading-relaxed font-light text-gray-600 dark:text-gray-400">
-						{#if $page.status === 404}
-							page not found
-						{:else if $page.status >= 500}
-							server error
-						{:else}
-							something went wrong
-						{/if}
-					</p>
-				</div>
+				<p
+					class="error-copy mb-12 text-2xl leading-relaxed font-light text-gray-600 dark:text-gray-400"
+				>
+					{#if $page.status === 404}
+						page not found
+					{:else if $page.status >= 500}
+						server error
+					{:else}
+						something went wrong
+					{/if}
+				</p>
 			</div>
-			<div class="text-right">
+			<div class="error-action text-left lg:text-right">
 				<p class="mb-12 text-2xl font-light text-gray-600 dark:text-gray-400">
 					{$page.error?.message || 'an unexpected error occurred'}
 				</p>
@@ -114,31 +116,38 @@
 </section>
 
 <style>
-	:global(*, *::before, *::after) {
-		cursor:
-			url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iNCIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjEiLz4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFjaXR5PSIwLjYiLz4KPC9zdmc+')
-				16 16,
-			auto !important;
+	.error-status,
+	.error-copy,
+	.error-action {
+		animation: error-reveal 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+		opacity: 0;
+		transform: translateY(64px);
 	}
 
-	:global(.dark *, .dark *::before, .dark *::after) {
-		cursor:
-			url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iNCIgZmlsbD0iIzAwMDAwMCIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjEiLz4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFjaXR5PSIwLjYiLz4KPC9zdmc+')
-				16 16,
-			auto !important;
+	.error-copy {
+		animation-delay: 0.16s;
+		transform: translateY(40px);
 	}
 
-	:global(button, a, [role='button']) {
-		cursor:
-			url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iNiIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjMDczNmZlIiBzdHJva2Utd2lkdGg9IjIiLz4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzA3MzZmZSIgc3Ryb2tlLXdpZHRoPSIyIi8+Cjwvc3ZnPg==')
-				16 16,
-			pointer !important;
+	.error-action {
+		animation-delay: 0.28s;
+		transform: translateY(40px);
 	}
 
-	:global(.dark button, .dark a, .dark [role='button']) {
-		cursor:
-			url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iNiIgZmlsbD0iIzAwMDAwMCIgc3Ryb2tlPSIjMDczNmZlIiBzdHJva2Utd2lkdGg9IjIiLz4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzA3MzZmZSIgc3Ryb2tlLXdpZHRoPSIyIi8+Cjwvc3ZnPg==')
-				16 16,
-			pointer !important;
+	@keyframes error-reveal {
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.error-status,
+		.error-copy,
+		.error-action {
+			animation: none;
+			opacity: 1;
+			transform: none;
+		}
 	}
 </style>
