@@ -44,12 +44,25 @@ export function initThreeJS(canvas: HTMLCanvasElement, THREE: any) {
 
 	camera.position.z = 1000;
 
-	window.addEventListener('resize', () => {
+	const handleResize = () => {
 		camera.aspect = window.innerWidth / window.innerHeight;
 		camera.updateProjectionMatrix();
 		renderer.setSize(window.innerWidth, window.innerHeight);
 		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-	});
+	};
 
-	return { scene, camera, renderer, particles };
+	window.addEventListener('resize', handleResize);
+
+	return {
+		scene,
+		camera,
+		renderer,
+		particles,
+		cleanup: () => {
+			window.removeEventListener('resize', handleResize);
+			geometry.dispose();
+			material.dispose();
+			renderer.dispose();
+		}
+	};
 }
