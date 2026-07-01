@@ -1,9 +1,21 @@
-import type { Handle } from '@sveltejs/kit';
+import type { Handle, RequestEvent } from '@sveltejs/kit';
 
 const rateLimits = new Map<string, { count: number; reset: number }>();
 
+function getClientAddress(event: RequestEvent) {
+	try {
+		return event.getClientAddress();
+	} catch {
+		return (
+			event.request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
+			event.request.headers.get('x-real-ip') ||
+			'unknown'
+		);
+	}
+}
+
 export const handle: Handle = async ({ event, resolve }) => {
-	const ip = event.getClientAddress();
+	const ip = getClientAddress(event);
 	const now = Date.now();
 	const limit = rateLimits.get(ip);
 
